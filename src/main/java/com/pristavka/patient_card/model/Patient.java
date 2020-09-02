@@ -11,7 +11,9 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -26,31 +28,29 @@ public class Patient
     @Column(updatable = false)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR",length = 40, nullable = false)
+    @Column(length = 40, nullable = false)
     private String firstName;
 
-    @Column(columnDefinition = "VARCHAR",length = 50, nullable = false)
+    @Column(length = 50, nullable = false)
     private String lastName;
 
-    private String receiptDate;
+    @Column(nullable = false)
+    @JsonFormat(pattern = Constant.DATE_TEMPLATE)
+    private LocalDateTime admissionDate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    Set<Diagnosis> diagnoses = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    Set<Allergy> allergies = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Diagnosis> diagnoses = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Allergy> allergies = new ArrayList<>();
-
-    @Column(columnDefinition = "DATETIME",nullable = false)
-    @JsonFormat(pattern = Constant.DATE_TEMPLATE)
-    private LocalDateTime dateTime;
-
-    @Column(columnDefinition = "SMALLINT", nullable = false)
+    @Column(nullable = false)
     private int floor;
 
-    @Column(columnDefinition = "SMALLINT", nullable = false)
+    @Column(nullable = false)
     private int ward;
 }
 

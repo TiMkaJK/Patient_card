@@ -1,11 +1,10 @@
 package com.pristavka.patient_card.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @ToString
@@ -18,10 +17,11 @@ public class Allergy
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR",length = 30, nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
+    @NonNull
     private String name;
 
-    @OneToOne
-    private Patient patient;
+    @ManyToMany
+    private Set<Patient> employees = new HashSet<>();
 }
 

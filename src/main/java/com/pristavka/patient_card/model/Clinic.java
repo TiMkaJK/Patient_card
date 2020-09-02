@@ -18,10 +18,10 @@ public class Clinic
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR", length = 100, nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "INT", nullable = false)
+    @Column(nullable = false)
     private int number;
 
     @OneToOne

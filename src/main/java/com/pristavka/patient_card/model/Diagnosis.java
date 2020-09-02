@@ -3,6 +3,8 @@ package com.pristavka.patient_card.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -12,10 +14,10 @@ public class Diagnosis
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR", length = 100,nullable = false,unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    private Patient patient;
+    @ManyToMany
+    private Set<Patient> employees = new HashSet<>();
 }
 
