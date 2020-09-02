@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,8 +25,8 @@ public class Clinic
     @Column(nullable = false)
     private int number;
 
-    @OneToOne
-    private Patient patient;
+    @OneToMany
+    private Set<Patient> patient;
 
     public Clinic(String name)
     {

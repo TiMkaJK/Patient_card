@@ -38,13 +38,24 @@ public class Patient
     @JsonFormat(pattern = Constant.DATE_TEMPLATE)
     private LocalDateTime admissionDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable/*(
+            name = "Patient_Diagnosis",
+            joinColumns = { @JoinColumn(name = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "id") }
+    )*/
     Set<Diagnosis> diagnoses = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable/*(
+            name = "Patient_Allergy",
+            joinColumns = { @JoinColumn(name = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "id") }
+    )*/
     Set<Allergy> allergies = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne()
+    @JoinColumn
     private Clinic clinic;
 
     @Column(nullable = false)

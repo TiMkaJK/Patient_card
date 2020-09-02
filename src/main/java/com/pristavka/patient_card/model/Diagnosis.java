@@ -17,7 +17,7 @@ public class Diagnosis
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "diagnoses")
     private Set<Patient> employees = new HashSet<>();
 }
 

@@ -21,7 +21,7 @@ public class Allergy
     @NonNull
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "allergies")
     private Set<Patient> employees = new HashSet<>();
 }
 
