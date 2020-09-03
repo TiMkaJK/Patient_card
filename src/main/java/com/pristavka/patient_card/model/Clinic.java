@@ -12,7 +12,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Clinic
 {
     @Id
@@ -27,10 +26,5 @@ public class Clinic
 
     @OneToMany
     private Set<Patient> patient;
-
-    public Clinic(String name)
-    {
-        this.name = name;
-    }
 }
 

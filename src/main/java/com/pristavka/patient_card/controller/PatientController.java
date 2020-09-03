@@ -1,5 +1,7 @@
 package com.pristavka.patient_card.controller;
 
+import com.pristavka.patient_card.dto.AllergyDto;
+import com.pristavka.patient_card.dto.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
 import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.model.Diagnosis;
@@ -11,11 +13,15 @@ import com.pristavka.patient_card.service.PatientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class PatientController
 {
+    private AllergyMapper mapper;
+
     @Autowired
     private PatientServiceImp patientService;
 
@@ -28,16 +34,16 @@ public class PatientController
     @Autowired
     private AllergyServiceImp allergyService;
 
-    @PostMapping("/addPatient")
-    public Patient addPatient(@RequestBody Patient patient)
-    {
-        return patientService.save(patient);
-    }
-
     @GetMapping("/")
     public List<Patient> findAllPatients()
     {
         return patientService.findAll();
+    }
+
+    @PostMapping("/addPatient")
+    public Patient addPatient(@RequestBody Patient patient)
+    {
+        return patientService.save(patient);
     }
 
     @GetMapping("/patient/{id}")
@@ -89,9 +95,10 @@ public class PatientController
     }
 
     @GetMapping("/allergies")
-    public List<Allergy> findAllAllergies()
+    public List<AllergyDto> findAllAllergies()
     {
-        return allergyService.findAll();
+        return mapper.allergyToAllergyDtoList(allergyService.findAll());
+        //return allergyService.findAll();
     }
 }
 
