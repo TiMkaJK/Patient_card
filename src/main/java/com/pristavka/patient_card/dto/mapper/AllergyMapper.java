@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface AllergyMapper
 {
-    //AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
+    AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
 
     AllergyDto allergyToAllergyDto(Allergy model);
 

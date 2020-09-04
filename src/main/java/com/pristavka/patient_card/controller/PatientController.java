@@ -97,7 +97,7 @@ public class PatientController
     @GetMapping("/allergies")
     public List<AllergyDto> findAllAllergies()
     {
-        return mapper.allergyToAllergyDtoList(allergyService.findAll());
+        return mapper.INSTANCE.allergyToAllergyDtoList(allergyService.findAll());
         //return allergyService.findAll();
     }
 }
