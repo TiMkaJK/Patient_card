@@ -1,7 +1,7 @@
 create table if not exists allergy
 (
     id   bigint      not null auto_increment,
-    name varchar(50) not null,
+    name varchar(50) not null unique,
     primary key (id)
 ) engine = InnoDB;
 

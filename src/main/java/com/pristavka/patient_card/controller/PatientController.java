@@ -11,10 +11,9 @@ import com.pristavka.patient_card.service.ClinicServiceImp;
 import com.pristavka.patient_card.service.DiagnosisServiceImp;
 import com.pristavka.patient_card.service.PatientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -52,24 +51,6 @@ public class PatientController
         return patientService.findById(id);
     }
 
-    /*@PostMapping("/addDiagnosis")
-    public Diagnosis addDiagnosis(@RequestBody Diagnosis diagnosis)
-    {
-        return diagnosisService.save(diagnosis);
-    }
-
-    @PostMapping("/addClinic")
-    public Clinic addClinic(@RequestBody Clinic clinic)
-    {
-        return clinicService.save(clinic);
-    }
-
-    @PostMapping("/addAllergy")
-    public Allergy addAllergy(@RequestBody Allergy allergy)
-    {
-        return allergyService.save(allergy);
-    }*/
-
     @PostMapping("/addDiagnosis")
     public Diagnosis addDiagnosis(@RequestBody String name)
     {
@@ -98,7 +79,38 @@ public class PatientController
     public List<AllergyDto> findAllAllergies()
     {
         return mapper.INSTANCE.allergyToAllergyDtoList(allergyService.findAll());
-        //return allergyService.findAll();
     }
+
+    @GetMapping("/allergies/page/{pageNo}")
+    public List<Allergy> findPaginated(@PathVariable int pageNo)
+    {
+        int pageSize = 10;
+        Page<Allergy> page = allergyService.findPaginated(pageNo, pageSize);
+        return page.getContent();
+    }
+
+    @GetMapping("/allergies/group/{groupName}")
+    public List<Allergy> findAllAllergiesByGroup(@PathVariable String groupName)
+    {
+        return allergyService.findAllByGroup(groupName);
+    }
+
+      /*@PostMapping("/addDiagnosis")
+    public Diagnosis addDiagnosis(@RequestBody Diagnosis diagnosis)
+    {
+        return diagnosisService.save(diagnosis);
+    }
+
+    @PostMapping("/addClinic")
+    public Clinic addClinic(@RequestBody Clinic clinic)
+    {
+        return clinicService.save(clinic);
+    }
+
+    @PostMapping("/addAllergy")
+    public Allergy addAllergy(@RequestBody Allergy allergy)
+    {
+        return allergyService.save(allergy);
+    }*/
 }
 

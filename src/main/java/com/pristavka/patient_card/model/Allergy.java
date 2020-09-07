@@ -21,6 +21,9 @@ public class Allergy
     @NonNull
     private String name;
 
+    @Column(length = 50)
+    private String group;
+
     @ManyToMany(mappedBy = "allergies")
     private Set<Patient> employees = new HashSet<>();
 }
