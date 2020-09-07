@@ -12,6 +12,7 @@ import com.pristavka.patient_card.service.DiagnosisServiceImp;
 import com.pristavka.patient_card.service.PatientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,18 +82,10 @@ public class PatientController
         return mapper.INSTANCE.allergyToAllergyDtoList(allergyService.findAll());
     }
 
-    @GetMapping("/allergies/page/{pageNo}")
-    public List<Allergy> findPaginated(@PathVariable int pageNo)
+    @RequestMapping(value = "/allergies/listPageable", method = RequestMethod.GET)
+    public Page<Allergy> allergiesPageable(Pageable pageable)
     {
-        int pageSize = 10;
-        Page<Allergy> page = allergyService.findPaginated(pageNo, pageSize);
-        return page.getContent();
-    }
-
-    @GetMapping("/allergies/group/{groupName}")
-    public List<Allergy> findAllAllergiesByGroup(@PathVariable String groupName)
-    {
-        return allergyService.findAllByGroup(groupName);
+        return allergyService.findPaginated(pageable);
     }
 
       /*@PostMapping("/addDiagnosis")
@@ -112,5 +105,17 @@ public class PatientController
     {
         return allergyService.save(allergy);
     }*/
+    /*@GetMapping("/allergies/page/{pageNo}")
+    public List<Allergy> findPaginated(@PathVariable int pageNo)
+    {
+        int pageSize = 10;
+        Page<Allergy> page = allergyService.findPaginated(pageNo, pageSize);
+        return page.getContent();
+    }*/
+      @GetMapping("/allergies/group/{groupName}")
+      public List<Allergy> findAllAllergiesByGroup(@PathVariable String groupName)
+      {
+          return allergyService.findAllByGroup(groupName);
+      }
 }
 

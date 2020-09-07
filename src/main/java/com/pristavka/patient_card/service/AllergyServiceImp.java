@@ -38,11 +38,19 @@ public class AllergyServiceImp implements AllergyService
     }
 
     @Override
+    public Page<Allergy> findPaginated(Pageable pageable)
+    {
+        return allergyRepository.findAll(pageable);
+    }
+
+
+
+   /* @Override
     public Page<Allergy> findPaginated(int pageNo, int sizeNo)
     {
         Pageable pageable = PageRequest.of(pageNo - 1, sizeNo);
         return allergyRepository.findAll(pageable);
-    }
+    }*/
 
     @Override
     public void deleteById(long id)
