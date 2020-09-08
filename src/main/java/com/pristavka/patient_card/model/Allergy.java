@@ -21,10 +21,11 @@ public class Allergy
     @NonNull
     private String name;
 
-    @Column(length = 50)
+    @Column(length = 50,name = "group")
+    //@Transient
     private String group;
 
     @ManyToMany(mappedBy = "allergies")
-    private Set<Patient> employees = new HashSet<>();
+    private Set<Patient> patients = new HashSet<>();
 }
 

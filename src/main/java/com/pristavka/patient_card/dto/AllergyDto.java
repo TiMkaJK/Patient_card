@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.dto;
 
-import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AllergyDto
 {
-    @JsonRawValue
-    private long IDDDDDD;
-    private String NAMEEEEE;
-    private String GROUPPPP;
+
+    private long id;
+    private String name;
+    private String group;
+
 }
 

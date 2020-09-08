@@ -12,10 +12,8 @@ public interface AllergyService
 
     List<Allergy> findAll();
 
-    List<Allergy> findAllByGroup(String groupName);
+    List<Allergy> findAllByGroup(Allergy allergy);
 
-    Page<Allergy> findPaginated(Pageable pageable);
-
-    void deleteById(long id);
+    Page<Allergy> findAll(Pageable pageable);
 }
 
