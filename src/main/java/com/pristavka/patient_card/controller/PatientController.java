@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(PatientController.PATIENTS_URL)
 public class PatientController
 {
+    public static final String PATIENTS_URL = "/patients";
     @Autowired
     private PatientServiceImp patientService;
 
-    @GetMapping("/")
+    @GetMapping()
     public List<Patient> findAllPatients()
     {
         return this.patientService.findAll();
     }
 
-    @PostMapping("/addPatient")
+    @PostMapping("/save")
     public Patient addPatient(@RequestBody Patient patient)
     {
         return this.patientService.save(patient);
     }
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/{id}")
     public Patient findPatientById(@PathVariable long id)
     {
         return this.patientService.findById(id);
