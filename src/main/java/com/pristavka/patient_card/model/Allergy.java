@@ -1,9 +1,11 @@
 package com.pristavka.patient_card.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;

@@ -12,4 +12,5 @@ public class PatientCardApplication
         SpringApplication.run(PatientCardApplication.class, args);
     }
 
+
 }
