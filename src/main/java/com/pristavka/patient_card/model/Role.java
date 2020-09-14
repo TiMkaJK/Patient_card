@@ -1,6 +1,7 @@
 package com.pristavka.patient_card.model;
 
-public enum UserRole
+public enum Role
 {
-    User, Admin
+    User,
+    Admin
 }

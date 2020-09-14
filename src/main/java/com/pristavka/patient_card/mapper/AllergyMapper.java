@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.dto.mapper;
+package com.pristavka.patient_card.mapper;
 
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.model.Allergy;

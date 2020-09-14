@@ -21,6 +21,7 @@ public class AllergyServiceImp implements AllergyService
     @Override
     public Allergy save(Allergy allergy)
     {
+
         Allergy newAllergy = new Allergy();
         newAllergy.setName(allergy.getName());
         return this.allergyRepository.save(newAllergy);
@@ -33,10 +34,9 @@ public class AllergyServiceImp implements AllergyService
     }
 
     @Override
-    public List<Allergy> findAllByGroup(Allergy allergy)
+    public List<Allergy> findAllByGroup(String group)
     {
-        log.debug(allergy.getGroup());
-        return this.allergyRepository.findAllByGroup(allergy.getGroup());
+        return this.allergyRepository.findAllByGroup(group);
     }
 
     @Override

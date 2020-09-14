@@ -12,7 +12,7 @@ public interface AllergyService
 
     List<Allergy> findAll();
 
-    List<Allergy> findAllByGroup(Allergy allergy);
+    List<Allergy> findAllByGroup(String group);
 
     Page<Allergy> findAll(Pageable pageable);
 }

@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.controller;
 
 import com.pristavka.patient_card.dto.AllergyDto;
-import com.pristavka.patient_card.dto.mapper.AllergyMapper;
+import com.pristavka.patient_card.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
 import com.pristavka.patient_card.service.AllergyServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(AllergyController.ALLERGY_URL)
-@Tag(name = "Allergy", description = "Provide manipulation with allergies")
+@Tag(name = "Allergy", description = "Provide access to manipulation with allergies")
 @Slf4j
 public class AllergyController
 {
@@ -36,7 +36,7 @@ public class AllergyController
     @ApiResponses(
             value = @ApiResponse(
                     responseCode = "200",
-                    description = "successful operation",
+                    description = "Successful operation",
                     content = @Content(
                             array = @ArraySchema(
                                     schema = @Schema(implementation = AllergyDto.class)
@@ -55,12 +55,12 @@ public class AllergyController
     private AllergyServiceImp allergyServiceImp;
 
     @Operation(summary = "Add a new allergy",
-            description = "Return list of all allergies",
+            description = "Add a new allergy",
             tags = "allergy")
     @ApiResponses(
             value = @ApiResponse(
                     responseCode = "200",
-                    description = "successful operation",
+                    description = "Successful operation",
                     content = @Content(
                             schema = @Schema(implementation = AllergyDto.class)
                     )
@@ -81,11 +81,10 @@ public class AllergyController
     }
 
     @Operation(summary = "Return list of allergies by group")
-    //@RequestMapping(value = "/{group}", method = RequestMethod.GET)
     @GetMapping("/{group}")
-    public List<AllergyDto> findAllAllergiesByGroup(@RequestBody AllergyDto allergyDto)
+    public List<AllergyDto> findAllAllergiesByGroup(@PathVariable String group)
     {
-        return mapper.allergyToAllergyDtoList(this.allergyServiceImp.findAllByGroup(mapper.allergyDtoToAllergy(allergyDto)));
+        return mapper.allergyToAllergyDtoList(this.allergyServiceImp.findAllByGroup(group));
     }
 }
 

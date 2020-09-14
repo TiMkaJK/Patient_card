@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.config;
 
-import com.pristavka.patient_card.model.UserRole;
+import com.pristavka.patient_card.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,18 +21,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         http
                 .authorizeRequests()
-                .antMatchers("/swagger-ui-patient-card.html").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin()
-                .loginPage("/login")
+                .formLogin()
+                //.loginPage("/auth/login")
                 .permitAll()
+                .defaultSuccessUrl("/auth/success")
+                .failureUrl("/auth/admin")
                 .and()
-            .logout()
-                .permitAll();
+                .logout().permitAll();
+
+        //http.csrf().disable();
     }
 
-
+    @Bean
     @Override
     protected UserDetailsService userDetailsService()
     {
@@ -40,23 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
                 User.builder()
                         .username("tim")
-                        .password(passwordEncoder().encode("12345"))
-                        .roles(UserRole.Admin.toString())
+                        //.password("$2y$12$VzE.o/J2N0Mg5ctHfusqAeNnd6SKTK7yv9gHIfXv9LRdFRPdPU2kq")
+                        .password(passwordEncoder().encode("1234"))
+                        .roles(Role.Admin.toString())
                         .build(),
 
                 User.builder()
-                        .username("ivanova")
-                        .password(passwordEncoder().encode("11111"))
-                        .roles(UserRole.User.toString())
+                        .username("vasya")
+                        //.password("$2y$12$YeF9AwRDC8yPTA6H.rM4.um4IOhm4XdSezIYSPddrAZB7Q658H2/W")
+                        .password(passwordEncoder().encode("1111"))
+                        .roles(Role.User.toString())
                         .build()
-
         );
     }
 
     @Bean
-    PasswordEncoder passwordEncoder()
+    protected PasswordEncoder passwordEncoder()
     {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 }
 
