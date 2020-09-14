@@ -13,6 +13,32 @@ create table if not exists clinic
     primary key (id)
 ) engine = InnoDB;
 
+create table role
+(
+    id        bigint not null auto_increment,
+    user_role integer,
+    primary key (id)
+) engine = InnoDB;
+create table status
+(
+    id          bigint not null auto_increment,
+    user_status integer,
+    primary key (id)
+) engine = InnoDB;
+
+create table user
+(
+    id         bigint              not null,
+    email      varchar(255) unique not null,
+    first_name varchar(255)        not null,
+    last_name  varchar(255)        not null,
+    password   varchar(255)        not null,
+    role_id    bigint,
+    status_id  bigint,
+    primary key (id)
+) engine = InnoDB;
+
+
 create table if not exists diagnosis
 (
     id   bigint       not null auto_increment,
@@ -23,10 +49,10 @@ create table if not exists diagnosis
 create table if not exists patient
 (
     id             bigint      not null auto_increment,
-    admission_date datetime(6) not null,
     first_name     varchar(40) not null,
-    floor          integer     not null,
     last_name      varchar(50) not null,
+    admission_date datetime(6) not null,
+    floor          integer     not null,
     ward           integer     not null,
     clinic_id      bigint,
     primary key (id)
@@ -52,6 +78,14 @@ create table if not exists patient_diagnoses
     diagnoses_id bigint not null,
     primary key (employees_id, diagnoses_id)
 ) engine = InnoDB;
+
+alter table user
+    add constraint FKn82ha3ccdebhokx3a8fgdqeyy foreign key (role_id) references role (id);
+alter table user
+    add constraint FKr62indkt0r2anb0m8hy5ldfpd foreign key (status_id) references status (id);
+alter table user
+    add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email);
+
 
 alter table allergy
     add constraint UK_jbyxnb3fyayfxfop1cchbopr unique (name);

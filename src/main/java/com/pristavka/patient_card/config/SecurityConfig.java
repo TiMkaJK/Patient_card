@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.config;
 
-import com.pristavka.patient_card.model.Role;
+import com.pristavka.patient_card.model.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,14 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/auth/login")
                 .permitAll()
                 .defaultSuccessUrl("/auth/success")
                 .failureUrl("/auth/admin")
                 .and()
                 .logout().permitAll();
-
-        //http.csrf().disable();
     }
 
     @Bean
@@ -43,16 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
                 User.builder()
                         .username("tim")
-                        //.password("$2y$12$VzE.o/J2N0Mg5ctHfusqAeNnd6SKTK7yv9gHIfXv9LRdFRPdPU2kq")
                         .password(passwordEncoder().encode("1234"))
-                        .roles(Role.Admin.toString())
+                        .roles(UserRole.Admin.toString())
                         .build(),
 
                 User.builder()
                         .username("vasya")
-                        //.password("$2y$12$YeF9AwRDC8yPTA6H.rM4.um4IOhm4XdSezIYSPddrAZB7Q658H2/W")
                         .password(passwordEncoder().encode("1111"))
-                        .roles(Role.User.toString())
+                        .roles(UserRole.User.toString())
                         .build()
         );
     }

@@ -10,14 +10,14 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role
+public class Status
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private UserRole userRole;
+    private UserStatus userStatus;
 
-    @OneToOne(mappedBy = "role")
+    @OneToOne(mappedBy = "status")
     private User user;
 }
 

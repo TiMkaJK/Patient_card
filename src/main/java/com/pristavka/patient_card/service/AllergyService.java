@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.service.dao;
+package com.pristavka.patient_card.service;
 
 import com.pristavka.patient_card.model.Allergy;
 import org.springframework.data.domain.Page;

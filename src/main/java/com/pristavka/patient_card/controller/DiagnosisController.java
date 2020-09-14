@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.controller;
 
 import com.pristavka.patient_card.model.Diagnosis;
-import com.pristavka.patient_card.service.DiagnosisServiceImp;
+import com.pristavka.patient_card.service.impl.DiagnosisServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class DiagnosisController
     public static final String DIAGNOSIS_URL = "/diagnoses";
 
     @Autowired
-    private DiagnosisServiceImp diagnosisServiceImp;
+    private DiagnosisServiceImpl diagnosisServiceImpl;
 
     @Operation(summary = "Add a new diagnosis")
     @PostMapping("/save")
@@ -26,7 +26,7 @@ public class DiagnosisController
     {
         Diagnosis diagnosis = new Diagnosis();
         diagnosis.setName(name);
-        return this.diagnosisServiceImp.save(diagnosis);
+        return this.diagnosisServiceImpl.save(diagnosis);
     }
 }
 

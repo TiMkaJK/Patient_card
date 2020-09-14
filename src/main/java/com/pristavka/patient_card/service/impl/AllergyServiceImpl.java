@@ -1,8 +1,8 @@
-package com.pristavka.patient_card.service;
+package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.model.Allergy;
 import com.pristavka.patient_card.repo.AllergyRepository;
-import com.pristavka.patient_card.service.dao.AllergyService;
+import com.pristavka.patient_card.service.AllergyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class AllergyServiceImp implements AllergyService
+public class AllergyServiceImpl implements AllergyService
 {
     @Autowired
     private AllergyRepository allergyRepository;
@@ -21,10 +21,7 @@ public class AllergyServiceImp implements AllergyService
     @Override
     public Allergy save(Allergy allergy)
     {
-
-        Allergy newAllergy = new Allergy();
-        newAllergy.setName(allergy.getName());
-        return this.allergyRepository.save(newAllergy);
+        return this.allergyRepository.save(allergy);
     }
 
     @Override
