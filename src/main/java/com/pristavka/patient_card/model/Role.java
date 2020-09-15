@@ -18,8 +18,5 @@ public class Role
 
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
-
-    @OneToOne(mappedBy = "role")
-    private User user;
 }
 

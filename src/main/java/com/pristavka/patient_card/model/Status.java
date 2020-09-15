@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,7 +20,7 @@ public class Status
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
 
-    @OneToOne(mappedBy = "status")
-    private User user;
+    @OneToMany
+    private Set<User> user;
 }
 

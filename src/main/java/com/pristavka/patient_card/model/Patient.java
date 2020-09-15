@@ -21,7 +21,6 @@ public class Patient
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
     private long id;
 
     @Column(length = 40, nullable = false)
@@ -36,15 +35,19 @@ public class Patient
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable
-    Set<Diagnosis> diagnoses = new HashSet<>();
+    private Set<Diagnosis> diagnoses;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable
-    Set<Allergy> allergies = new HashSet<>();
+    private Set<Allergy> allergies;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn
     private Clinic clinic;
+
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
     @Column(nullable = false)
     private int floor;

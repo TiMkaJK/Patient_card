@@ -18,6 +18,6 @@ public class Diagnosis
     private String name;
 
     @ManyToMany(mappedBy = "diagnoses")
-    private Set<Patient> patients = new HashSet<>();
+    private Set<Patient> patients;
 }
 
