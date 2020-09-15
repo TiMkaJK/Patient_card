@@ -41,13 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 User.builder()
                         .username("tim")
                         .password(passwordEncoder().encode("1234"))
-                        .roles(UserRole.Admin.toString())
+                        .roles(UserRole.ADMIN.toString())
                         .build(),
 
                 User.builder()
                         .username("vasya")
                         .password(passwordEncoder().encode("1111"))
-                        .roles(UserRole.User.toString())
+                        .roles(UserRole.USER.toString())
                         .build()
         );
     }

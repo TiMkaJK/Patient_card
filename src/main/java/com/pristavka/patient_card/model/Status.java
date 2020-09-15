@@ -15,6 +15,8 @@ public class Status
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
 
     @OneToOne(mappedBy = "status")
