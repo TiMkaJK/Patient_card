@@ -24,6 +24,7 @@ public class SecurityUser implements UserDetails
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
         Collection<Role> roles = this.user.getRoles();
+
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getUserRole().toString()))
                 .collect(Collectors.toList());
@@ -65,14 +66,9 @@ public class SecurityUser implements UserDetails
         return checkStatus(UserStatus.ACTIVE);
     }
 
-
     protected boolean checkStatus(Enum<UserStatus> userStatusEnum)
     {
-        if (this.user.getStatus().equals(userStatusEnum))
-        {
-            return true;
-        }
-        return false;
+        return this.user.getStatus().equals(userStatusEnum);
     }
 
     public UserDetails getUserDetails()

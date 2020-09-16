@@ -9,7 +9,8 @@ select allergy.id,
 from allergy
 where `group` = 'food' and id < 100;
 
-select * from role;
+select * from user;
+
 
 
 
