@@ -75,7 +75,7 @@ public class SecurityUser implements UserDetails
         return false;
     }
 
-    public UserDetails fromUser()
+    public UserDetails getUserDetails()
     {
         return new org.springframework.security.core.userdetails.User(
                 getUsername(),
