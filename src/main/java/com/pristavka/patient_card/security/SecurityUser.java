@@ -1,14 +1,17 @@
 package com.pristavka.patient_card.security;
 
+import com.pristavka.patient_card.model.Role;
 import com.pristavka.patient_card.model.User;
 import com.pristavka.patient_card.model.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -20,19 +23,22 @@ public class SecurityUser implements UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return null;
+        Collection<Role> roles = this.user.getRoles();
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getUserRole().toString()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public String getPassword()
     {
-        return user.getPassword();
+        return this.user.getPassword();
     }
 
     @Override
     public String getUsername()
     {
-        return user.getEmail();
+        return this.user.getEmail();
     }
 
     @Override
@@ -62,7 +68,7 @@ public class SecurityUser implements UserDetails
 
     protected boolean checkStatus(Enum<UserStatus> userStatusEnum)
     {
-        if (user.getStatus().equals(userStatusEnum))
+        if (this.user.getStatus().equals(userStatusEnum))
         {
             return true;
         }
