@@ -17,6 +17,7 @@ public class Role
     private long id;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "name")
     private UserRole userRole;
 }
 

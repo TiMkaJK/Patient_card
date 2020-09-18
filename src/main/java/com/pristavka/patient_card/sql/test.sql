@@ -9,7 +9,16 @@ select allergy.id,
 from allergy
 where `group` = 'food' and id < 100;
 
+select * from patient where user_id=3;
+
 select * from user;
+
+call getPatientByUserId(2);
+call getAllergyByGroupName('pollen');
+
+select * from patient;
+
+
 
 
 

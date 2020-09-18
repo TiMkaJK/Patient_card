@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,7 +29,7 @@ public class Allergy
     //@Transient
     private String group;
 
-    @ManyToMany(mappedBy = "allergies")
-    private Set<Patient> patients = new HashSet<>();
+    @ManyToMany
+    private Set<Patient> patients;
 }
 

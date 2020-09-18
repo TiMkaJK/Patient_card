@@ -17,6 +17,7 @@ public class Status
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "name")
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
 

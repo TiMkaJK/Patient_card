@@ -20,7 +20,7 @@ public class PatientController
     @GetMapping()
     public List<Patient> findAllPatients()
     {
-        return this.patientService.findAll();
+        return this.patientService.findAllPatients();
     }
 
     @PostMapping("/save")

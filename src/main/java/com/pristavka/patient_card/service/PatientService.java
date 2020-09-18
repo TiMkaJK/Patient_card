@@ -9,7 +9,9 @@ public interface PatientService
 {
     Patient findById(long id);
 
-    List<Patient> findAll();
+    List<Patient> findAllPatients();
 
     Patient save(Patient patient);
+
+    List<Patient> findAllByUserId(int id);
 }

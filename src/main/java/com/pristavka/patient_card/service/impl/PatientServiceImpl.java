@@ -18,21 +18,25 @@ public class PatientServiceImpl implements PatientService
     @Override
     public Patient findById(long id)
     {
-        return patientRepository.findById(id).orElseThrow(() -> new NotFoundException("patient not found"));
+        return this.patientRepository.findById(id).orElseThrow(() -> new NotFoundException("patient not found"));
     }
 
     @Override
-    public List<Patient> findAll()
+    public List<Patient> findAllPatients()
     {
-        return patientRepository.findAll();
+        return this.patientRepository.findAllPatients();
     }
 
     @Override
     public Patient save(Patient patient)
     {
-        return patientRepository.save(patient);
+        return this.patientRepository.save(patient);
     }
 
-
+    @Override
+    public List<Patient> findAllByUserId(int id)
+    {
+        return this.patientRepository.findAllByUserId(id);
+    }
 }
 

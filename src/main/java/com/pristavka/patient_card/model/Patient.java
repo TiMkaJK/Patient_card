@@ -33,11 +33,11 @@ public class Patient
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime admissionDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable
     private Set<Diagnosis> diagnoses;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable
     private Set<Allergy> allergies;
 

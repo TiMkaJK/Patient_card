@@ -3,7 +3,6 @@ package com.pristavka.patient_card.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,7 +16,7 @@ public class Diagnosis
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "diagnoses")
+    @ManyToMany
     private Set<Patient> patients;
 }
 
