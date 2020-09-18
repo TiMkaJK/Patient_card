@@ -1,14 +1,14 @@
 package com.pristavka.patient_card.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "users")
+@ToString(exclude = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Status
@@ -17,11 +17,11 @@ public class Status
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name",length = 50)
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
 
-    @OneToMany
-    private Set<User> user;
+    @OneToMany(mappedBy = "status")
+    private Set<User> users;
 }
 

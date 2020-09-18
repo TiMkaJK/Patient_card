@@ -7,17 +7,18 @@ select allergy.id,
        allergy.name,
        allergy.`group`
 from allergy
-where `group` = 'food' and id < 100;
+where `group` = 'food'
+  and id < 100;
 
-select * from patient where user_id=3;
+select *
+from patient
+where user_id = 3;
 
-select * from user;
+select *
+from user;
 
-call getPatientByUserId(2);
-call getAllergyByGroupName('pollen');
-
-select * from patient;
-
+select *
+from patient;
 
 
 

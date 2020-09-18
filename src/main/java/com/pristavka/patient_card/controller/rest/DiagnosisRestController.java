@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.controller;
+package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.Diagnosis;
 import com.pristavka.patient_card.service.impl.DiagnosisServiceImpl;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(DiagnosisController.DIAGNOSIS_URL)
+@RequestMapping(DiagnosisRestController.DIAGNOSIS_URL)
 @Tag(name = "Diagnosis", description = "Provide manipulation with diagnosis")
-public class DiagnosisController
+public class DiagnosisRestController
 {
     public static final String DIAGNOSIS_URL = "/diagnoses";
 

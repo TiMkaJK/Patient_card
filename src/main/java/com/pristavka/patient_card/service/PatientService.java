@@ -9,9 +9,9 @@ public interface PatientService
 {
     Patient findById(long id);
 
-    List<Patient> findAllPatients();
+    List<Patient> findAll();
+
+    List<Patient> findAllByUserEmail(String email);
 
     Patient save(Patient patient);
-
-    List<Patient> findAllByUserId(int id);
 }

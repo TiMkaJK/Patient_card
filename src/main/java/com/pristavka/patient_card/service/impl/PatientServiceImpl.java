@@ -22,21 +22,22 @@ public class PatientServiceImpl implements PatientService
     }
 
     @Override
-    public List<Patient> findAllPatients()
+    public List<Patient> findAll()
     {
-        return this.patientRepository.findAllPatients();
+        return this.patientRepository.findAll();
     }
+
+    @Override
+    public List<Patient> findAllByUserEmail(String email)
+    {
+        return this.patientRepository.findAllByUserEmail(email);
+    }
+
 
     @Override
     public Patient save(Patient patient)
     {
         return this.patientRepository.save(patient);
-    }
-
-    @Override
-    public List<Patient> findAllByUserId(int id)
-    {
-        return this.patientRepository.findAllByUserId(id);
     }
 }
 

@@ -1,9 +1,7 @@
 package com.pristavka.patient_card.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.apache.commons.lang3.builder.HashCodeExclude;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,8 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"diagnoses", "allergies"})
+@ToString(exclude = {"diagnoses", "allergies"})
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor
 @Entity
 @Table
@@ -33,20 +32,24 @@ public class Patient
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime admissionDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "patient_diagnosis",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
     private Set<Diagnosis> diagnoses;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "patient_allergy",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "allergy_id"))
     private Set<Allergy> allergies;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(nullable = false)

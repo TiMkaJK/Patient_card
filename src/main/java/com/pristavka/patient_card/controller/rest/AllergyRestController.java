@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.controller;
+package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.mapper.AllergyMapper;
@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(AllergyController.ALLERGY_URL)
+@RequestMapping(AllergyRestController.ALLERGY_URL)
 @Tag(name = "Allergy", description = "Provide access to manipulation with allergies")
 @Slf4j
-public class AllergyController
+public class AllergyRestController
 {
     public static final String ALLERGY_URL = "/allergies";
 

@@ -1,14 +1,14 @@
 package com.pristavka.patient_card.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "patients")
+@ToString(exclude = "patients")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Clinic
@@ -23,7 +23,8 @@ public class Clinic
     @Column(nullable = false)
     private int number;
 
-    @OneToMany
-    private Set<Patient> patient;
+    //TODO - set patients
+    @OneToMany(mappedBy = "clinic")
+    private Set<Patient> patients;
 }
 

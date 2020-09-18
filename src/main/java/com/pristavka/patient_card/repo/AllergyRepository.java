@@ -11,13 +11,13 @@ import java.util.List;
 @Repository
 public interface AllergyRepository extends JpaRepository<Allergy,Long>
 {
-    @Query(value = "call getAllergyByGroupName(:groupName);",
+    @Query(value = "select * from allergy where `group` = ?1",
             nativeQuery = true)
-    List<Allergy> findAllByGroup(@Param("groupName") String groupName);
+    List<Allergy> findAllByGroup(String groupName);
 
-    /*@Query(value = "select * from allergy where `group` = ?1",
-           nativeQuery = true)
-    List<Allergy> findAllByGroup(String groupName);*/
+    /*@Query(value = "call getAllergyByGroupName(:groupName);",
+            nativeQuery = true)
+    List<Allergy> findAllByGroup(@Param("groupName") String groupName);*/
 
     //List<Allergy> findAllByGroup(String groupName);
 }

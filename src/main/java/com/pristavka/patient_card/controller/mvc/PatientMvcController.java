@@ -1,20 +1,23 @@
-package com.pristavka.patient_card.controller;
+package com.pristavka.patient_card.controller.mvc;
 
 
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.service.impl.PatientServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 @Slf4j
-public class MvcController
+public class PatientMvcController
 {
     @Autowired
     private PatientServiceImpl patientService;
@@ -22,20 +25,23 @@ public class MvcController
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView admin()
     {
-        /*List<Patient> patients = this.patientService.findAllPatients();
-        log.warn(patients.toString());*/
+        List<Patient> patients = this.patientService.findAll();
 
         ModelAndView model = new ModelAndView();
         model.setViewName("admin");
-        //model.addObject("patients", patients);
+        model.addObject("patients", patients);
         return model;
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ModelAndView user()
     {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Patient> patients = this.patientService.findAllByUserEmail(userDetails.getUsername());
+
         ModelAndView model = new ModelAndView();
         model.setViewName("user");
+        model.addObject("patients", patients);
         return model;
     }
 }

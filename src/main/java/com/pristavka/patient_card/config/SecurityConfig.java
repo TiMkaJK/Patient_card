@@ -21,13 +21,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private UserServiceImpl userService;
 
     @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http
-
                 .authorizeRequests()
                 .antMatchers("/admin").hasAuthority(UserRole.ADMIN.toString())
                 .antMatchers("/user").hasAuthority(UserRole.USER.toString())
@@ -35,10 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .successHandler(this.customAuthenticationSuccessHandler)
+                .successHandler(this.authenticationSuccessHandler)
+                .failureHandler(this.authenticationFailureHandler)
                 .permitAll()
-                //.defaultSuccessUrl("/auth/success")
-                //.failureUrl("/auth/admin")
                 .and()
                 .logout().permitAll();
     }
