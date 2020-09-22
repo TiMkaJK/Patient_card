@@ -1,6 +1,7 @@
 package com.pristavka.patient_card.config;
 
-import com.pristavka.patient_card.model.UserRole;
+import com.pristavka.patient_card.component.ConfigProperties;
+import com.pristavka.patient_card.model.enums.UserRole;
 import com.pristavka.patient_card.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Autowired
+    private ConfigProperties properties;
+
+    @Autowired
     private UserServiceImpl userService;
 
     @Autowired
@@ -31,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         http
                 .authorizeRequests()
-                .antMatchers("/admin").hasAuthority(UserRole.ADMIN.toString())
-                .antMatchers("/user").hasAuthority(UserRole.USER.toString())
-                .antMatchers("/").permitAll()
+                .antMatchers(properties.getAdminUrl()).hasAuthority(UserRole.ADMIN.toString())
+                .antMatchers(properties.getUserUrl()).hasAuthority(UserRole.USER.toString())
+                .antMatchers(properties.getDefaultUrl()).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

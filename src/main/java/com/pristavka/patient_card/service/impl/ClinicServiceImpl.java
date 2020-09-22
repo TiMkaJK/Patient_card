@@ -17,19 +17,19 @@ public class ClinicServiceImpl implements ClinicService
     @Override
     public Clinic save(Clinic clinic)
     {
-        return clinicRepository.save(clinic);
+        return this.clinicRepository.save(clinic);
     }
 
     @Override
     public List<Clinic> findAll()
     {
-        return clinicRepository.findAll();
+        return this.clinicRepository.findAll();
     }
 
     @Override
     public void deleteById(long id)
     {
-        clinicRepository.deleteById(id);
+        this.clinicRepository.deleteById(id);
     }
 }
 

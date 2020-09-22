@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService
 {
@@ -33,10 +35,7 @@ public class UserServiceImpl implements UserService
     {
         User user = this.userRepository.findByEmail(email);
 
-        if (user == null)
-        {
-            throw new UsernameNotFoundException("Invalid email or password");
-        }
+        Optional.ofNullable(user).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return new SecurityUser(user).getUserDetails();
     }

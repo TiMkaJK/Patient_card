@@ -1,19 +1,53 @@
 package com.pristavka.patient_card.config;
 
+import com.pristavka.patient_card.component.ConfigProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer
 {
+    @Autowired
+    private ConfigProperties properties;
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
-        registry.addViewController("/auth/login").setViewName("login");
-        registry.addViewController("/auth/admin").setViewName("admin");
-        registry.addViewController("/auth/user").setViewName("user");
-        registry.addViewController("/auth/success").setViewName("success");
+        registry.addViewController(properties.getLoginUrl()).setViewName(properties.getLogin());
+        registry.addViewController(properties.getAdminUrl()).setViewName(properties.getAdmin());
+        registry.addViewController(properties.getUserUrl()).setViewName(properties.getUser());
+        registry.addViewController(properties.getSuccessUrl()).setViewName(properties.getSuccess());
+    }
+
+    @Bean
+    public LocaleResolver localeResolver()
+    {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.US);
+        return localeResolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor()
+    {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName(properties.getLanguagePattern());
+        return localeChangeInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry)
+    {
+        registry.addInterceptor(localeChangeInterceptor());
     }
 }
 

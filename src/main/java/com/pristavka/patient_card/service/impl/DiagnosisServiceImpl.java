@@ -17,19 +17,19 @@ public class DiagnosisServiceImpl implements DiagnosisService
     @Override
     public Diagnosis save(Diagnosis diagnosis)
     {
-        return diagnosisRepository.save(diagnosis);
+        return this.diagnosisRepository.save(diagnosis);
     }
 
     @Override
     public List<Diagnosis> findAll()
     {
-        return diagnosisRepository.findAll();
+        return this.diagnosisRepository.findAll();
     }
 
     @Override
     public void deleteById(long id)
     {
-        diagnosisRepository.deleteById(id);
+        this.diagnosisRepository.deleteById(id);
     }
 
 }

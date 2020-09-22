@@ -1,12 +1,10 @@
 package com.pristavka.patient_card.model;
 
 import lombok.*;
-import org.apache.commons.lang3.builder.HashCodeExclude;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
