@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.Clinic;
-import com.pristavka.patient_card.service.impl.ClinicServiceImpl;
+import com.pristavka.patient_card.service.ClinicService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ClinicRestController
     public static final String CLINIC_URL = "/clinics";
 
     @Autowired
-    private ClinicServiceImpl clinicServiceImpl;
+    private ClinicService clinicService;
 
     @Operation(summary = "Add a new clinic")
     @PostMapping("/save")
@@ -27,6 +27,6 @@ public class ClinicRestController
     {
         Clinic clinic = new Clinic();
         clinic.setName(name);
-        return this.clinicServiceImpl.save(clinic);
+        return this.clinicService.save(clinic);
     }
 }

@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper
 public interface PatientMapper
 {
-    PatientDto patientToPatientDto(Patient model);
+    PatientDto toDto(Patient model);
 
-    Patient patientDtoToPatient(PatientDto dto);
+    Patient toModel(PatientDto dto);
 
-    List<PatientDto> patientToPatientDto(List<Patient> list);
+    List<PatientDto> toDtoList(List<Patient> list);
 }

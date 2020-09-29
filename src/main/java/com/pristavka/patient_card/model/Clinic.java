@@ -23,7 +23,6 @@ public class Clinic
     @Column(nullable = false)
     private int number;
 
-    //TODO - set patients
     @OneToMany(mappedBy = "clinic")
     private Set<Patient> patients;
 }

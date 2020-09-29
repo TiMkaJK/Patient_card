@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper
 public interface StatusMapper
 {
-    StatusDto statusToStatusDto(Status model);
+    StatusDto toDto(Status model);
 
-    Status statusDtoToStatus(StatusDto dto);
+    Status toModel(StatusDto dto);
 
-    List<StatusDto> statusToStatusDto(List<Status> list);
+    List<StatusDto> toDtoList(List<Status> list);
 }

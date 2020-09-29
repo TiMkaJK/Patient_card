@@ -3,7 +3,7 @@ package com.pristavka.patient_card.controller.rest;
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.service.impl.AllergyServiceImpl;
+import com.pristavka.patient_card.service.AllergyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,7 +31,7 @@ public class AllergyRestController
     private AllergyMapper mapper;
 
     @Autowired
-    private AllergyServiceImpl allergyServiceImpl;
+    private AllergyService allergyService;
 
     @Operation(summary = "Return list of all allergies",
             description = "Return list of all allergies",
@@ -50,7 +50,7 @@ public class AllergyRestController
     @GetMapping
     public List<AllergyDto> findAllAllergies()
     {
-        return mapper.allergyToAllergyDtoList(this.allergyServiceImpl.findAll());
+        return mapper.toDtoList(this.allergyService.findAll());
         //return this.allergyServiceImp.findAll();
     }
 
@@ -70,21 +70,21 @@ public class AllergyRestController
     @ResponseStatus(HttpStatus.CREATED)
     public Allergy saveAllergy(@RequestBody AllergyDto allergyDto)
     {
-        return this.allergyServiceImpl.save(mapper.allergyDtoToAllergy(allergyDto));
+        return this.allergyService.save(mapper.toModel(allergyDto));
     }
 
     @Operation(summary = "Return pageable list of all allergies")
     @RequestMapping(value = "/listPageable", method = RequestMethod.GET)
     public Page<Allergy> allergiesPageable(Pageable pageable)
     {
-        return this.allergyServiceImpl.findAll(pageable);
+        return this.allergyService.findAll(pageable);
     }
 
     @Operation(summary = "Return list of allergies by group")
     @GetMapping("/{group}")
     public List<AllergyDto> findAllAllergiesByGroup(@PathVariable String group)
     {
-        return mapper.allergyToAllergyDtoList(this.allergyServiceImpl.findAllByGroup(group));
+        return mapper.toDtoList(this.allergyService.findAllByGroup(group));
     }
 }
 

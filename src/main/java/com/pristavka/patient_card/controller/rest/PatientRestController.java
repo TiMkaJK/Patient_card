@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.Patient;
-import com.pristavka.patient_card.service.impl.PatientServiceImpl;
+import com.pristavka.patient_card.service.PatientService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class PatientRestController
 {
     public static final String PATIENTS_URL = "/patients";
     @Autowired
-    private PatientServiceImpl patientService;
+    private PatientService patientService;
 
     @GetMapping()
     public List<Patient> findAllPatients()

@@ -33,7 +33,6 @@ public class PatientServiceImpl implements PatientService
         return this.patientRepository.findAllByUserEmail(email);
     }
 
-
     @Override
     public Patient save(Patient patient)
     {

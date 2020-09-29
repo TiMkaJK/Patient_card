@@ -12,9 +12,9 @@ public interface DiagnosisMapper
 {
     DiagnosisMapper INSTANCE = Mappers.getMapper(DiagnosisMapper.class);
 
-    DiagnosisDto diagnosistoDiagnosisDto(Diagnosis model);
+    DiagnosisDto toDto(Diagnosis model);
 
-    Diagnosis diagnosisDtoToDiagnosis(DiagnosisDto dto);
+    Diagnosis toModel(DiagnosisDto dto);
 
-    List<DiagnosisDto> diagnosistoDiagnosisDtoList(List<Diagnosis> list);
+    List<DiagnosisDto> toDtoList(List<Diagnosis> list);
 }

@@ -12,9 +12,9 @@ public interface ClinicMapper
 {
     ClinicMapper INSTANCE = Mappers.getMapper(ClinicMapper.class);
 
-    ClinicDto clinicToClinicDto(Clinic model);
+    ClinicDto toDto(Clinic model);
 
-    Clinic ClinicDtoToClinic(ClinicDto dto);
+    Clinic toModel(ClinicDto dto);
 
-    List<ClinicDto> clinicToClinicDto(List<Clinic> list);
+    List<ClinicDto> toDtoList(List<Clinic> list);
 }

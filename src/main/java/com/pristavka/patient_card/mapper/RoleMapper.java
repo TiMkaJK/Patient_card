@@ -9,10 +9,10 @@ import java.util.List;
 @Mapper
 public interface RoleMapper
 {
-    RoleDto roleToRoleDto(Role model);
+    RoleDto toDto(Role model);
 
-    Role roleDtoToRole(RoleDto dto);
+    Role toModel(RoleDto dto);
 
-    List<RoleDto> roleToRoleDto(List<Role> list);
+    List<RoleDto> toDtoList(List<Role> list);
 }
 

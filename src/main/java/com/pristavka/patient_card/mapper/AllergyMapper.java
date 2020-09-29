@@ -12,9 +12,9 @@ public interface AllergyMapper
 {
     AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
 
-    AllergyDto allergyToAllergyDto(Allergy model);
+    AllergyDto toDto(Allergy model);
 
-    Allergy allergyDtoToAllergy(AllergyDto dto);
+    Allergy toModel(AllergyDto dto);
 
-    List<AllergyDto> allergyToAllergyDtoList(List<Allergy> list);
+    List<AllergyDto> toDtoList(List<Allergy> list);
 }

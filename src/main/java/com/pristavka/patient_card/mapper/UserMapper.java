@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper
 {
-    UserDto userToUserDto(User model);
+    UserDto toDto(User model);
 
-    User userDtoToUser(UserDto dto);
+    User toModel(UserDto dto);
 
-    List<UserDto> userToUserDtoList(List<User> list);
+    List<UserDto> toDtoList(List<User> list);
 }
