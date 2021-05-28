@@ -1,10 +1,10 @@
 create table allergy
 (
     id   bigint      not null auto_increment,
-    /*`group` varchar(50),*/
+    `group` varchar(50),
     name varchar(50) not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table clinic
 (
@@ -12,14 +12,14 @@ create table clinic
     name   varchar(50) not null,
     number integer     not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table diagnosis
 (
     id   bigint       not null auto_increment,
     name varchar(100) not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table patient
 (
@@ -32,7 +32,7 @@ create table patient
     clinic_id      bigint      not null,
     user_id        bigint      not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 
 create table patient_allergy
@@ -40,28 +40,28 @@ create table patient_allergy
     patient_id bigint not null,
     allergy_id bigint not null,
     primary key (patient_id, allergy_id)
-) engine = InnoDB;
+);
 
 create table patient_diagnosis
 (
     patient_id   bigint not null,
     diagnosis_id bigint not null,
     primary key (patient_id, diagnosis_id)
-) engine = InnoDB;
+);
 
 create table role
 (
     id   bigint not null auto_increment,
     name varchar(50),
     primary key (id)
-) engine = InnoDB;
+);
 
 create table status
 (
     id   bigint not null auto_increment,
     name varchar(50),
     primary key (id)
-) engine = InnoDB;
+);
 
 create table user
 (
@@ -72,14 +72,14 @@ create table user
     password   varchar(255),
     status_id  bigint not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table user_role
 (
     user_id bigint not null,
     role_id bigint not null,
     primary key (user_id, role_id)
-) engine = InnoDB;
+);
 
 alter table allergy
     add constraint uk_allergy_name unique (name);

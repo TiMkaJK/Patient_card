@@ -2,12 +2,15 @@ package com.pristavka.patient_card.controller.mvc;
 
 
 import com.pristavka.patient_card.model.Patient;
+import com.pristavka.patient_card.model.User;
 import com.pristavka.patient_card.service.impl.PatientServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,5 +48,12 @@ public class PatientMvcController
         model.addObject("patients", patients);
 
         return model;
+    }
+
+    @GetMapping("/registration")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+
+        return "signup_form";
     }
 }
