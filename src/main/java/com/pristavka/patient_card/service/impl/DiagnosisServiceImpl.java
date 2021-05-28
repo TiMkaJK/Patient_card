@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.model.Diagnosis;
-import com.pristavka.patient_card.repo.DiagnosisRepository;
+import com.pristavka.patient_card.repository.DiagnosisRepository;
 import com.pristavka.patient_card.service.DiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

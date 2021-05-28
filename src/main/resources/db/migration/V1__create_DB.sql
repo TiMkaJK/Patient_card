@@ -24,7 +24,7 @@ create table diagnosis
 create table patient
 (
     id             bigint      not null auto_increment,
-    admission_date datetime(6) not null,
+    admission_date datetime default CURRENT_TIMESTAMP,
     first_name     varchar(40) not null,
     floor          integer     not null,
     last_name      varchar(50) not null,

@@ -22,6 +22,9 @@ public class ConfigProperties
     @Value("${success}")
     private String success;
 
+    @Value("${registration}")
+    private String registration;
+
     @Value("${admin.url}")
     private String adminUrl;
 
@@ -33,6 +36,9 @@ public class ConfigProperties
 
     @Value("${user.url}")
     private String userUrl;
+
+    @Value("${registration.url}")
+    private String registrationUrl;
 
     @Value("${language.pattern}")
     private String languagePattern;

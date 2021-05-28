@@ -6,27 +6,30 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Data
-@EqualsAndHashCode(exclude = {"patients","status","roles"})
-@ToString(exclude = {"patients","status","roles"})
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"patients", "status", "roles"})
+@ToString(exclude = {"patients", "status", "roles"})
 @NoArgsConstructor
 @AllArgsConstructor
-public class User
-{
+@Entity
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(length = 50)
-
+    @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Column(length = 50)
+    @Column(name = "last_name", length = 50)
     private String lastName;
+
+    @Column(name = "password")
     private String password;
 
     @JsonIgnore

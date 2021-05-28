@@ -2,19 +2,21 @@ package com.pristavka.patient_card.mapper;
 
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.model.Allergy;
+import com.pristavka.patient_card.model.mongo.AllergyMongo;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
-public interface AllergyMapper
-{
-    AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
+@Mapper(componentModel = "spring")
+public interface AllergyMapper {
 
-    AllergyDto toDto(Allergy model);
+    AllergyDto toDto(Allergy entity);
 
-    Allergy toModel(AllergyDto dto);
+    Allergy toEntity(AllergyDto dto);
 
     List<AllergyDto> toDtoList(List<Allergy> list);
+
+    AllergyMongo toMongo(Allergy entity);
+
+    List<AllergyMongo> toMongoList(List<Allergy> list);
 }

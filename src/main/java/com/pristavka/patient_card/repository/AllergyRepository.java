@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.repo;
+package com.pristavka.patient_card.repository;
 
 import com.pristavka.patient_card.model.Allergy;
 import org.springframework.data.jpa.repository.JpaRepository;

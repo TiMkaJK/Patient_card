@@ -2,7 +2,7 @@ package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.dto.UserDto;
 import com.pristavka.patient_card.model.User;
-import com.pristavka.patient_card.repo.UserRepository;
+import com.pristavka.patient_card.repository.UserRepository;
 import com.pristavka.patient_card.security.SecurityUser;
 import com.pristavka.patient_card.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,26 +7,28 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"diagnoses", "allergies"})
 @ToString(exclude = {"diagnoses", "allergies"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
-public class Patient
-{
+@Table(name = "patient")
+public class Patient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(length = 40, nullable = false)
+    @Column(name = "first_name", length = 40, nullable = false)
     private String firstName;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(name = "admission_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime admissionDate;
 
@@ -50,10 +52,10 @@ public class Patient
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(name = "floor", nullable = false)
     private int floor;
 
-    @Column(nullable = false)
+    @Column(name = "ward", nullable = false)
     private int ward;
 }
 

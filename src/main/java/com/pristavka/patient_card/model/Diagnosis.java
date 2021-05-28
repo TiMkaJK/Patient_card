@@ -1,22 +1,21 @@
 package com.pristavka.patient_card.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+//@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = "patients")
 @ToString(exclude = "patients")
-
-
 @Entity
-public class Diagnosis
-{
+public class Diagnosis {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     @Column(length = 100, nullable = false, unique = true)

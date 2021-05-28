@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper
-public interface PatientMapper
-{
+public interface PatientMapper {
+
     PatientDto toDto(Patient model);
 
     Patient toModel(PatientDto dto);

@@ -5,22 +5,25 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = "patients")
 @ToString(exclude = "patients")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clinic
-{
+@Entity
+@Table(name = "clinic")
+public class Clinic {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "number", nullable = false)
     private int number;
 
     @OneToMany(mappedBy = "clinic")

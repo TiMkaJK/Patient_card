@@ -27,7 +27,8 @@ values ('NY General', 5),
 insert into patient(first_name, last_name, admission_date, floor, ward, clinic_id, user_id)
 values ('Arnold', 'Schwarzenegger', '2020-09-14 09:28:52.000000', 5, 1, 1, 2),
        ('Sylvester', 'Stallone', '2020-09-10 12:15:52.000000', 5, 2, 1, 2),
-       ('Bruce', 'Willis', '2020-09-05 10:10:52.000000', 25, 2, 2, 3);
+       ('Bruce', 'Willis', '2020-09-05 10:10:52.000000', 25, 2, 2, 3),
+       ('Петр', 'Васильев', '2020-10-01', 4, 6, 2, 3);
 
 insert into patient_allergy(patient_id, allergy_id)
 values (1, 5),

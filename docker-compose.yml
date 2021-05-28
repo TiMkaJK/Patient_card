@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      - MYSQL_DATABASE=Patient_cards
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=admin
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    restart: always
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - /home/developer/mongodb/database:/data/patient_cards
+    ports:
+      - 27017:27017
+    restart: unless-stopped

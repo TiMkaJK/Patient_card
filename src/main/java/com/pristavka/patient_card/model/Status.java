@@ -6,19 +6,22 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Data
+
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = "users")
 @ToString(exclude = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Status
-{
+@Entity
+@Table(name = "status")
+public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "name",length = 50)
+    @Column(name = "name", length = 50)
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
 

@@ -1,7 +1,6 @@
 package com.pristavka.patient_card.controller.mvc;
 
 
-import com.pristavka.patient_card.component.PatientProperties;
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.service.impl.PatientServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +21,15 @@ public class PatientMvcController
     @Autowired
     private PatientServiceImpl patientService;
 
-    @Autowired
-    private PatientProperties properties;
-
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView admin(/*Locale locale - if I want get current language what user selected*/)
+    public ModelAndView admin()
     {
         List<Patient> patients = this.patientService.findAll();
 
         ModelAndView model = new ModelAndView();
-        model.setViewName(properties.getAdmin());
-        model.addObject(properties.getPatients(), patients);
+        model.setViewName("admin");
+        model.addObject("patients", patients);
+
         return model;
     }
 
@@ -44,8 +41,9 @@ public class PatientMvcController
         List<Patient> patients = this.patientService.findAllByUserEmail(userDetails.getUsername());
 
         ModelAndView model = new ModelAndView();
-        model.setViewName(properties.getUser());
-        model.addObject(properties.getPatients(), patients);
+        model.setViewName("user");
+        model.addObject("patients", patients);
+
         return model;
     }
 }

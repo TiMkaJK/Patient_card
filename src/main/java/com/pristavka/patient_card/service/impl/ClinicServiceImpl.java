@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.model.Clinic;
-import com.pristavka.patient_card.repo.ClinicRepository;
+import com.pristavka.patient_card.repository.ClinicRepository;
 import com.pristavka.patient_card.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,4 +32,3 @@ public class ClinicServiceImpl implements ClinicService
         this.clinicRepository.deleteById(id);
     }
 }
-
