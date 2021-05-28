@@ -8,13 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "allergy")
-public class AllergyMongo {
+@Document(collection = "medicines")
+public class Medicament {
 
     @Id
     @Field(name = "id")
@@ -23,8 +25,13 @@ public class AllergyMongo {
     @Field(name = "name")
     private String name;
 
-    @Field(name = "group")
-    private String group;
-}
+    @Field(name = "manufactureDate")
+    private LocalDateTime manufactureDate;
 
+    private Manufacturer manufacturer;
+
+    private Coordinates coordinates;
+
+    private Set<String> contraindications;
+}
 

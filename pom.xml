@@ -20,13 +20,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -180,15 +179,17 @@
                     <source>11</source>
                     <target>11</target>
                     <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>1.4.2.Final</version>
-                        </path>
+                        <!--Project Lombok compile processor-->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>1.18.20</version>
+                        </path>
+                        <!--Maps Struct compile processor-->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.4.2.Final</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -197,6 +198,11 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.9.1</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3307/Patient_cards</url>
+                    <user>admin</user>
+                    <password>password</password>
+                </configuration>
             </plugin>
         </plugins>
     </build>

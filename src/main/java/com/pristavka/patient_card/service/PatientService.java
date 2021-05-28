@@ -14,8 +14,4 @@ public interface PatientService
     List<Patient> findAllByUserEmail(String email);
 
     Patient save(Patient patient);
-
-    void fillPatients();
-
-    void saveAllPatientsToMongoDb();
 }

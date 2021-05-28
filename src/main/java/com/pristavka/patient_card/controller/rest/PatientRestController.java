@@ -30,15 +30,5 @@ public class PatientRestController {
     public Patient findPatientById(@PathVariable long id) {
         return this.patientService.findById(id);
     }
-
-    @GetMapping(path = "/fill-patients")
-    public void fillPatientTable() {
-        this.patientService.fillPatients();
-    }
-
-    @GetMapping(path = "save-patients-mongoDB")
-    public void saveAllPatients(){
-        this.patientService.saveAllPatientsToMongoDb();
-    }
 }
 

@@ -18,7 +18,7 @@ public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name", length = 50, nullable = false)
     private String name;

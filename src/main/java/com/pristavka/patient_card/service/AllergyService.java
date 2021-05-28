@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface AllergyService
 {
-    //AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
-
     Allergy save(Allergy allergy);
 
     List<Allergy> findAll();
@@ -17,7 +15,5 @@ public interface AllergyService
     List<Allergy> findAllByGroup(String group);
 
     Page<Allergy> findAll(Pageable pageable);
-
-    void copyListToMongo();
 }
 

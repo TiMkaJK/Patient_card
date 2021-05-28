@@ -3,7 +3,6 @@ package com.pristavka.patient_card.controller.rest;
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.model.mongo.AllergyMongo;
 import com.pristavka.patient_card.service.AllergyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

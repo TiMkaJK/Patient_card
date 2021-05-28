@@ -19,7 +19,7 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name", length = 50)
     @Enumerated(value = EnumType.STRING)

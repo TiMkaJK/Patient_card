@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface RoleMapper
-{
+@Mapper(componentModel = "spring")
+public interface RoleMapper {
+
     RoleDto toDto(Role model);
 
     Role toModel(RoleDto dto);
