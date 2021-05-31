@@ -8,8 +8,8 @@ values ('ACTIVE'),
 
 insert into user(email, first_name, last_name, `password`, status_id)
 values ('admin@imail.com', 'admin', 'admin', '$2y$12$L7pSJZc2q.NOicOmp73Qeum9EqcTxb1DSx9.fMajPjVZqWMlmPSyS', 1),
-       ('user1@imail.com', 'user1', 'user1', '$2y$12$gsBXrs7n6yhO027Me0zE8O9bxncb3gGAfntg/yeW2lEBJCSXSHXYu', 1),
-       ('user2@imail.com', 'user2', 'user2', '$2y$12$gsBXrs7n6yhO027Me0zE8O9bxncb3gGAfntg/yeW2lEBJCSXSHXYu', 1);
+       ('user1@imail.com', 'user1', 'user1', '$2y$12$fV0MR9jD496lx3kH5JYWdeXwoGI8r9CPnZ3yf6FQG7WTFZXWcUP56', 1),
+       ('user2@imail.com', 'user2', 'user2', '$2y$12$fV0MR9jD496lx3kH5JYWdeXwoGI8r9CPnZ3yf6FQG7WTFZXWcUP56', 1);
 
 insert into user_role(user_id, role_id)
 values (1, 1),

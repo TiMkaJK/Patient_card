@@ -15,8 +15,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "medicines")
-public class Medicament {
+@Document(collection = "drugs")
+public class Drug {
 
     @Id
     @Field(name = "id")

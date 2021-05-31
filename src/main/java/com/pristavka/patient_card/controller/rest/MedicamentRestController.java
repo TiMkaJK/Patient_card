@@ -17,7 +17,7 @@ public class MedicamentRestController {
 
     @GetMapping(path = "/save")
     public void saveMedicines() {
-        this.medicamentService.saveMedicines();
+        this.medicamentService.saveDrugs();
     }
 }
 

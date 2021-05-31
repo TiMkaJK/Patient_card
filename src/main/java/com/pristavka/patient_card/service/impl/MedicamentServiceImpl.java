@@ -3,7 +3,7 @@ package com.pristavka.patient_card.service.impl;
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
-import com.pristavka.patient_card.model.mongo.Medicament;
+import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.repository.mongo.MedicamentRepository;
 import com.pristavka.patient_card.service.MedicamentService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,24 +26,32 @@ public class MedicamentServiceImpl implements MedicamentService {
     private MedicamentRepository medicamentRepository;
 
     @Override
-    public void saveMedicines() {
+    public List<Drug> getDrugs() {
+        return this.medicamentRepository.findAll();
+    }
 
-        List<Medicament> meds = new ArrayList<>();
-        List<String> medsNames = getMedNames();
+    @Override
+    public void saveDrugs() {
+        this.medicamentRepository.saveAll(createDrugs());
+    }
+
+    private List<Drug> createDrugs() {
+        List<Drug> drugs = new ArrayList<>();
+        List<String> medsNames = getDrugNames();
         List<Coordinates> coordinates = getCoordinates();
         List<Manufacturer> manufacturers = getManufacturers();
         LocalDateTime defaultDate = LocalDate.parse("2016-01-01").atStartOfDay();
 
         for (int i = 0; i < medsNames.size(); i++) {
-            Medicament medicament = new Medicament();
+            Drug drug = new Drug();
 
-            medicament.setName(medsNames.get(i));
-            medicament.setManufactureDate(defaultDate.plusDays(getRandomDay()));
-            medicament.setCoordinates(coordinates.get(getRandomListValue()));
-            medicament.setManufacturer(manufacturers.get(getRandomListValue()));
+            drug.setName(medsNames.get(i));
+            drug.setManufactureDate(defaultDate.plusDays(getRandomDay()));
+            drug.setCoordinates(coordinates.get(getRandomListValue()));
+            drug.setManufacturer(manufacturers.get(getRandomListValue()));
 
             if (i < 100) {
-                medicament.setContraindications(Set.of(
+                drug.setContraindications(Set.of(
                         Contraindications.GLAUCOMA.getCode(),
                         Contraindications.AIDS.getCode(),
                         Contraindications.AUTOIMMUNE_DISEASES.getCode()
@@ -51,7 +59,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             }
 
             if (i > 100) {
-                medicament.setContraindications(Set.of(
+                drug.setContraindications(Set.of(
                         Contraindications.HIGH_BLOOD_PRESSURE.getCode(),
                         Contraindications.AUTOIMMUNE_DISEASES.getCode(),
                         Contraindications.HYPERSENSITIVITY.getCode(),
@@ -60,7 +68,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             }
 
             if (i > 200) {
-                medicament.setContraindications(Set.of(
+                drug.setContraindications(Set.of(
                         Contraindications.GASTRO_BLEEDING.getCode(),
                         Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
                         Contraindications.INSOMNIA.getCode(),
@@ -70,14 +78,14 @@ public class MedicamentServiceImpl implements MedicamentService {
             }
 
             if (i > 300) {
-                medicament.setContraindications(Set.of(
+                drug.setContraindications(Set.of(
                         Contraindications.AUTOIMMUNE_DISEASES.getCode(),
                         Contraindications.SICKNESS.getCode()
                 ));
             }
 
             if (i > 400) {
-                medicament.setContraindications(Set.of(
+                drug.setContraindications(Set.of(
                         Contraindications.LOW_BLOOD_PRESSURE.getCode(),
                         Contraindications.PREGNANCY.getCode(),
                         Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
@@ -85,13 +93,12 @@ public class MedicamentServiceImpl implements MedicamentService {
                 ));
             }
 
-            meds.add(medicament);
+            drugs.add(drug);
         }
-
-        this.medicamentRepository.saveAll(meds);
+        return drugs;
     }
 
-    private List<String> getMedNames() {
+    private List<String> getDrugNames() {
 
         List<String> actorsNames = new ArrayList<>();
 
@@ -137,7 +144,7 @@ public class MedicamentServiceImpl implements MedicamentService {
     }
 
     private int getRandomDay() {
-        return new Random().nextInt(1825);
+        return new Random().nextInt(1830);
     }
 
     private int getRandomListValue() {
