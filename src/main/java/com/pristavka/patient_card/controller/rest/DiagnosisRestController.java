@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(DiagnosisRestController.DIAGNOSIS_URL)
+@RequestMapping(path = "/diagnoses")
 @Tag(name = "Diagnosis", description = "Provide manipulation with diagnosis")
-public class DiagnosisRestController
-{
-    public static final String DIAGNOSIS_URL = "/diagnoses";
+public class DiagnosisRestController {
 
     @Autowired
     private DiagnosisService diagnosisService;
 
     @Operation(summary = "Add a new diagnosis")
     @PostMapping("/save")
-    public Diagnosis addDiagnosis(@RequestBody String name)
-    {
+    public Diagnosis addDiagnosis(@RequestBody String name) {
+
         Diagnosis diagnosis = new Diagnosis();
         diagnosis.setName(name);
         return this.diagnosisService.save(diagnosis);

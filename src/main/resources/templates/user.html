@@ -4,18 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>User Page</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<H1>Hello!!! You was successfully singIn and redirected to User page</H1>
+<H1 class="mb-5 text-center">Hello!!! You was successfully singIn and redirected to User page</H1>
 
-<table>
+<table class="table">
+    <thead class="table-dark">
     <tr>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Admission Date</th>
         <th>Clinic</th>
     </tr>
-    <
+    </thead>
     <tr th:each="patient: ${patients}">
         <td th:text="${patient.getFirstName()}"></td>
         <td th:text="${patient.getLastName()}"></td>
@@ -24,8 +29,8 @@
     </tr>
 </table>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout"/>
+<form th:action="@{/logout}" method="post" class="col-12 text-center">
+    <input type="submit" class="btn btn-dark" th:value="#{lang.logout}"/>
 </form>
 </body>
 </html>

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AllergyRepository extends JpaRepository<Allergy,Long>
-{
+public interface AllergyRepository extends JpaRepository<Allergy, Long> {
+
     @Query(value = "select * from allergy where `group` = ?1",
             nativeQuery = true)
     List<Allergy> findAllByGroup(String groupName);

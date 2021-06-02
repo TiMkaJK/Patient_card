@@ -16,17 +16,17 @@ public class PatientRestController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping()
+    @GetMapping(path = "list")
     public List<Patient> findAllPatients() {
         return this.patientService.findAll();
     }
 
-    @PostMapping("/save")
+    @PostMapping(path = "/save")
     public Patient addPatient(@RequestBody Patient patient) {
         return this.patientService.save(patient);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public Patient findPatientById(@PathVariable long id) {
         return this.patientService.findById(id);
     }

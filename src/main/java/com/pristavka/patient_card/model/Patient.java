@@ -57,5 +57,8 @@ public class Patient {
 
     @Column(name = "ward", nullable = false)
     private int ward;
+
+    @OneToMany(mappedBy = "patient")
+    private Set<PatientDrug> patientDrugs;
 }
 

@@ -12,8 +12,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiagnosisDto
-{
+public class DiagnosisDto {
+
     @Size(max = 100)
     @NotNull
     private String name;

@@ -11,8 +11,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatusDto
-{
+public class StatusDto {
+
     private UserStatus userStatus;
     private Set<User> users;
 }

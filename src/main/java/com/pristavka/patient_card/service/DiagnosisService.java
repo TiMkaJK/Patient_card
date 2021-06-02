@@ -5,8 +5,8 @@ import com.pristavka.patient_card.model.Diagnosis;
 
 import java.util.List;
 
-public interface DiagnosisService
-{
+public interface DiagnosisService {
+
     Diagnosis save(Diagnosis diagnosis);
 
     List<Diagnosis> findAll();

@@ -20,15 +20,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(AllergyRestController.ALLERGY_URL)
-@Tag(name = "Allergy", description = "Provide access to manipulation with allergies")
 @Slf4j
-public class AllergyRestController
-{
-    public static final String ALLERGY_URL = "/allergies";
+@RestController
+@RequestMapping(path = "/allergies")
+@Tag(name = "Allergy", description = "Provide access to manipulation with allergies")
+public class AllergyRestController {
 
-    private AllergyMapper mapper;
+    @Autowired
+    private AllergyMapper allergyMapper;
 
     @Autowired
     private AllergyService allergyService;
@@ -48,9 +47,8 @@ public class AllergyRestController
             )
     )
     @GetMapping
-    public List<AllergyDto> findAllAllergies()
-    {
-        return mapper.toDtoList(this.allergyService.findAll());
+    public List<AllergyDto> findAllAllergies() {
+        return this.allergyMapper.toDtoList(this.allergyService.findAll());
         //return this.allergyServiceImp.findAll();
     }
 
@@ -68,23 +66,20 @@ public class AllergyRestController
     )
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Allergy saveAllergy(@RequestBody AllergyDto allergyDto)
-    {
-        return this.allergyService.save(mapper.toEntity(allergyDto));
+    public Allergy saveAllergy(@RequestBody AllergyDto allergyDto) {
+        return this.allergyService.save(this.allergyMapper.toEntity(allergyDto));
     }
 
     @Operation(summary = "Return pageable list of all allergies")
     @RequestMapping(value = "/listPageable", method = RequestMethod.GET)
-    public Page<Allergy> allergiesPageable(Pageable pageable)
-    {
+    public Page<Allergy> allergiesPageable(Pageable pageable) {
         return this.allergyService.findAll(pageable);
     }
 
     @Operation(summary = "Return list of allergies by group")
     @GetMapping("/{group}")
-    public List<AllergyDto> findAllAllergiesByGroup(@PathVariable String group)
-    {
-        return mapper.toDtoList(this.allergyService.findAllByGroup(group));
+    public List<AllergyDto> findAllAllergiesByGroup(@PathVariable String group) {
+        return this.allergyMapper.toDtoList(this.allergyService.findAllByGroup(group));
     }
 }
 

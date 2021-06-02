@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -26,7 +26,7 @@ public class Drug {
     private String name;
 
     @Field(name = "manufactureDate")
-    private LocalDateTime manufactureDate;
+    private LocalDate manufactureDate;
 
     private Manufacturer manufacturer;
 

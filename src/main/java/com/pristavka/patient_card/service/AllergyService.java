@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface AllergyService
-{
+public interface AllergyService {
+
     Allergy save(Allergy allergy);
 
     List<Allergy> findAll();

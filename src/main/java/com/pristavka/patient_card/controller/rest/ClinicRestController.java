@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(ClinicRestController.CLINIC_URL)
+@RequestMapping(path = "/clinics")
 @Tag(name = "Clinic", description = "Provide manipulation with clinics")
-public class ClinicRestController
-{
-    public static final String CLINIC_URL = "/clinics";
+public class ClinicRestController {
 
     @Autowired
     private ClinicService clinicService;
 
     @Operation(summary = "Add a new clinic")
     @PostMapping("/save")
-    public Clinic saveClinic(@RequestBody String name)
-    {
+    public Clinic saveClinic(@RequestBody String name) {
+
         Clinic clinic = new Clinic();
         clinic.setName(name);
         return this.clinicService.save(clinic);

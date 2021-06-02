@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AllergyDto
-{
+public class AllergyDto {
+
     @Schema(
             description = "Allergy unique identifier id",
             example = "1"
@@ -31,6 +31,5 @@ public class AllergyDto
     )
     @Size(min = 1, max = 50)
     private String group;
-
 }
 

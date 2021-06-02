@@ -47,13 +47,23 @@
                     <div class="row">
                         <div class="col-sm-6 offset-3 mt-5">
                             <input type="submit" name="login-submit" id="login-submit"
-                                   class="form-control btn btn-primary" value="Log In"/>
+                                   class="form-control btn btn-dark" value="Sing In"/>
                         </div>
                     </div>
                 </div>
-                <div class="form-group mt-5">
-                    <span>New user ? <a href="/" th:href="@{/registration}">Register here</a></span>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 offset-3 mt-3">
+                            <a href="/" class="form-control btn btn-dark" th:href="@{/registration}">Sign Up</a>
+                        </div>
+                    </div>
                 </div>
+
+                <!--<div class="form-group mt-5">
+                    <a href="/" class="btn btn-dark" th:href="@{/registration}">Register here</a>
+&lt;!&ndash;                    <span>New user ? <a href="/" class="btn btn-dark" th:href="@{/registration}">Register here</a></span>&ndash;&gt;
+                </div>-->
             </form>
         </div>
     </div>

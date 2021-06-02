@@ -13,8 +13,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto
-{
+public class UserDto {
+
     private String email;
 
     @Size(max = 50)

@@ -3,7 +3,7 @@ package com.pristavka.patient_card.controller.mvc;
 
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.model.User;
-import com.pristavka.patient_card.service.impl.PatientServiceImpl;
+import com.pristavka.patient_card.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,16 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@Controller
 @Slf4j
-public class PatientMvcController
-{
-    @Autowired
-    private PatientServiceImpl patientService;
+@Controller
+public class PatientMvcController {
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView admin()
-    {
+    @Autowired
+    private PatientService patientService;
+
+    @RequestMapping(path = "/admin", method = RequestMethod.GET)
+    public ModelAndView admin() {
+
         List<Patient> patients = this.patientService.findAll();
 
         ModelAndView model = new ModelAndView();
@@ -36,9 +36,9 @@ public class PatientMvcController
         return model;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ModelAndView user(Authentication authentication)
-    {
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    public ModelAndView user(Authentication authentication) {
+
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         List<Patient> patients = this.patientService.findAllByUserEmail(userDetails.getUsername());
@@ -50,10 +50,15 @@ public class PatientMvcController
         return model;
     }
 
-    @GetMapping("/registration")
+    @GetMapping(path = "/registration")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
 
         return "signup_form";
+    }
+
+    @GetMapping(path = "/patient_form")
+    public String showPatientForm() {
+        return "patient_form";
     }
 }

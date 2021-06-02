@@ -2,8 +2,8 @@ package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
-import com.pristavka.patient_card.model.mongo.Manufacturer;
 import com.pristavka.patient_card.model.mongo.Drug;
+import com.pristavka.patient_card.model.mongo.Manufacturer;
 import com.pristavka.patient_card.repository.mongo.MedicamentRepository;
 import com.pristavka.patient_card.service.MedicamentService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -24,6 +26,9 @@ public class MedicamentServiceImpl implements MedicamentService {
 
     @Autowired
     private MedicamentRepository medicamentRepository;
+
+    public static final int DATE_BOUND = 1830;
+    public static final int LIST_BOUND = 5;
 
     @Override
     public List<Drug> getDrugs() {
@@ -36,19 +41,21 @@ public class MedicamentServiceImpl implements MedicamentService {
     }
 
     private List<Drug> createDrugs() {
+
         List<Drug> drugs = new ArrayList<>();
         List<String> medsNames = getDrugNames();
         List<Coordinates> coordinates = getCoordinates();
         List<Manufacturer> manufacturers = getManufacturers();
-        LocalDateTime defaultDate = LocalDate.parse("2016-01-01").atStartOfDay();
+        LocalDate defaultDate = LocalDate.parse("2016-01-01");
 
         for (int i = 0; i < medsNames.size(); i++) {
+
             Drug drug = new Drug();
 
             drug.setName(medsNames.get(i));
-            drug.setManufactureDate(defaultDate.plusDays(getRandomDay()));
-            drug.setCoordinates(coordinates.get(getRandomListValue()));
-            drug.setManufacturer(manufacturers.get(getRandomListValue()));
+            drug.setManufactureDate(defaultDate.plusDays(getRandomValue(DATE_BOUND)));
+            drug.setCoordinates(coordinates.get(getRandomValue(LIST_BOUND)));
+            drug.setManufacturer(manufacturers.get(getRandomValue(LIST_BOUND)));
 
             if (i < 100) {
                 drug.setContraindications(Set.of(
@@ -142,13 +149,17 @@ public class MedicamentServiceImpl implements MedicamentService {
 
         return manufacturers;
     }
-
+/*
     private int getRandomDay() {
         return new Random().nextInt(1830);
     }
 
     private int getRandomListValue() {
         return new Random().nextInt(5);
+    }*/
+
+    private int getRandomValue(int bound) {
+        return new Random().nextInt(bound);
     }
 }
 

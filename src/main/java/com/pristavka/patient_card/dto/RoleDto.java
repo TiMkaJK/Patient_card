@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDto
-{
+public class RoleDto {
+
     private UserRole userRole;
 }
 

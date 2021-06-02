@@ -13,18 +13,17 @@ import java.io.IOException;
 import java.util.Set;
 
 @Configuration
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
-{
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
     @SneakyThrows
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
-                                        Authentication authentication) throws IOException
-    {
+                                        Authentication authentication) throws IOException {
+
         String redirectUrl = getRedirectUrl(authentication);
 
-        if (httpServletResponse.isCommitted())
-        {
+        if (httpServletResponse.isCommitted()) {
             return;
         }
 
@@ -32,19 +31,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         httpServletResponse.sendRedirect(redirectUrl);
     }
 
-    private String getRedirectUrl(Authentication authentication)
-    {
+    private String getRedirectUrl(Authentication authentication) {
+
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        if (roles.contains(UserRole.ADMIN.toString()))
-        {
+        if (roles.contains(UserRole.ADMIN.toString())) {
             return "/admin";
-        }
-        else if (roles.contains(UserRole.USER.toString()))
-        {
+        } else if (roles.contains(UserRole.USER.toString())) {
             return "/user";
-        }
-        else throw new IllegalStateException();
+        } else throw new IllegalStateException();
     }
 }
 

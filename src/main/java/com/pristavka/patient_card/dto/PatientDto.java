@@ -17,8 +17,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientDto
-{
+public class PatientDto {
+
     @Size(max = 40)
     @NotNull
     private String firstName;
