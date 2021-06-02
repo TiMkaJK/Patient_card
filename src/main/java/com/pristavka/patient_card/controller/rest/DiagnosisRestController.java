@@ -19,7 +19,7 @@ public class DiagnosisRestController {
     private DiagnosisService diagnosisService;
 
     @Operation(summary = "Add a new diagnosis")
-    @PostMapping("/save")
+    @PostMapping(path = "/save")
     public Diagnosis addDiagnosis(@RequestBody String name) {
 
         Diagnosis diagnosis = new Diagnosis();

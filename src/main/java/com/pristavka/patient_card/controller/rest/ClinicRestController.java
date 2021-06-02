@@ -20,7 +20,7 @@ public class ClinicRestController {
     private ClinicService clinicService;
 
     @Operation(summary = "Add a new clinic")
-    @PostMapping("/save")
+    @PostMapping(path = "/save")
     public Clinic saveClinic(@RequestBody String name) {
 
         Clinic clinic = new Clinic();

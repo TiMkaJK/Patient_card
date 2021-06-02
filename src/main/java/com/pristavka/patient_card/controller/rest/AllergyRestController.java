@@ -49,7 +49,6 @@ public class AllergyRestController {
     @GetMapping
     public List<AllergyDto> findAllAllergies() {
         return this.allergyMapper.toDtoList(this.allergyService.findAll());
-        //return this.allergyServiceImp.findAll();
     }
 
     @Operation(summary = "Add a new allergy",
@@ -64,20 +63,20 @@ public class AllergyRestController {
                     )
             )
     )
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(path = "/save", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Allergy saveAllergy(@RequestBody AllergyDto allergyDto) {
         return this.allergyService.save(this.allergyMapper.toEntity(allergyDto));
     }
 
     @Operation(summary = "Return pageable list of all allergies")
-    @RequestMapping(value = "/listPageable", method = RequestMethod.GET)
+    @RequestMapping(path = "/listPageable", method = RequestMethod.GET)
     public Page<Allergy> allergiesPageable(Pageable pageable) {
         return this.allergyService.findAll(pageable);
     }
 
     @Operation(summary = "Return list of allergies by group")
-    @GetMapping("/{group}")
+    @GetMapping(path = "/{group}")
     public List<AllergyDto> findAllAllergiesByGroup(@PathVariable String group) {
         return this.allergyMapper.toDtoList(this.allergyService.findAllByGroup(group));
     }
