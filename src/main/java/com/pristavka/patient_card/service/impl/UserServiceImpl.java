@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,11 @@ public class UserServiceImpl implements UserService
     public User save(UserDto userDto)
     {
         return null;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return this.userRepository.findAll();
     }
 
     @Override

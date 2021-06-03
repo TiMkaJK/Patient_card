@@ -1,9 +1,12 @@
 package com.pristavka.patient_card.controller.mvc;
 
 
+import com.pristavka.patient_card.mapper.UserMapper;
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.model.User;
+import com.pristavka.patient_card.service.ClinicService;
 import com.pristavka.patient_card.service.PatientService;
+import com.pristavka.patient_card.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,6 +26,15 @@ public class PatientMvcController {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private ClinicService clinicService;
 
     @RequestMapping(path = "/admin", method = RequestMethod.GET)
     public ModelAndView admin() {
@@ -54,11 +66,14 @@ public class PatientMvcController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
 
-        return "signup_form";
+        return "registration";
     }
 
-    @GetMapping(path = "/patient_form")
-    public String showPatientForm() {
+    @GetMapping(path = "/add_patient")
+    public String showPatientForm(Model model) {
+        model.addAttribute("patient", new Patient());
+        model.addAttribute("clinics", this.clinicService.findAll());
+
         return "patient_form";
     }
 }

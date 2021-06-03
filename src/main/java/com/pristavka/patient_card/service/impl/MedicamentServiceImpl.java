@@ -102,6 +102,7 @@ public class MedicamentServiceImpl implements MedicamentService {
 
             drugs.add(drug);
         }
+
         return drugs;
     }
 
@@ -149,14 +150,6 @@ public class MedicamentServiceImpl implements MedicamentService {
 
         return manufacturers;
     }
-/*
-    private int getRandomDay() {
-        return new Random().nextInt(1830);
-    }
-
-    private int getRandomListValue() {
-        return new Random().nextInt(5);
-    }*/
 
     private int getRandomValue(int bound) {
         return new Random().nextInt(bound);

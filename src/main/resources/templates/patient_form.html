@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up</title>
+    <!--    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"/>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-
+beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-
+giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-
+beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-
+ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+<!--    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>-->
+<!--    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>-->
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Add New Patient</h1>
+    </div>
+    <form th:action="@{/patients/save}" class="border" th:object="${patient}" method="post"
+          style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">First Name : </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{firstName}" class="form-control" required/>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Last Name : </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{lastName}" class="form-control" required minlength="6"
+                           maxlength="10"/>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Admission Date : </label>
+                <div class="col-8">
+                    <input type="date" th:field="*{admissionDate}" class="form-control" maxlength="20"/>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Clinic : </label>
+                <div class="dropdown col-8">
+                    <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Select a clinic...
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <!--<li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+                        <li th:each="clinic : ${clinics}">
+                            <a class="dropdown-item" href="#" th:text="${clinic.getName()}"></a>
+<!--                            <a class="dropdown-item" href="#" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></a>-->
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Floor : </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{floor}" class="form-control" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Ward : </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{ward}" class="form-control" required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="col-sm-6 offset-3 mt-3">
+                <button type="submit" class="btn btn-dark">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".dropdown-toggle").dropdown();
+    });
+</script>
