@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/clinics")
+@RequestMapping(path = "/api/clinics/")
 @Tag(name = "Clinic", description = "Provide manipulation with clinics")
 public class ClinicRestController {
 
@@ -35,7 +35,7 @@ public class ClinicRestController {
     }
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<ClinicDto>> getClinics () {
+    public ResponseEntity<List<ClinicDto>> getClinics() {
         return new ResponseEntity<>(this.clinicMapper.toDtoList(this.clinicService.findAll()), HttpStatus.OK);
     }
 }

@@ -1,7 +1,6 @@
 package com.pristavka.patient_card.controller.mvc;
 
 
-import com.pristavka.patient_card.mapper.UserMapper;
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.model.User;
 import com.pristavka.patient_card.service.ClinicService;
@@ -28,13 +27,10 @@ public class PatientMvcController {
     private PatientService patientService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(path = "/admin", method = RequestMethod.GET)
     public ModelAndView admin() {
@@ -72,7 +68,8 @@ public class PatientMvcController {
     @GetMapping(path = "/add_patient")
     public String showPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
-        model.addAttribute("clinics", this.clinicService.findAll());
+//        model.addAttribute("users", this.userService.getUsers());
+//        model.addAttribute("clinics",this.clinicService.findAll());
 
         return "patient_form";
     }
