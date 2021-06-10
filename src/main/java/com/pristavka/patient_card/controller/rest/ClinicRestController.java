@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/api/clinics/")
+@RequestMapping(path = "/api/clinics")
 @Tag(name = "Clinic", description = "Provide manipulation with clinics")
 public class ClinicRestController {
 

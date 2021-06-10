@@ -12,13 +12,15 @@ giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-
 ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>
     <!--    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>-->
 </head>
 <body>
 <div class="container text-center">
     <div>
-        <h1>Add New Patient</h1>
+        <h1>Add Patient</h1>
     </div>
     <form th:action="@{/patients/save}" id="patient-form" class="border" th:object="${patient}" method="post"
           style="max-width: 600px; margin: 0 auto;">
@@ -26,14 +28,14 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">First Name : </label>
                 <div class="col-8">
-                    <input type="text" th:field="*{firstName}" class="form-control" required/>
+                    <input id="first-name" type="text" th:field="*{firstName}" class="form-control" required/>
                 </div>
             </div>
 
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Last Name : </label>
                 <div class="col-8">
-                    <input type="text" th:field="*{lastName}" class="form-control" required minlength="6"
+                    <input type="text" id="last-name" th:field="*{lastName}" class="form-control" required minlength="6"
                            maxlength="10"/>
                 </div>
             </div>
@@ -41,7 +43,8 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Admission Date : </label>
                 <div class="col-8">
-                    <input type="date" th:field="*{admissionDate}" class="form-control" maxlength="20"/>
+                    <input type="datetime-local" id="admission-date" th:field="*{admissionDate}" class="form-control"
+                           maxlength="20"/>
                 </div>
             </div>
             <div class="form-group row mt-3">
@@ -58,22 +61,30 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
                 </div>
             </div>
 
+            <!--<div class="form-group row mt-3">
+                <label class="col-4 col-form-label">Drug : </label>
+                <div class="dropdown col-8">
+                    <select id="drug-list" class="col-8 w-100 h-100"></select>
+                </div>
+            </div>-->
+
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Floor : </label>
                 <div class="col-8">
-                    <input type="number" th:field="*{floor}" class="form-control" maxlength="20"/>
+                    <input type="number" id="floor" th:field="*{floor}" class="form-control" maxlength="20"/>
                 </div>
             </div>
 
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Ward : </label>
                 <div class="col-8">
-                    <input type="number" th:field="*{ward}" class="form-control" required minlength="2" maxlength="20"/>
+                    <input type="number" id="ward" th:field="*{ward}" class="form-control" required minlength="2"
+                           maxlength="20"/>
                 </div>
             </div>
 
             <div class="col-sm-6 offset-3 mt-3">
-                <button type="submit" class="btn btn-dark">Sign Up</button>
+                <button type="submit" id="submit" class="btn btn-dark">Sign Up</button>
             </div>
         </div>
     </form>
@@ -107,6 +118,72 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
                 $clinicList.append($clinic);
             });
         });
+
+   /* $('#drug-list').select2({
+        ajax: {
+            url: 'http://localhost:8082/api/drugs/list',
+            data: function (params) {
+                let query = {
+                    search: params.term,
+                    page: params.page || 0
+                };
+
+                // Query parameters will be ?search=[term]&page=[page]
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+
+        }
+    });*/
+
+    $('#patient-form').on('submit', function (event) {
+        event.preventDefault();
+    })
+
+    $('#submit').on('click' , function (event) {
+        let firstName = $('#first-name').val();
+        let lastName = $('#last-name').val();
+        let admissionDate = $('#admission-date').val();
+        let ward = $('#ward').val();
+        let floor = $('#floor').val();
+
+        console.log(admissionDate);
+
+        let patientObject = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "admissionDate": admissionDate,
+            "user": {
+                id: 1
+            },
+            "clinic": {
+                id: 2
+            },
+            "ward": ward,
+            "floor": floor,
+        }
+
+        $.ajax({
+            url: 'http://localhost:8082/api/patients/save',
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(patientObject),
+            success: function(result){
+                location.assign("/admin");
+            }
+        })
+
+    })
 
 </script>
 </html>

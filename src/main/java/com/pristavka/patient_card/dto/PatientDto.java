@@ -1,17 +1,18 @@
 package com.pristavka.patient_card.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.model.Diagnosis;
-import com.pristavka.patient_card.model.User;
+import com.pristavka.patient_card.model.PatientDrug;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,25 +21,27 @@ import java.util.Set;
 public class PatientDto {
 
     @Size(max = 40)
-    @NotNull
+    @NotBlank
     private String firstName;
 
     @Size(max = 50)
-    @NotNull
+    @NotBlank
     private String lastName;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime admissionDate;
     private Set<Diagnosis> diagnoses;
     private Set<Allergy> allergies;
-    private Clinic clinic;
-    private User user;
+    private ClinicDto clinic;
+    private UserDto user;
 
     @NotNull
     private int floor;
 
     @NotNull
     private int ward;
+
+    private List<PatientDrug> patientDrugs;
 }
 

@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll();
 
         http.httpBasic();
+        http.csrf().disable();
     }
 
     @Bean
@@ -67,7 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/swagger-ui/**",
                 "/patient_card",
-                "/webjars/**");
+                "/webjars/**",
+                "/api/**");
     }
 
     @Bean

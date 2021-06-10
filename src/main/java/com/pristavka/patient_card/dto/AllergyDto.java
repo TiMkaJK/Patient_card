@@ -16,7 +16,7 @@ public class AllergyDto {
             description = "Allergy unique identifier id",
             example = "1"
     )
-    private long id;
+    private Long id;
 
     @Schema(
             description = "name of the allergen",

@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class StatusDto {
 
+    private Long id;
     private UserStatus userStatus;
     private Set<User> users;
 }

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ClinicMapper.class, UserMapper.class})
 public interface PatientMapper {
 
     PatientDto toDto(Patient model);
@@ -14,5 +14,4 @@ public interface PatientMapper {
     Patient toModel(PatientDto dto);
 
     List<PatientDto> toDtoList(List<Patient> list);
-
 }

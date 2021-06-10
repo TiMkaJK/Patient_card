@@ -14,6 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class DiagnosisDto {
 
+    private Long id;
+
     @Size(max = 100)
     @NotNull
     private String name;

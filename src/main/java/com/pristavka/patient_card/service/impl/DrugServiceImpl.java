@@ -1,43 +1,51 @@
 package com.pristavka.patient_card.service.impl;
 
+import com.pristavka.patient_card.model.PatientDrug;
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
-import com.pristavka.patient_card.repository.mongo.MedicamentRepository;
-import com.pristavka.patient_card.service.MedicamentService;
+import com.pristavka.patient_card.repository.mongo.DrugRepository;
+import com.pristavka.patient_card.service.DrugService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
-public class MedicamentServiceImpl implements MedicamentService {
+public class DrugServiceImpl implements DrugService {
 
     @Autowired
-    private MedicamentRepository medicamentRepository;
+    private DrugRepository drugRepository;
 
     public static final int DATE_BOUND = 1830;
     public static final int LIST_BOUND = 5;
 
     @Override
-    public List<Drug> getDrugs() {
-        return this.medicamentRepository.findAll();
+    public Page<Drug> getDrugs(Pageable pageable) {
+        return this.drugRepository.findAll(pageable);
     }
 
     @Override
     public void saveDrugs() {
-        this.medicamentRepository.saveAll(createDrugs());
+        this.drugRepository.saveAll(createDrugs());
+    }
+
+    @Override
+    public Boolean updatePatients(PatientDrug patientDrug) {
+        Drug drug = this.drugRepository.findById(patientDrug.getDrugId()).orElseThrow(IllegalArgumentException::new);
+        drug.getPatients().add(patientDrug.getPatient());
+        this.drugRepository.save(drug);
+        return true;
     }
 
     private List<Drug> createDrugs() {
