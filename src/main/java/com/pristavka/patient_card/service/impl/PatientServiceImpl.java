@@ -22,7 +22,7 @@ public class PatientServiceImpl implements PatientService {
     private PatientMapper patientMapper;
 
     @Override
-    public Patient findById(long id) {
+    public Patient findById(Long id) {
         return this.patientRepository.findById(id).orElseThrow(() -> new NotFoundException("patient not found"));
     }
 
@@ -39,6 +39,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient save(Patient patient) {
         return this.patientRepository.save(patient);
+    }
+
+    @Override
+    public Patient findPatientById(Long id) {
+        return this.patientRepository.findPatientById(id);
     }
 }
 

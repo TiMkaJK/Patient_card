@@ -1,10 +1,7 @@
 package com.pristavka.patient_card.dto;
 
 import com.pristavka.patient_card.model.Patient;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,16 +9,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class PatientDrugDto {
 
     private Long id;
-
     private Patient patient;
-
     private String drugId;
-
     private LocalDateTime purchaseDate;
-
     private int quantity;
 }
 

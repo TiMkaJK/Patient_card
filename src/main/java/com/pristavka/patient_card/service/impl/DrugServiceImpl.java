@@ -1,5 +1,7 @@
 package com.pristavka.patient_card.service.impl;
 
+import com.pristavka.patient_card.mapper.PatientMapper;
+import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.model.PatientDrug;
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
@@ -7,6 +9,7 @@ import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
 import com.pristavka.patient_card.repository.mongo.DrugRepository;
 import com.pristavka.patient_card.service.DrugService;
+import com.pristavka.patient_card.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,6 +30,12 @@ public class DrugServiceImpl implements DrugService {
     @Autowired
     private DrugRepository drugRepository;
 
+    @Autowired
+    private PatientService patientService;
+
+    @Autowired
+    private PatientMapper patientMapper;
+
     public static final int DATE_BOUND = 1830;
     public static final int LIST_BOUND = 5;
 
@@ -42,9 +51,18 @@ public class DrugServiceImpl implements DrugService {
 
     @Override
     public Boolean updatePatients(PatientDrug patientDrug) {
+
         Drug drug = this.drugRepository.findById(patientDrug.getDrugId()).orElseThrow(IllegalArgumentException::new);
-        drug.getPatients().add(patientDrug.getPatient());
+        log.info(drug + "");
+
+        Patient patient = this.patientService.findPatientById(patientDrug.getPatient().getId());
+        log.info(patient + "");
+
+        drug.getPatients().add(patient);
+        log.info(drug + "");
+
         this.drugRepository.save(drug);
+
         return true;
     }
 

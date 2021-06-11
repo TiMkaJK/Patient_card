@@ -10,4 +10,5 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     List<Patient> findAllByUserEmail(String email);
+    Patient findPatientById(Long id);
 }

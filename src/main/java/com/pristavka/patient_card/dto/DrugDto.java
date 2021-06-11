@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -21,6 +22,6 @@ public class DrugDto {
     private LocalDate manufactureDate;
     private Manufacturer manufacturer;
     private Coordinates coordinates;
-    private Set<String> contraindications;
+    private Set<String> contraindications = new HashSet<>();
 }
 

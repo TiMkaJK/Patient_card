@@ -4,6 +4,7 @@ import com.pristavka.patient_card.model.enums.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -27,6 +28,6 @@ public class Status {
     private UserStatus userStatus;
 
     @OneToMany(mappedBy = "status")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 }
 

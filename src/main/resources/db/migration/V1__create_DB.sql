@@ -1,8 +1,8 @@
 create table allergy
 (
-    id   bigint      not null auto_increment,
+    id      bigint      not null auto_increment,
     `group` varchar(50),
-    name varchar(50) not null,
+    name    varchar(50) not null,
     primary key (id)
 );
 
@@ -37,16 +37,18 @@ create table patient
 
 create table patient_allergy
 (
+    id bigint not null auto_increment,
     patient_id bigint not null,
     allergy_id bigint not null,
-    primary key (patient_id, allergy_id)
+    primary key (id)
 );
 
 create table patient_diagnosis
 (
+    id bigint not null auto_increment,
     patient_id   bigint not null,
     diagnosis_id bigint not null,
-    primary key (patient_id, diagnosis_id)
+    primary key (id)
 );
 
 create table role
@@ -76,9 +78,10 @@ create table user
 
 create table user_role
 (
+    id bigint not null auto_increment,
     user_id bigint not null,
     role_id bigint not null,
-    primary key (user_id, role_id)
+    primary key (id)
 );
 
 alter table allergy

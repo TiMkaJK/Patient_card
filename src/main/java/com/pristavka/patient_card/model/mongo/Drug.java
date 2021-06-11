@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,8 +19,7 @@ import java.util.Set;
 public class Drug {
 
     @Id
-    @Field(name = "_id")
-    private String _id;
+    private String id;
 
     @Field(name = "name")
     private String name;
@@ -32,8 +31,8 @@ public class Drug {
 
     private Coordinates coordinates;
 
-    private Set<String> contraindications;
+    private Set<String> contraindications = new HashSet<>();
 
-    private List<Patient> patients;
+    private Set<Patient> patients = new HashSet<>();
 }
 

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -31,8 +31,8 @@ public class PatientDto {
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime admissionDate;
-    private Set<Diagnosis> diagnoses;
-    private Set<Allergy> allergies;
+    private Set<Diagnosis> diagnoses = new HashSet<>();
+    private Set<Allergy> allergies = new HashSet<>();
     private ClinicDto clinic;
     private UserDto user;
 
@@ -42,6 +42,6 @@ public class PatientDto {
     @NotNull
     private int ward;
 
-    private List<PatientDrug> patientDrugs;
+    private Set<PatientDrug> patientDrugs = new HashSet<>();
 }
 

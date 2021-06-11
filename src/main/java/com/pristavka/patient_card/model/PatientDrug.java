@@ -1,9 +1,6 @@
 package com.pristavka.patient_card.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = "patient")
 @Table(name = "patient_drug")
 public class PatientDrug {
 
@@ -21,11 +19,11 @@ public class PatientDrug {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @Column(name = "drugId", length = 50)
+    @Column(name = "drug_id")
     private String drugId;
 
     @Column(name = "purchase_date")
