@@ -17,34 +17,28 @@ giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-
 ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
 
-<h1 class="mb-5 text-center" text="Drugs List"></h1>
+<h1 class="mb-5 text-center">Drugs List</h1>
 
-<table id="drug-table" class="table">
-    <thead class="table-dark">
-    <tr>
-        <th text="Name"></th>
-        <th text="Manufacture Name"></th>
-        <th text="Manufacture Date"></th>
-        <th text="Manufacture Address"></th>
-        <th text="Availability"></th>
-        <th text="Contraindications"></th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+<div class="overflow-auto">
+    <table id="drug-table" class="table h-75">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Manufacture Date</th>
+            <th>Manufacture Address</th>
+            <th>Availability</th>
+            <th>Contraindications</th>
+        </tr>
+        </thead>
+        <tbody id="drugs-body">
+        </tbody>
+    </table>
+</div>
+<nav aria-label="Page navigation example" class="text-center">
+    <ul class="pagination" id="pagination">
     </ul>
 </nav>
 </body>
@@ -52,6 +46,7 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 <script>
     //
     let currentPage = 1;
+    getDrugs(currentPage);
 
     function getDrugs(page) {
 
@@ -63,21 +58,32 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             contentType: "application/json",
 
             success: function (res) {
-                const pagination = $('#pagination');
 
-                pagination.append(`<li className="page-item"><a className="page-link" href="#">Previous</a></li>`);
-
-                let totalPages = res.content.totalPages - 2;
+                let totalPages = res.totalPages;
+                const $pagination = $('#pagination');
 
                 for (let i = 0; i < totalPages; i++) {
-                    pagination.append(`<li className="page-item"><a className="page-link" href="#">i + 1</a></li>`)
+                    $pagination.append(`<li class="page-item"><a class="page-link" href="#">${i + 1}</a></li>`)
                 }
 
-                pagination.append(`<li className="page-item"><a className="page-link" href="#">Next</a></li>`);
+                let content = res.content;
+                const $tableBody = $('#drugs-body');
+
+                content.forEach(function (item) {
+                    $tableBody.append(`<tr><td>${item.name}</td>
+                                     <td>${item.manufactureDate}</td>
+                                     <td>${item.manufacturer.name} ${item.manufacturer.city} ${item.manufacturer.street}</td>
+                                     <td>${item.coordinates.latitude} ${item.coordinates.longitude}</td>
+                                     <td>${item.contraindications}</td></tr>`);
+                });
             }
         });
     }
 
-    getDrugs(currentPage);
+    $('body').on('click', '.page-item', function () {
+        $('#drug-table').removeData();
+        currentPage = $(this).find('a').text();
+        getDrugs(currentPage);
+    })
 
 </script>

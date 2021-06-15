@@ -56,6 +56,7 @@ public class DrugServiceImpl implements DrugService {
         List<String> medsNames = getDrugNames();
         List<Coordinates> coordinates = getCoordinates();
         List<Manufacturer> manufacturers = getManufacturers();
+        List<Set<String>> contraindications = getContraindications();
         LocalDate defaultDate = LocalDate.parse("2016-01-01");
 
         for (int i = 0; i < medsNames.size(); i++) {
@@ -66,54 +67,51 @@ public class DrugServiceImpl implements DrugService {
             drug.setManufactureDate(defaultDate.plusDays(getRandomValue(DATE_BOUND)));
             drug.setCoordinates(coordinates.get(getRandomValue(LIST_BOUND)));
             drug.setManufacturer(manufacturers.get(getRandomValue(LIST_BOUND)));
-
-            if (i < 100) {
-                drug.setContraindications(Set.of(
-                        Contraindications.GLAUCOMA.getCode(),
-                        Contraindications.AIDS.getCode(),
-                        Contraindications.AUTOIMMUNE_DISEASES.getCode()
-                ));
-            }
-
-            if (i > 100) {
-                drug.setContraindications(Set.of(
-                        Contraindications.HIGH_BLOOD_PRESSURE.getCode(),
-                        Contraindications.AUTOIMMUNE_DISEASES.getCode(),
-                        Contraindications.HYPERSENSITIVITY.getCode(),
-                        Contraindications.HEMOPHILIA.getCode()
-                ));
-            }
-
-            if (i > 200) {
-                drug.setContraindications(Set.of(
-                        Contraindications.GASTRO_BLEEDING.getCode(),
-                        Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
-                        Contraindications.INSOMNIA.getCode(),
-                        Contraindications.SICKNESS.getCode(),
-                        Contraindications.TUMOURS.getCode()
-                ));
-            }
-
-            if (i > 300) {
-                drug.setContraindications(Set.of(
-                        Contraindications.AUTOIMMUNE_DISEASES.getCode(),
-                        Contraindications.SICKNESS.getCode()
-                ));
-            }
-
-            if (i > 400) {
-                drug.setContraindications(Set.of(
-                        Contraindications.LOW_BLOOD_PRESSURE.getCode(),
-                        Contraindications.PREGNANCY.getCode(),
-                        Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
-                        Contraindications.INSOMNIA.getCode()
-                ));
-            }
+            drug.setContraindications(contraindications.get(getRandomValue(LIST_BOUND)));
 
             drugs.add(drug);
         }
 
         return drugs;
+    }
+
+    private List<Set<String>> getContraindications(){
+        List<Set<String>> contraindications = new ArrayList<>();
+
+        contraindications.add(Set.of(
+                Contraindications.GLAUCOMA.getCode(),
+                Contraindications.AIDS.getCode(),
+                Contraindications.AUTOIMMUNE_DISEASES.getCode())
+        );
+
+        contraindications.add(Set.of(
+                Contraindications.HIGH_BLOOD_PRESSURE.getCode(),
+                Contraindications.AUTOIMMUNE_DISEASES.getCode(),
+                Contraindications.HYPERSENSITIVITY.getCode(),
+                Contraindications.HEMOPHILIA.getCode()
+        ));
+
+        contraindications.add(Set.of(
+                Contraindications.GASTRO_BLEEDING.getCode(),
+                Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
+                Contraindications.INSOMNIA.getCode(),
+                Contraindications.SICKNESS.getCode(),
+                Contraindications.TUMOURS.getCode()
+        ));
+
+        contraindications.add(Set.of(
+                Contraindications.AUTOIMMUNE_DISEASES.getCode(),
+                Contraindications.SICKNESS.getCode()
+        ));
+
+        contraindications.add(Set.of(
+                Contraindications.LOW_BLOOD_PRESSURE.getCode(),
+                Contraindications.PREGNANCY.getCode(),
+                Contraindications.INTESTINAL_OBSTRUCTION.getCode(),
+                Contraindications.INSOMNIA.getCode()
+        ));
+
+        return contraindications;
     }
 
     private List<String> getDrugNames() {

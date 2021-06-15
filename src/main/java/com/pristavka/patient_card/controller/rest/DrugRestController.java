@@ -6,13 +6,13 @@ import com.pristavka.patient_card.mapper.PatientDrugMapper;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.service.DrugService;
 import com.pristavka.patient_card.service.PatientDrugService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
-
+@Slf4j
 @RestController
 @RequestMapping(path = "api/drugs")
 public class DrugRestController {
@@ -36,7 +36,6 @@ public class DrugRestController {
 
     @GetMapping(path = "/list-pageable")
     public Page<Drug> getDrugs(Pageable pageable) {
-        Logger.getLogger("hello");
         return this.drugService.getDrugs(pageable);
     }
 
