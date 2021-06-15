@@ -43,14 +43,16 @@
 <div class="col-sm-2 offset-5 mt-3">
     <a class="form-control btn btn-dark" th:href="@{/add_patient}">Add Patient</a>
 </div>
-<form th:action="@{/logout}" method="post" class="text-center mt-5">
-    <input type="submit" class="btn btn-dark" th:value="#{lang.logout}"/>
+<div class="col-sm-2 offset-5 mt-3">
+    <a class="form-control btn btn-dark" th:href="@{/get-drug-list}">Drugs</a>
+</div>
+<form th:action="@{/logout}" method="post" class="col-sm-2 offset-5 mt-3">
+    <input type="submit" class="form-control btn btn-dark" th:value="#{lang.logout}"/>
 </form>
 
 </body>
 </html>
 
-</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#locales").change(function () {

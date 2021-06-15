@@ -1,8 +1,6 @@
 package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.mapper.PatientMapper;
-import com.pristavka.patient_card.model.Patient;
-import com.pristavka.patient_card.model.PatientDrug;
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Drug;
@@ -21,7 +19,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -47,23 +48,6 @@ public class DrugServiceImpl implements DrugService {
     @Override
     public void saveDrugs() {
         this.drugRepository.saveAll(createDrugs());
-    }
-
-    @Override
-    public Boolean updatePatients(PatientDrug patientDrug) {
-
-        Drug drug = this.drugRepository.findById(patientDrug.getDrugId()).orElseThrow(IllegalArgumentException::new);
-        log.info(drug + "");
-
-        Patient patient = this.patientService.findPatientById(patientDrug.getPatient().getId());
-        log.info(patient + "");
-
-        drug.getPatients().add(patient);
-        log.info(drug + "");
-
-        this.drugRepository.save(drug);
-
-        return true;
     }
 
     private List<Drug> createDrugs() {

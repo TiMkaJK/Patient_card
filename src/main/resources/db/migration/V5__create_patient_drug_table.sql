@@ -1,14 +1,14 @@
-create table patient_drug
+CREATE TABLE patient_drug
 (
-    id            bigint not null auto_increment,
-    patient_id    bigint not null,
-    drug_id       varchar(255) not null,
-    purchase_date timestamp default current_timestamp,
-    quantity      int    not null,
-    primary key (id)
+    id            BIGINT       NOT NULL AUTO_INCREMENT,
+    patient_id    BIGINT       NOT NULL,
+    drug_id       VARCHAR(255) NOT NULL,
+    purchase_date TIMESTAMP DEFAULT current_timestamp,
+    quantity      INT          NOT NULL,
+    PRIMARY KEY (id)
 );
 
-alter table patient_drug
-    add constraint fk_patientDrug_patient_Id
-        foreign key (patient_id)
-            references patient (id);
+ALTER TABLE patient_drug
+    ADD CONSTRAINT fk_patientDrug_patient_Id
+        FOREIGN KEY (patient_id)
+            REFERENCES patient (id);

@@ -13,15 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Slf4j
 @Controller
-public class PatientMvcController {
+public class PatientController {
 
     @Autowired
     private PatientService patientService;
@@ -32,7 +30,7 @@ public class PatientMvcController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/admin", method = RequestMethod.GET)
+    @GetMapping(path = "/admin")
     public ModelAndView admin() {
 
         List<Patient> patients = this.patientService.findAll();
@@ -44,7 +42,7 @@ public class PatientMvcController {
         return model;
     }
 
-    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    @GetMapping(path = "/user")
     public ModelAndView user(Authentication authentication) {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -66,11 +64,7 @@ public class PatientMvcController {
     }
 
     @GetMapping(path = "/add_patient")
-    public String showPatientForm(Model model) {
-        model.addAttribute("patient", new Patient());
-//        model.addAttribute("users", this.userService.getUsers());
-//        model.addAttribute("clinics",this.clinicService.findAll());
-
+    public String showPatientForm() {
         return "patient_form";
     }
 }

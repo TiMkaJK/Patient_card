@@ -1,6 +1,5 @@
 package com.pristavka.patient_card.model.mongo;
 
-import com.pristavka.patient_card.model.Patient;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -26,13 +25,8 @@ public class Drug {
 
     @Field(name = "manufactureDate")
     private LocalDate manufactureDate;
-
     private Manufacturer manufacturer;
-
     private Coordinates coordinates;
-
     private Set<String> contraindications = new HashSet<>();
-
-    private Set<Patient> patients = new HashSet<>();
 }
 

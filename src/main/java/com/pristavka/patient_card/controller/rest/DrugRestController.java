@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping(path = "api/drugs")
 public class DrugRestController {
@@ -32,15 +34,15 @@ public class DrugRestController {
         this.drugService.saveDrugs();
     }
 
-    @GetMapping(path = "/list")
-    public Page<Drug> getDrugs(Pageable pageable){
+    @GetMapping(path = "/list-pageable")
+    public Page<Drug> getDrugs(Pageable pageable) {
+        Logger.getLogger("hello");
         return this.drugService.getDrugs(pageable);
     }
 
     @PostMapping(path = "save-patient-drug")
-    public void savePatientDrug(@RequestBody PatientDrugDto patientDrugDto){
+    public void savePatientDrug(@RequestBody PatientDrugDto patientDrugDto) {
         this.patientDrugService.save(this.patientDrugMapper.toModel(patientDrugDto));
-        this.drugService.updatePatients(this.patientDrugMapper.toModel(patientDrugDto));
     }
 }
 

@@ -14,7 +14,7 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>
+<!--    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js/}"></script>-->
     <!--    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>-->
 </head>
 <body>
@@ -22,20 +22,20 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
     <div>
         <h1>Add Patient</h1>
     </div>
-    <form th:action="@{/patients/save}" id="patient-form" class="border" th:object="${patient}" method="post"
+    <form th:action="@{/patients/save}" id="patient-form" class="border" method="post"
           style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">First Name : </label>
                 <div class="col-8">
-                    <input id="first-name" type="text" th:field="*{firstName}" class="w-100 h-100" required/>
+                    <input id="first-name" type="text" class="w-100 h-100" required/>
                 </div>
             </div>
 
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Last Name : </label>
                 <div class="col-8">
-                    <input type="text" id="last-name" th:field="*{lastName}" class="w-100 h-100" required minlength="6"
+                    <input type="text" id="last-name" class="w-100 h-100" required minlength="6"
                            maxlength="10"/>
                 </div>
             </div>
@@ -43,7 +43,7 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Admission Date : </label>
                 <div class="col-8">
-                    <input type="datetime-local" id="admission-date" th:field="*{admissionDate}" class="w-100 h-100"
+                    <input type="datetime-local" id="admission-date" class="w-100 h-100"
                            maxlength="20"/>
                 </div>
             </div>
@@ -64,14 +64,14 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Floor : </label>
                 <div class="col-8">
-                    <input type="number" id="floor" th:field="*{floor}" class="w-100 h-100" maxlength="20"/>
+                    <input type="number" id="floor" class="w-100 h-100" maxlength="20"/>
                 </div>
             </div>
 
             <div class="form-group row mt-3">
                 <label class="col-4 col-form-label">Ward : </label>
                 <div class="col-8">
-                    <input type="number" id="ward" th:field="*{ward}" class="w-100 h-100" required minlength="2"
+                    <input type="number" id="ward" class="w-100 h-100" required minlength="2"
                            maxlength="20"/>
                 </div>
             </div>
@@ -112,32 +112,6 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             });
         });
 
-   /* $('#drug-list').select2({
-        ajax: {
-            url: 'http://localhost:8082/api/drugs/list',
-            data: function (params) {
-                let query = {
-                    search: params.term,
-                    page: params.page || 0
-                };
-
-                // Query parameters will be ?search=[term]&page=[page]
-                return query;
-            },
-            processResults: function (data, params) {
-                params.page = params.page || 1;
-
-                return {
-                    results: data.results,
-                    pagination: {
-                        more: (params.page * 10) < data.count_filtered
-                    }
-                };
-            }
-
-        }
-    });*/
-
     $('#patient-form').on('submit', function (event) {
         event.preventDefault();
     })
@@ -161,6 +135,9 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             "clinic": {
                 id: 2
             },
+            "diagnoses": [],
+            "allergies":[],
+            "patientDrugs":[],
             "ward": ward,
             "floor": floor,
         }
@@ -174,7 +151,8 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             success: function(result){
                 location.assign("/admin");
             }
-        })
+        });
+
 
     })
 
