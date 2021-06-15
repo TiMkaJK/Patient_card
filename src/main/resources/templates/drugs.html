@@ -26,14 +26,14 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
     <table id="drug-table" class="table h-75">
         <thead class="table-dark">
         <tr>
-            <th>Name</th>
-            <th>Manufacture Date</th>
-            <th>Manufacture Address</th>
-            <th>Availability</th>
-            <th>Contraindications</th>
+            <td>Name</td>
+            <td>Manufacture Date</td>
+            <td>Manufacture Address</td>
+            <td>Availability</td>
+            <td>Contraindications</td>
         </tr>
         </thead>
-        <tbody id="drugs-body">
+        <tbody id="drug-body">
         </tbody>
     </table>
 </div>
@@ -62,12 +62,16 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
                 let totalPages = res.totalPages;
                 const $pagination = $('#pagination');
 
+                $pagination.empty();
+
                 for (let i = 0; i < totalPages; i++) {
                     $pagination.append(`<li class="page-item"><a class="page-link" href="#">${i + 1}</a></li>`)
                 }
 
                 let content = res.content;
-                const $tableBody = $('#drugs-body');
+                const $tableBody = $('#drug-body');
+
+                $tableBody.empty();
 
                 content.forEach(function (item) {
                     $tableBody.append(`<tr><td>${item.name}</td>
@@ -81,9 +85,8 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
     }
 
     $('body').on('click', '.page-item', function () {
-        $('#drug-table').removeData();
         currentPage = $(this).find('a').text();
         getDrugs(currentPage);
-    })
+    });
 
 </script>
