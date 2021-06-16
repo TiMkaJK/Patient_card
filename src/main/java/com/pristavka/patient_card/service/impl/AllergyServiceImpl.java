@@ -2,16 +2,12 @@ package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.model.mongo.AllergyMongo;
 import com.pristavka.patient_card.repository.AllergyRepository;
-import com.pristavka.patient_card.repository.mongo.AllergyMongoRepository;
 import com.pristavka.patient_card.service.AllergyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +18,6 @@ public class AllergyServiceImpl implements AllergyService
 {
     @Autowired
     private AllergyRepository allergyRepository;
-
-    @Autowired
-    private AllergyMongoRepository allergyMongoRepository;
 
     @Autowired
     private AllergyMapper allergyMapper;
@@ -51,14 +44,6 @@ public class AllergyServiceImpl implements AllergyService
     public Page<Allergy> findAll(Pageable pageable)
     {
         return this.allergyRepository.findAll(pageable);
-    }
-
-    @Async
-    @Scheduled(initialDelay = 0)
-    @Override
-    public void copyListToMongo() {
-        List<AllergyMongo> allergies = this.allergyMapper.toMongoList(findAll());
-        this.allergyMongoRepository.saveAll(allergies);
     }
 }
 

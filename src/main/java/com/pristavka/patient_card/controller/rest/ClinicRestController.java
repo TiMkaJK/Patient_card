@@ -1,32 +1,37 @@
 package com.pristavka.patient_card.controller.rest;
 
+import com.pristavka.patient_card.dto.ClinicDto;
+import com.pristavka.patient_card.mapper.ClinicMapper;
 import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.service.ClinicService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
-@RequestMapping(ClinicRestController.CLINIC_URL)
-@Tag(name = "Clinic", description = "Provide manipulation with clinics")
-public class ClinicRestController
-{
-    public static final String CLINIC_URL = "/clinics";
+@RequestMapping(path = "/api/v1/clinics")
+public class ClinicRestController {
 
     @Autowired
     private ClinicService clinicService;
 
-    @Operation(summary = "Add a new clinic")
-    @PostMapping("/save")
-    public Clinic saveClinic(@RequestBody String name)
-    {
+    @Autowired
+    private ClinicMapper clinicMapper;
+
+    @PostMapping(path = "/")
+    public Clinic saveClinic(@RequestBody String name) {
+
         Clinic clinic = new Clinic();
         clinic.setName(name);
         return this.clinicService.save(clinic);
+    }
+
+    @GetMapping(path = "/")
+    public ResponseEntity<List<ClinicDto>> getClinics() {
+        return new ResponseEntity<>(this.clinicMapper.toDtoList(this.clinicService.findAll()), HttpStatus.OK);
     }
 }

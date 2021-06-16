@@ -5,12 +5,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"diagnoses", "allergies"})
-@ToString(exclude = {"diagnoses", "allergies"})
+@EqualsAndHashCode(exclude = {"diagnoses", "allergies", "patientDrugs"})
+@ToString(exclude = {"diagnoses", "allergies", "patientDrugs"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,7 +21,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "first_name", length = 40, nullable = false)
     private String firstName;
@@ -33,16 +34,18 @@ public class Patient {
     private LocalDateTime admissionDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "patient_diagnosis",
+    @JoinTable(
+            name = "patient_diagnosis",
             joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
-    private Set<Diagnosis> diagnoses;
+            inverseJoinColumns = @JoinColumn(name = "diagnosis_id")
+    )
+    private Set<Diagnosis> diagnoses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "patient_allergy",
             joinColumns = @JoinColumn(name = "patient_id"),
             inverseJoinColumns = @JoinColumn(name = "allergy_id"))
-    private Set<Allergy> allergies;
+    private Set<Allergy> allergies = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id", nullable = false)
@@ -57,5 +60,8 @@ public class Patient {
 
     @Column(name = "ward", nullable = false)
     private int ward;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<PatientDrug> patientDrugs = new HashSet<>();
 }
 

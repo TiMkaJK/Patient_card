@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,7 +20,7 @@ public class Allergy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name", length = 50, nullable = false, unique = true)
     @Size(min = 1, max = 50)
@@ -31,6 +32,6 @@ public class Allergy {
     private String group;
 
     @ManyToMany(mappedBy = "allergies")
-    private Set<Patient> patients;
+    private Set<Patient> patients = new HashSet<>();
 }
 

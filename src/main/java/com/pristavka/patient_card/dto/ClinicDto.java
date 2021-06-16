@@ -6,17 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClinicDto
-{
+public class ClinicDto {
+
+    private Long id;
+
     @Size(max = 50)
     private String name;
 
     private int number;
-    private Set<Patient> patients;
+    private Set<Patient> patients = new HashSet<>();
 }
 

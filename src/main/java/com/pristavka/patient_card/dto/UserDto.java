@@ -1,20 +1,19 @@
 package com.pristavka.patient_card.dto;
 
-import com.pristavka.patient_card.model.Patient;
-import com.pristavka.patient_card.model.Role;
-import com.pristavka.patient_card.model.Status;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto
-{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserDto {
+
+    private Long id;
     private String email;
 
     @Size(max = 50)
@@ -22,11 +21,5 @@ public class UserDto
 
     @Size(max = 50)
     private String lastName;
-
-    private Set<Role> roles;
-
-    private Status status;
-
-    private Set<Patient> patients;
 }
 

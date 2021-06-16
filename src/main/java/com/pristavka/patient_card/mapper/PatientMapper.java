@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring", uses = {ClinicMapper.class, UserMapper.class})
 public interface PatientMapper {
 
     PatientDto toDto(Patient model);

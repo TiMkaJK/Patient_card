@@ -5,9 +5,9 @@ import com.pristavka.patient_card.model.Patient;
 
 import java.util.List;
 
-public interface PatientService
-{
-    Patient findById(long id);
+public interface PatientService {
+
+    Patient findById(Long id);
 
     List<Patient> findAll();
 
@@ -15,7 +15,5 @@ public interface PatientService
 
     Patient save(Patient patient);
 
-    void fillPatients();
-
-    void saveAllPatientsToMongoDb();
+    Patient findPatientById(Long id);
 }

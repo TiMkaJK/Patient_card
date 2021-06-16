@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface StatusMapper
-{
+@Mapper(componentModel = "spring")
+public interface StatusMapper {
+
     StatusDto toDto(Status model);
 
     Status toModel(StatusDto dto);

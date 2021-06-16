@@ -3,6 +3,7 @@ package com.pristavka.patient_card.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -18,7 +19,7 @@ public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name", length = 50, nullable = false)
     private String name;
@@ -27,6 +28,6 @@ public class Clinic {
     private int number;
 
     @OneToMany(mappedBy = "clinic")
-    private Set<Patient> patients;
+    private Set<Patient> patients = new HashSet<>();
 }
 

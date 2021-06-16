@@ -6,9 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface AllergyService
-{
-    //AllergyMapper INSTANCE = Mappers.getMapper(AllergyMapper.class);
+public interface AllergyService {
 
     Allergy save(Allergy allergy);
 
@@ -17,7 +15,5 @@ public interface AllergyService
     List<Allergy> findAllByGroup(String group);
 
     Page<Allergy> findAll(Pageable pageable);
-
-    void copyListToMongo();
 }
 

@@ -3,6 +3,7 @@ package com.pristavka.patient_card.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 //@Data
@@ -11,17 +12,18 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "patients")
 @ToString(exclude = "patients")
 @Entity
+@Table(name = "diagnosis")
 public class Diagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "diagnoses")
-    private Set<Patient> patients;
+    private Set<Patient> patients = new HashSet<>();
 }
 

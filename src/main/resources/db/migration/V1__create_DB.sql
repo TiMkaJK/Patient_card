@@ -1,10 +1,10 @@
 create table allergy
 (
-    id   bigint      not null auto_increment,
-    /*`group` varchar(50),*/
-    name varchar(50) not null,
+    id      bigint      not null auto_increment,
+    name    varchar(50) not null,
+    `group` varchar(50),
     primary key (id)
-) engine = InnoDB;
+);
 
 create table clinic
 (
@@ -12,74 +12,77 @@ create table clinic
     name   varchar(50) not null,
     number integer     not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table diagnosis
 (
     id   bigint       not null auto_increment,
     name varchar(100) not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table patient
 (
     id             bigint      not null auto_increment,
-    admission_date datetime default CURRENT_TIMESTAMP,
     first_name     varchar(40) not null,
-    floor          integer     not null,
     last_name      varchar(50) not null,
+    admission_date datetime default CURRENT_TIMESTAMP,
+    floor          integer     not null,
     ward           integer     not null,
     clinic_id      bigint      not null,
     user_id        bigint      not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 
 create table patient_allergy
 (
+    id         bigint not null auto_increment,
     patient_id bigint not null,
     allergy_id bigint not null,
-    primary key (patient_id, allergy_id)
-) engine = InnoDB;
+    primary key (id)
+);
 
 create table patient_diagnosis
 (
+    id           bigint not null auto_increment,
     patient_id   bigint not null,
     diagnosis_id bigint not null,
-    primary key (patient_id, diagnosis_id)
-) engine = InnoDB;
+    primary key (id)
+);
 
 create table role
 (
     id   bigint not null auto_increment,
     name varchar(50),
     primary key (id)
-) engine = InnoDB;
+);
 
 create table status
 (
     id   bigint not null auto_increment,
     name varchar(50),
     primary key (id)
-) engine = InnoDB;
+);
 
 create table user
 (
     id         bigint not null auto_increment,
-    email      varchar(255),
     first_name varchar(50),
     last_name  varchar(50),
+    email      varchar(255),
     password   varchar(255),
     status_id  bigint not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table user_role
 (
+    id      bigint not null auto_increment,
     user_id bigint not null,
     role_id bigint not null,
-    primary key (user_id, role_id)
-) engine = InnoDB;
+    primary key (id)
+);
 
 alter table allergy
     add constraint uk_allergy_name unique (name);
