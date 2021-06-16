@@ -1,13 +1,11 @@
 package com.pristavka.patient_card.service.impl;
 
-import com.pristavka.patient_card.mapper.PatientMapper;
 import com.pristavka.patient_card.model.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
 import com.pristavka.patient_card.repository.mongo.DrugRepository;
 import com.pristavka.patient_card.service.DrugService;
-import com.pristavka.patient_card.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,10 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,12 +26,6 @@ public class DrugServiceImpl implements DrugService {
 
     @Autowired
     private DrugRepository drugRepository;
-
-    @Autowired
-    private PatientService patientService;
-
-    @Autowired
-    private PatientMapper patientMapper;
 
     public static final int DATE_BOUND = 1830;
     public static final int LIST_BOUND = 5;
@@ -52,30 +42,32 @@ public class DrugServiceImpl implements DrugService {
 
     private List<Drug> createDrugs() {
 
-        List<Drug> drugs = new ArrayList<>();
         List<String> medsNames = getDrugNames();
         List<Coordinates> coordinates = getCoordinates();
         List<Manufacturer> manufacturers = getManufacturers();
         List<Set<String>> contraindications = getContraindications();
-        LocalDate defaultDate = LocalDate.parse("2016-01-01");
+        LocalDate defaultDate = LocalDate.now();
 
-        for (int i = 0; i < medsNames.size(); i++) {
 
-            Drug drug = new Drug();
+        return medsNames
+                .stream()
+                .map(m -> {
 
-            drug.setName(medsNames.get(i));
-            drug.setManufactureDate(defaultDate.plusDays(getRandomValue(DATE_BOUND)));
-            drug.setCoordinates(coordinates.get(getRandomValue(LIST_BOUND)));
-            drug.setManufacturer(manufacturers.get(getRandomValue(LIST_BOUND)));
-            drug.setContraindications(contraindications.get(getRandomValue(LIST_BOUND)));
+                    Drug drug = new Drug();
 
-            drugs.add(drug);
-        }
+                    drug.setName(m);
+                    drug.setManufactureDate(defaultDate.minusDays(getRandomValue(DATE_BOUND)));
+                    drug.setCoordinates(coordinates.get(getRandomValue(LIST_BOUND)));
+                    drug.setManufacturer(manufacturers.get(getRandomValue(LIST_BOUND)));
+                    drug.setContraindications(contraindications.get(getRandomValue(LIST_BOUND)));
 
-        return drugs;
+                    return drug;
+                })
+                .collect(Collectors.toList());
     }
 
-    private List<Set<String>> getContraindications(){
+    private List<Set<String>> getContraindications() {
+
         List<Set<String>> contraindications = new ArrayList<>();
 
         contraindications.add(Set.of(
@@ -116,21 +108,21 @@ public class DrugServiceImpl implements DrugService {
 
     private List<String> getDrugNames() {
 
-        List<String> actorsNames = new ArrayList<>();
-
         try {
             String url = "https://list.essentialmeds.org/";
 
             Document document = Jsoup.connect(url).get();
             Elements elements = document.getElementsByAttributeValue("class", "medicine-name");
 
-            elements.forEach(a -> actorsNames.add(a.select("span").text()));
+            return elements
+                    .stream()
+                    .map(e -> e.select("span").text())
+                    .collect(Collectors.toList());
 
         } catch (IOException e) {
             e.printStackTrace();
+            return Collections.emptyList();
         }
-
-        return actorsNames;
     }
 
     private List<Coordinates> getCoordinates() {

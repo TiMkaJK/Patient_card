@@ -15,14 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/allergies")
+@RequestMapping(path = "/api/v1/allergies")
 @Tag(name = "Allergy", description = "Provide access to manipulation with allergies")
 public class AllergyRestController {
 
@@ -46,7 +45,7 @@ public class AllergyRestController {
                     )
             )
     )
-    @GetMapping
+    @GetMapping(path = "/")
     public List<AllergyDto> findAllAllergies() {
         return this.allergyMapper.toDtoList(this.allergyService.findAll());
     }
@@ -63,14 +62,13 @@ public class AllergyRestController {
                     )
             )
     )
-    @RequestMapping(path = "/save", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping(path = "/save")
     public Allergy saveAllergy(@RequestBody AllergyDto allergyDto) {
         return this.allergyService.save(this.allergyMapper.toEntity(allergyDto));
     }
 
     @Operation(summary = "Return pageable list of all allergies")
-    @RequestMapping(path = "/listPageable", method = RequestMethod.GET)
+    @GetMapping(path = "/listPageable")
     public Page<Allergy> allergiesPageable(Pageable pageable) {
         return this.allergyService.findAll(pageable);
     }
