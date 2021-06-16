@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "api/drugs")
+@RequestMapping(path = "api/v1/drugs")
 public class DrugRestController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class DrugRestController {
     @Autowired
     private PatientDrugMapper patientDrugMapper;
 
-    @PostMapping(path = "/save-drugs")
+    @PostMapping(path = "/")
     public void saveDrugs() {
         this.drugService.saveDrugs();
     }

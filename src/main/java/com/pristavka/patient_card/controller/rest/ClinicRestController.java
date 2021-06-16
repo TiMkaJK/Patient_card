@@ -4,8 +4,6 @@ import com.pristavka.patient_card.dto.ClinicDto;
 import com.pristavka.patient_card.mapper.ClinicMapper;
 import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.service.ClinicService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/api/clinics")
-@Tag(name = "Clinic", description = "Provide manipulation with clinics")
+@RequestMapping(path = "/api/v1/clinics")
 public class ClinicRestController {
 
     @Autowired
@@ -25,8 +22,7 @@ public class ClinicRestController {
     @Autowired
     private ClinicMapper clinicMapper;
 
-    @Operation(summary = "Add a new clinic")
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/")
     public Clinic saveClinic(@RequestBody String name) {
 
         Clinic clinic = new Clinic();
@@ -34,7 +30,7 @@ public class ClinicRestController {
         return this.clinicService.save(clinic);
     }
 
-    @GetMapping(path = "/list")
+    @GetMapping(path = "/")
     public ResponseEntity<List<ClinicDto>> getClinics() {
         return new ResponseEntity<>(this.clinicMapper.toDtoList(this.clinicService.findAll()), HttpStatus.OK);
     }

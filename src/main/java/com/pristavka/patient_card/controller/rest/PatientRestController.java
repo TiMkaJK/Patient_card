@@ -2,17 +2,15 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.PatientDto;
 import com.pristavka.patient_card.mapper.PatientMapper;
-import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.service.PatientService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/patients")
-@Tag(name = "Patient", description = "Provide manipulation with patients")
+@RequestMapping(path = "/api/v1/patients")
 public class PatientRestController {
 
     @Autowired
@@ -21,19 +19,19 @@ public class PatientRestController {
     @Autowired
     private PatientMapper patientMapper;
 
-    @GetMapping(path = "/list")
-    public List<Patient> findAllPatients() {
-        return this.patientService.findAll();
+    @GetMapping(path = "/")
+    public List<PatientDto> getPatients() {
+        return this.patientMapper.toDtoList(this.patientService.findAll());
     }
 
-    @PostMapping(path = "/save")
-    public Patient savePatient(@RequestBody PatientDto patientDto) {
-        return this.patientService.save(this.patientMapper.toModel(patientDto));
+    @PostMapping(path = "/")
+    public PatientDto savePatient(@RequestBody PatientDto patientDto) {
+        return this.patientMapper.toDto(this.patientService.save(this.patientMapper.toModel(patientDto)));
     }
 
     @GetMapping(path = "/{id}")
-    public Patient findPatientById(@PathVariable Long id) {
-        return this.patientService.findById(id);
+    public PatientDto getPatientById(@PathVariable @Min(1) Long id) {
+        return this.patientMapper.toDto(this.patientService.findById(id));
     }
 }
 
