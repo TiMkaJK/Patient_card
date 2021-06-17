@@ -50,16 +50,7 @@
     <input type="submit" class="form-control btn btn-dark" th:value="#{lang.logout}"/>
 </form>
 
+<script type="text/javascript" src="/static/js/admin.js"></script>
 </body>
 </html>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#locales").change(function () {
-            var selectedOption = $('#locales').val();
-            if (selectedOption != '') {
-                window.location.replace('?lang=' + selectedOption);
-            }
-        });
-    });
-</script>

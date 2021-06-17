@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClinicService {
 
-    Clinic save(Clinic clinic);
+    Clinic save(String name);
 
     List<Clinic> findAll();
 

@@ -7,28 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class ClinicServiceImpl implements ClinicService
-{
+public class ClinicServiceImpl implements ClinicService {
     @Autowired
     private ClinicRepository clinicRepository;
 
     @Override
-    public Clinic save(Clinic clinic)
-    {
-        return this.clinicRepository.save(clinic);
+    public Clinic save(String name) {
+
+        Clinic clinic = new Clinic();
+        clinic.setName(name);
+
+        Clinic savedClinic = this.clinicRepository.save(clinic);
+
+        if (Objects.isNull(savedClinic)) {
+            throw new IllegalArgumentException();
+        }
+
+        return savedClinic;
     }
 
     @Override
-    public List<Clinic> findAll()
-    {
+    public List<Clinic> findAll() {
         return this.clinicRepository.findAll();
     }
 
     @Override
-    public void deleteById(long id)
-    {
+    public void deleteById(long id) {
         this.clinicRepository.deleteById(id);
     }
 }
