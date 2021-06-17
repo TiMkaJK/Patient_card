@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.service.impl;
 
-import com.pristavka.patient_card.model.enums.Contraindications;
+import com.pristavka.patient_card.enums.Contraindications;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
@@ -47,7 +47,6 @@ public class DrugServiceImpl implements DrugService {
         List<Manufacturer> manufacturers = getManufacturers();
         List<Set<String>> contraindications = getContraindications();
         LocalDate defaultDate = LocalDate.now();
-
 
         return medsNames
                 .stream()

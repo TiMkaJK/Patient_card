@@ -37,7 +37,7 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         </tbody>
     </table>
 </div>
-<nav aria-label="Page navigation example" class="text-center">
+<nav aria-label="Page navigation example" class="mb-5 text-center">
     <ul class="pagination" id="pagination">
     </ul>
 </nav>
@@ -53,7 +53,7 @@ ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         let pageSize = 20;
 
         $.ajax({
-            url: 'http://localhost:8082/api/drugs/list-pageable?page=' + page + '&?size=' + pageSize,
+            url: 'http://localhost:8082/api/v1/drugs/list-pageable?page=' + page + '&?size=' + pageSize,
             type: 'GET',
             contentType: "application/json",
 

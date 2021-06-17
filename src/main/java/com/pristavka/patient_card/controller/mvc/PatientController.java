@@ -65,6 +65,6 @@ public class PatientController {
 
     @GetMapping(path = "/add_patient")
     public String showPatientForm() {
-        return "patient_form";
+        return "patient-form";
     }
 }

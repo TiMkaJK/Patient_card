@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.config;
 
-import com.pristavka.patient_card.model.enums.UserRole;
+import com.pristavka.patient_card.enums.UserRole;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;

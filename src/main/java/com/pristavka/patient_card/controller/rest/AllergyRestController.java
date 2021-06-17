@@ -24,7 +24,7 @@ public class AllergyRestController {
     @Autowired
     private AllergyService allergyService;
 
-    @GetMapping(path = "/")
+    @PostMapping(path = "/")
     public Allergy saveAllergy(@RequestBody AllergyDto allergyDto) {
         return this.allergyService.save(this.allergyMapper.toEntity(allergyDto));
     }

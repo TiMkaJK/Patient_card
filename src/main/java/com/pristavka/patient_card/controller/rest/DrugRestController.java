@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "api/v1/drugs")
+@RequestMapping(path = "/api/v1/drugs")
 public class DrugRestController {
 
     @Autowired
