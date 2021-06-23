@@ -7,7 +7,7 @@ function getDrugs(page) {
     let pageSize = 20;
 
     $.ajax({
-        url: 'http://localhost:8082/api/v1/drugs/list-pageable?page=' + page + '&?size=' + pageSize,
+        url: 'http://localhost:8082/api/v1/drugs/?page=' + page + '&?size=' + pageSize,
         type: 'GET',
         contentType: "application/json",
 

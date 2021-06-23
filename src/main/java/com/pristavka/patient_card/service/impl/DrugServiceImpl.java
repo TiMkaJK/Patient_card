@@ -1,10 +1,13 @@
 package com.pristavka.patient_card.service.impl;
 
 import com.pristavka.patient_card.enums.Contraindications;
+import com.pristavka.patient_card.model.elasticsearch.DrugES;
+import com.pristavka.patient_card.model.elasticsearch.ManufacturerES;
 import com.pristavka.patient_card.model.mongo.Coordinates;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.model.mongo.Manufacturer;
-import com.pristavka.patient_card.repository.mongo.DrugRepository;
+import com.pristavka.patient_card.repository.elasticsearch.DrugESRepository;
+import com.pristavka.patient_card.repository.mongo.DrugMongoDBRepository;
 import com.pristavka.patient_card.service.DrugService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -13,6 +16,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,19 +29,49 @@ import java.util.stream.Collectors;
 public class DrugServiceImpl implements DrugService {
 
     @Autowired
-    private DrugRepository drugRepository;
+    private DrugMongoDBRepository drugMongoDBRepository;
 
-    public static final int DATE_BOUND = 1830;
+    @Autowired
+    private DrugESRepository drugESRepository;
+
+    public static final int DATE_BOUND = 2000;
     public static final int LIST_BOUND = 5;
 
     @Override
     public Page<Drug> getDrugs(Pageable pageable) {
-        return this.drugRepository.findAll(pageable);
+        return this.drugMongoDBRepository.findAll(pageable);
     }
 
     @Override
-    public void saveDrugs() {
-        this.drugRepository.saveAll(createDrugs());
+    public void saveDrugsToMongoDB() {
+        this.drugMongoDBRepository.saveAll(createDrugs());
+    }
+
+    @Override
+    public void saveDrugsToES() {
+
+        List<Drug> drugs = this.drugMongoDBRepository.findAll();
+
+        List<DrugES> drugsES = drugs
+                .stream()
+                .map(d -> DrugES.builder()
+                        .id(d.getId())
+                        .name(d.getName())
+                        .manufactureDate(d.getManufactureDate())
+                        .coordinates(new GeoPoint(
+                                Double.parseDouble(d.getCoordinates().getLatitude()),
+                                Double.parseDouble(d.getCoordinates().getLongitude())))
+                        .manufacturer(ManufacturerES.builder()
+                                .name(d.getManufacturer().getName())
+                                .city(d.getManufacturer().getCity())
+                                .index(d.getManufacturer().getIndex())
+                                .street(d.getManufacturer().getStreet())
+                                .build())
+                        .contraindications(d.getContraindications())
+                        .build())
+                .collect(Collectors.toList());
+
+        this.drugESRepository.saveAll(drugsES);
     }
 
     private List<Drug> createDrugs() {
@@ -50,18 +84,13 @@ public class DrugServiceImpl implements DrugService {
 
         return medsNames
                 .stream()
-                .map(m -> {
-
-                    Drug drug = new Drug();
-
-                    drug.setName(m);
-                    drug.setManufactureDate(defaultDate.minusDays(getRandomValue(DATE_BOUND)));
-                    drug.setCoordinates(coordinates.get(getRandomValue(LIST_BOUND)));
-                    drug.setManufacturer(manufacturers.get(getRandomValue(LIST_BOUND)));
-                    drug.setContraindications(contraindications.get(getRandomValue(LIST_BOUND)));
-
-                    return drug;
-                })
+                .map(m -> Drug.builder()
+                        .name(m)
+                        .manufactureDate(defaultDate.minusDays(getRandomValue(DATE_BOUND)))
+                        .coordinates(coordinates.get(getRandomValue(LIST_BOUND)))
+                        .manufacturer(manufacturers.get(getRandomValue(LIST_BOUND)))
+                        .contraindications(contraindications.get(getRandomValue(LIST_BOUND)))
+                        .build())
                 .collect(Collectors.toList());
     }
 

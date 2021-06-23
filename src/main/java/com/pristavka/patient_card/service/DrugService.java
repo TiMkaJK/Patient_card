@@ -8,5 +8,7 @@ public interface DrugService {
 
     Page<Drug> getDrugs(Pageable pageable);
 
-    void saveDrugs();
+    void saveDrugsToMongoDB();
+
+    void saveDrugsToES();
 }

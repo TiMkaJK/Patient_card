@@ -25,7 +25,7 @@ public class UserRestController {
     private UserMapper userMapper;
 
     @GetMapping(path = "/")
-    public ResponseEntity<List<UserDto>> getUsers(){
+    public ResponseEntity<List<UserDto>> getUsers() {
         return new ResponseEntity<>(this.userMapper.toDtoList(this.userService.getUsers()), HttpStatus.OK);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DiagnosisService {
 
-    Diagnosis save(Diagnosis diagnosis);
+    Diagnosis save(String name);
 
     List<Diagnosis> findAll();
 

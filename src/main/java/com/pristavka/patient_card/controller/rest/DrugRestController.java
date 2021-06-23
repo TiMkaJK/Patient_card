@@ -29,12 +29,17 @@ public class DrugRestController {
     @Autowired
     private PatientDrugMapper patientDrugMapper;
 
-    @PostMapping(path = "/")
-    public void saveDrugs() {
-        this.drugService.saveDrugs();
+    @GetMapping(path = "/saveDrugsToMongoDB")
+    public void saveDrugsToMongoDB() {
+        this.drugService.saveDrugsToMongoDB();
     }
 
-    @GetMapping(path = "/list-pageable")
+    @GetMapping(path = "saveDrugsToES")
+    public void saveDrugsToES() {
+        this.drugService.saveDrugsToES();
+    }
+
+    @GetMapping(path = "/")
     public Page<Drug> getDrugs(Pageable pageable) {
         return this.drugService.getDrugs(pageable);
     }

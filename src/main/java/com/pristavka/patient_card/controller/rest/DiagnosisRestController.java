@@ -2,7 +2,6 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.DiagnosisDto;
 import com.pristavka.patient_card.mapper.DiagnosisMapper;
-import com.pristavka.patient_card.model.Diagnosis;
 import com.pristavka.patient_card.service.DiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +19,9 @@ public class DiagnosisRestController {
     @Autowired
     private DiagnosisMapper diagnosisMapper;
 
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/")
     public DiagnosisDto addDiagnosis(@RequestBody String name) {
-
-        Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setName(name);
-        return this.diagnosisMapper.toDto(this.diagnosisService.save(diagnosis));
+        return this.diagnosisMapper.toDto(this.diagnosisService.save(name));
     }
 }
 

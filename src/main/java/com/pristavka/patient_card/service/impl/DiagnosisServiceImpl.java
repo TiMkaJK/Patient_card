@@ -9,26 +9,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DiagnosisServiceImpl implements DiagnosisService
-{
+public class DiagnosisServiceImpl implements DiagnosisService {
     @Autowired
     private DiagnosisRepository diagnosisRepository;
 
     @Override
-    public Diagnosis save(Diagnosis diagnosis)
-    {
+    public Diagnosis save(String name) {
+
+        Diagnosis diagnosis = new Diagnosis();
+        diagnosis.setName(name);
+
         return this.diagnosisRepository.save(diagnosis);
     }
 
     @Override
-    public List<Diagnosis> findAll()
-    {
+    public List<Diagnosis> findAll() {
         return this.diagnosisRepository.findAll();
     }
 
     @Override
-    public void deleteById(long id)
-    {
+    public void deleteById(long id) {
         this.diagnosisRepository.deleteById(id);
     }
 }
