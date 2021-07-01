@@ -10,14 +10,19 @@ import com.pristavka.patient_card.repository.elasticsearch.DrugESRepository;
 import com.pristavka.patient_card.repository.mongo.DrugMongoDBRepository;
 import com.pristavka.patient_card.service.DrugService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
+import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -34,6 +39,9 @@ public class DrugServiceImpl implements DrugService {
     @Autowired
     private DrugESRepository drugESRepository;
 
+    @Autowired
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+
     public static final int DATE_BOUND = 2000;
     public static final int LIST_BOUND = 5;
 
@@ -47,31 +55,38 @@ public class DrugServiceImpl implements DrugService {
         this.drugMongoDBRepository.saveAll(createDrugs());
     }
 
+    @Transactional
     @Override
     public void saveDrugsToES() {
 
         List<Drug> drugs = this.drugMongoDBRepository.findAll();
 
-        List<DrugES> drugsES = drugs
-                .stream()
-                .map(d -> DrugES.builder()
-                        .id(d.getId())
-                        .name(d.getName())
-                        .manufactureDate(d.getManufactureDate())
-                        .coordinates(new GeoPoint(
-                                Double.parseDouble(d.getCoordinates().getLatitude()),
-                                Double.parseDouble(d.getCoordinates().getLongitude())))
-                        .manufacturer(ManufacturerES.builder()
-                                .name(d.getManufacturer().getName())
-                                .city(d.getManufacturer().getCity())
-                                .index(d.getManufacturer().getIndex())
-                                .street(d.getManufacturer().getStreet())
-                                .build())
-                        .contraindications(d.getContraindications())
-                        .build())
-                .collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(drugs)) {
 
-        this.drugESRepository.saveAll(drugsES);
+            List<IndexQuery> queries = drugs
+                    .stream()
+                    .map(d -> new IndexQueryBuilder()
+                            .withId(d.getId())
+                            .withObject(DrugES.builder()
+                                    .id(d.getId())
+                                    .name(d.getName())
+                                    .manufactureDate(d.getManufactureDate())
+                                    .coordinates(new GeoPoint(
+                                            Double.parseDouble(d.getCoordinates().getLatitude()),
+                                            Double.parseDouble(d.getCoordinates().getLongitude())))
+                                    .manufacturer(ManufacturerES.builder()
+                                            .name(d.getManufacturer().getName())
+                                            .city(d.getManufacturer().getCity())
+                                            .index(d.getManufacturer().getIndex())
+                                            .street(d.getManufacturer().getStreet())
+                                            .build())
+                                    .contraindications(d.getContraindications())
+                                    .build())
+                            .build())
+                    .collect(Collectors.toList());
+
+            this.elasticsearchRestTemplate.bulkIndex(queries, this.elasticsearchRestTemplate.getIndexCoordinatesFor(DrugES.class));
+        }
     }
 
     private List<Drug> createDrugs() {
@@ -101,8 +116,8 @@ public class DrugServiceImpl implements DrugService {
         contraindications.add(Set.of(
                 Contraindications.GLAUCOMA.getCode(),
                 Contraindications.AIDS.getCode(),
-                Contraindications.AUTOIMMUNE_DISEASES.getCode())
-        );
+                Contraindications.AUTOIMMUNE_DISEASES.getCode()
+        ));
 
         contraindications.add(Set.of(
                 Contraindications.HIGH_BLOOD_PRESSURE.getCode(),
