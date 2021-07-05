@@ -10,26 +10,33 @@ import java.util.List;
 
 @Service
 public class DiagnosisServiceImpl implements DiagnosisService {
+
     @Autowired
     private DiagnosisRepository diagnosisRepository;
 
     @Override
-    public Diagnosis save(String name) {
-
-        Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setName(name);
-
+    public Diagnosis save(Diagnosis diagnosis) {
         return this.diagnosisRepository.save(diagnosis);
     }
 
     @Override
-    public List<Diagnosis> findAll() {
+    public List<Diagnosis> getDiagnoses() {
         return this.diagnosisRepository.findAll();
     }
 
     @Override
-    public void deleteById(long id) {
+    public void delete(Long id) {
         this.diagnosisRepository.deleteById(id);
+    }
+
+    @Override
+    public Diagnosis update(Diagnosis diagnosis) {
+        return this.diagnosisRepository.save(diagnosis);
+    }
+
+    @Override
+    public Diagnosis getDiagnosis(Long id) {
+        return this.diagnosisRepository.getById(id);
     }
 }
 

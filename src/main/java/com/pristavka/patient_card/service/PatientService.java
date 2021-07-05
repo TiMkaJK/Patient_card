@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface PatientService {
 
-    Patient findById(Long id);
+    Patient getPatient(Long id);
 
-    List<Patient> findAll();
+    List<Patient> getPatients();
 
     List<Patient> findAllByUserEmail(String email);
 
     Patient save(Patient patient);
 
-    Patient findPatientById(Long id);
+    Patient update(Patient patient);
+
+    void delete(Long id);
 }

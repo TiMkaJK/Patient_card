@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface ClinicService {
 
-    Clinic save(String name);
+    List<Clinic> getClinics();
 
-    List<Clinic> findAll();
+    Clinic getClinic(Long id);
 
-    void deleteById(long id);
+    Clinic save(Clinic clinic);
+
+    Clinic update(Clinic clinic);
+
+    void delete(Long id);
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -20,13 +21,28 @@ public class ClinicRestController {
     @Autowired
     private ClinicMapper clinicMapper;
 
-    @PostMapping(path = "/")
-    public ResponseEntity<ClinicDto> saveClinic(@RequestBody String name) {
-        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.save(name)), HttpStatus.OK);
-    }
-
     @GetMapping(path = "/")
     public ResponseEntity<List<ClinicDto>> getClinics() {
-        return new ResponseEntity<>(this.clinicMapper.toDtoList(this.clinicService.findAll()), HttpStatus.OK);
+        return new ResponseEntity<>(this.clinicMapper.toDtoList(this.clinicService.getClinics()), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ClinicDto> getClinic(@PathVariable @Min(1) Long id) {
+        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.getClinic(id)), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/")
+    public ResponseEntity<ClinicDto> save(@RequestBody ClinicDto clinicDto) {
+        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.save(this.clinicMapper.toModel(clinicDto))), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/")
+    public ResponseEntity<ClinicDto> update(@RequestBody ClinicDto clinicDto) {
+        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.update(this.clinicMapper.toModel(clinicDto))), HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable @Min(1) Long id) {
+        this.clinicService.delete(id);
     }
 }

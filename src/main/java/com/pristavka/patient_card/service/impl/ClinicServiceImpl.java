@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ClinicServiceImpl implements ClinicService {
@@ -15,27 +14,27 @@ public class ClinicServiceImpl implements ClinicService {
     private ClinicRepository clinicRepository;
 
     @Override
-    public Clinic save(String name) {
-
-        Clinic clinic = new Clinic();
-        clinic.setName(name);
-
-        Clinic savedClinic = this.clinicRepository.save(clinic);
-
-        if (Objects.isNull(savedClinic)) {
-            throw new IllegalArgumentException();
-        }
-
-        return savedClinic;
+    public Clinic save(Clinic clinic) {
+        return this.clinicRepository.save(clinic);
     }
 
     @Override
-    public List<Clinic> findAll() {
+    public Clinic update(Clinic clinic) {
+        return this.clinicRepository.save(clinic);
+    }
+
+    @Override
+    public List<Clinic> getClinics() {
         return this.clinicRepository.findAll();
     }
 
     @Override
-    public void deleteById(long id) {
+    public Clinic getClinic(Long id) {
+        return this.clinicRepository.getById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
         this.clinicRepository.deleteById(id);
     }
 }

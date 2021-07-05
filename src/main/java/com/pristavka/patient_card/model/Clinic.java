@@ -8,8 +8,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "patients")
-@ToString(exclude = "patients")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

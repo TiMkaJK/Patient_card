@@ -10,10 +10,14 @@ public interface AllergyService {
 
     Allergy save(Allergy allergy);
 
-    List<Allergy> findAll();
+    Allergy update(Allergy allergy);
+
+    Allergy getAllergy(Long id);
 
     List<Allergy> findAllByGroup(String group);
 
-    Page<Allergy> findAll(Pageable pageable);
+    Page<Allergy> getAllergies(Pageable pageable);
+
+    void delete(Long id);
 }
 

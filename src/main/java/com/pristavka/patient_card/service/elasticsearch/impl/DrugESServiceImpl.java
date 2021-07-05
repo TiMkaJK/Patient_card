@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;
+import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.metrics.ValueCountAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -30,6 +33,7 @@ public class DrugESServiceImpl implements DrugESService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
+    @Override
     public List<Drug> findDrugByName(String name) {
 
         MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("name", name);
@@ -43,6 +47,7 @@ public class DrugESServiceImpl implements DrugESService {
         return getDrugs(drugESSearchHits);
     }
 
+    @Override
     public List<Drug> findDrugsGreaterThan(LocalDate dateFrom, LocalDate dateTo) {
 
         RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("manufacture_date")
@@ -56,7 +61,9 @@ public class DrugESServiceImpl implements DrugESService {
         return getDrugs(this.elasticsearchRestTemplate.search(rangeQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
+    @Override
     public List<Drug> findDrugGeoLocation(String latitude, String longitude, Integer distance) {
+
         GeoDistanceQueryBuilder queryBuilder = QueryBuilders.geoDistanceQuery("coordinates")
                 .point(Double.parseDouble(latitude), Double.parseDouble(longitude))
                 .distance(distance, DistanceUnit.KILOMETERS)
@@ -70,11 +77,65 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(bq)
                 .build();
 
-        log.info(geoDistanceQuery + "");
-
         return getDrugs(this.elasticsearchRestTemplate.search(geoDistanceQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
+    @Override
+    public List<Drug> getDrugsCountByManufactureIndex(String index) {
+
+        MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("manufacturer.index", index);
+
+        AbstractAggregationBuilder<ValueCountAggregationBuilder> ag = AggregationBuilders.count("id");
+
+        Query matchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .addAggregation(ag)
+                .build();
+
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+
+        return getDrugs(drugESSearchHits);
+    }
+
+    @Override
+    public List<Drug> findDrugsByNameWithMistakes(String name) {
+
+        FuzzyQueryBuilder queryBuilder = QueryBuilders.fuzzyQuery("name", name);
+
+        Query fuzzyQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .build();
+
+        return getDrugs(this.elasticsearchRestTemplate.search(fuzzyQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+    }
+
+    @Override
+    public List<Drug> findDrugsByPrefix(String prefix) {
+        PrefixQueryBuilder queryBuilder = QueryBuilders.prefixQuery("name", prefix)
+                .caseInsensitive(true);
+
+        Query prefixQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .build();
+
+        return getDrugs(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+    }
+
+    @Override
+    public List<Drug> test(String name, String contraindications) {
+
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery()
+                .must(QueryBuilders.termQuery("name", name))
+                .must(QueryBuilders.matchQuery("contraindications", contraindications));
+
+        Query matchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .build();
+
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+
+        return getDrugs(drugESSearchHits);
+    }
 
     private List<Drug> getDrugs(SearchHits<DrugES> drugSearchHits) {
 
@@ -84,5 +145,6 @@ public class DrugESServiceImpl implements DrugESService {
 
         return this.drugMongoDBRepository.findDrugsByIdIn(ids);
     }
+
 }
 

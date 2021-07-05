@@ -12,5 +12,13 @@ public interface DrugESService {
     List<Drug> findDrugsGreaterThan(LocalDate dateFrom, LocalDate dateTo);
 
     List<Drug> findDrugGeoLocation(String latitude, String longitude, Integer distance);
+
+    List<Drug> getDrugsCountByManufactureIndex(String index);
+
+    List<Drug> findDrugsByNameWithMistakes(String name);
+
+    List<Drug> findDrugsByPrefix(String prefix);
+
+    List<Drug> test(String name, String contraindications);
 }
 

@@ -33,7 +33,7 @@ public class PatientController {
     @GetMapping(path = "/admin")
     public ModelAndView admin() {
 
-        List<Patient> patients = this.patientService.findAll();
+        List<Patient> patients = this.patientService.getPatients();
 
         ModelAndView model = new ModelAndView();
         model.setViewName("admin");

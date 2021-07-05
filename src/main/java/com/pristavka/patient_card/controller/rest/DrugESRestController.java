@@ -19,7 +19,7 @@ public class DrugESRestController {
     @Autowired
     private DrugESService drugESService;
 
-    @GetMapping(path = "/{name}")
+    @GetMapping(path = "/name/{name}")
     public List<Drug> getDrugByName(@PathVariable("name") @NotBlank String name) {
         return this.drugESService.findDrugByName(name);
     }
@@ -35,6 +35,16 @@ public class DrugESRestController {
                                           @RequestParam("longitude") @NotBlank String longitude,
                                           @RequestParam("distance") Integer distance) {
         return this.drugESService.findDrugGeoLocation(latitude, longitude, distance);
+    }
+
+    @GetMapping(path = "/mistake/{name}")
+    public List<Drug> findDrugsByNameWithMistakes(@PathVariable("name") @NotBlank String name) {
+        return this.drugESService.findDrugsByNameWithMistakes(name);
+    }
+
+    @GetMapping(path = "/prefix/{prefix}")
+    public List<Drug> findDrugsByPrefix(@PathVariable("prefix") @NotBlank String prefix) {
+        return this.drugESService.findDrugsByPrefix(prefix);
     }
 }
 

@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface DiagnosisService {
 
-    Diagnosis save(String name);
+    Diagnosis save(Diagnosis diagnosis);
 
-    List<Diagnosis> findAll();
+    List<Diagnosis> getDiagnoses();
 
-    void deleteById(long id);
+    void delete(Long id);
+
+    Diagnosis update(Diagnosis diagnosis);
+
+    Diagnosis getDiagnosis(Long id);
 }

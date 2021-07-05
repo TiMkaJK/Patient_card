@@ -29,22 +29,22 @@ public class DrugRestController {
     @Autowired
     private PatientDrugMapper patientDrugMapper;
 
-    @GetMapping(path = "/saveDrugsToMongoDB")
-    public void saveDrugsToMongoDB() {
-        this.drugService.saveDrugsToMongoDB();
-    }
-
-    @GetMapping(path = "saveDrugsToES")
-    public void saveDrugsToES() {
-        this.drugService.saveDrugsToES();
-    }
-
     @GetMapping(path = "/")
     public Page<Drug> getDrugs(Pageable pageable) {
         return this.drugService.getDrugs(pageable);
     }
 
-    @PostMapping(path = "save-patient-drug")
+    @GetMapping(path = "/saveDrugsToMongoDB")
+    public void saveDrugsToMongoDB() {
+        this.drugService.saveDrugsToMongoDB();
+    }
+
+    @GetMapping(path = "/saveDrugsToES")
+    public void saveDrugsToES() {
+        this.drugService.saveDrugsToES();
+    }
+
+    @PostMapping(path = "/save-patient-drug")
     public void savePatientDrug(@RequestBody PatientDrugDto patientDrugDto) {
         this.patientDrugService.save(this.patientDrugMapper.toModel(patientDrugDto));
     }

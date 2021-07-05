@@ -9,8 +9,6 @@ import java.util.Set;
 //@Data
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "patients")
-@ToString(exclude = "patients")
 @Entity
 @Table(name = "diagnosis")
 public class Diagnosis {
