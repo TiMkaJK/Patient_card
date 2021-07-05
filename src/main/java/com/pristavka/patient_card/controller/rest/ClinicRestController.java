@@ -32,17 +32,17 @@ public class ClinicRestController {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<ClinicDto> save(@RequestBody ClinicDto clinicDto) {
+    public ResponseEntity<ClinicDto> saveClinic(@RequestBody ClinicDto clinicDto) {
         return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.save(this.clinicMapper.toModel(clinicDto))), HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<ClinicDto> update(@RequestBody ClinicDto clinicDto) {
+    public ResponseEntity<ClinicDto> updateClinic(@RequestBody ClinicDto clinicDto) {
         return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.update(this.clinicMapper.toModel(clinicDto))), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable @Min(1) Long id) {
+    public void deleteClinic(@PathVariable @Min(1) Long id) {
         this.clinicService.delete(id);
     }
 }

@@ -32,17 +32,17 @@ public class PatientRestController {
     }
 
     @PostMapping(path = "/")
-    public PatientDto save(@RequestBody PatientDto patientDto) {
+    public PatientDto savePatient(@RequestBody PatientDto patientDto) {
         return this.patientMapper.toDto(this.patientService.save(this.patientMapper.toModel(patientDto)));
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<PatientDto> update(@RequestBody PatientDto patientDto) {
+    public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto) {
         return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.update(this.patientMapper.toModel(patientDto))), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable @Min(1) Long id) {
+    public void deletePatient(@PathVariable @Min(1) Long id) {
         this.patientService.delete(id);
     }
 }

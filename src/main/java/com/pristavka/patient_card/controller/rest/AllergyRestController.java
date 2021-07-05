@@ -38,12 +38,12 @@ public class AllergyRestController {
     }
 
     @PostMapping(path = "/")
-    public AllergyDto save(@RequestBody AllergyDto allergyDto) {
+    public AllergyDto saveAllergy(@RequestBody AllergyDto allergyDto) {
         return this.allergyMapper.toDto(this.allergyService.save(this.allergyMapper.toEntity(allergyDto)));
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<AllergyDto> update(@RequestBody AllergyDto allergyDto) {
+    public ResponseEntity<AllergyDto> updateAllergy(@RequestBody AllergyDto allergyDto) {
         return new ResponseEntity<>(this.allergyMapper.toDto(this.allergyService.update(this.allergyMapper.toEntity(allergyDto))), HttpStatus.OK);
     }
 
@@ -53,7 +53,7 @@ public class AllergyRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable @Min(1) Long id) {
+    public void deleteAllergy(@PathVariable @Min(1) Long id) {
         this.allergyService.delete(id);
     }
 }

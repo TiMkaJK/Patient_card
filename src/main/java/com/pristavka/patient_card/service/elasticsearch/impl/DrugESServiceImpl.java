@@ -44,7 +44,7 @@ public class DrugESServiceImpl implements DrugESService {
 
         SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
 
-        return getDrugs(drugESSearchHits);
+        return getData(drugESSearchHits);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        return getDrugs(this.elasticsearchRestTemplate.search(rangeQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getData(this.elasticsearchRestTemplate.search(rangeQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(bq)
                 .build();
 
-        return getDrugs(this.elasticsearchRestTemplate.search(geoDistanceQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getData(this.elasticsearchRestTemplate.search(geoDistanceQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DrugESServiceImpl implements DrugESService {
 
         SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
 
-        return getDrugs(drugESSearchHits);
+        return getData(drugESSearchHits);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        return getDrugs(this.elasticsearchRestTemplate.search(fuzzyQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getData(this.elasticsearchRestTemplate.search(fuzzyQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
     @Override
@@ -118,7 +118,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        return getDrugs(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getData(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
     }
 
     @Override
@@ -134,10 +134,10 @@ public class DrugESServiceImpl implements DrugESService {
 
         SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
 
-        return getDrugs(drugESSearchHits);
+        return getData(drugESSearchHits);
     }
 
-    private List<Drug> getDrugs(SearchHits<DrugES> drugSearchHits) {
+    private List<Drug> getData(SearchHits<DrugES> drugSearchHits) {
 
         List<String> ids = drugSearchHits.get()
                 .map(h -> h.getContent().getId())
