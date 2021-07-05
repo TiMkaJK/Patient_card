@@ -46,5 +46,11 @@ public class DrugESRestController {
     public List<Drug> findDrugsByPrefix(@PathVariable("prefix") @NotBlank String prefix) {
         return this.drugESService.findDrugsByPrefix(prefix);
     }
+
+    @GetMapping(path = "/nameAndContraindications/{name}/{contraindications}")
+    public List<Drug> findDrugsByNameAndContraindications(@PathVariable @NotBlank String name,
+                                                          @PathVariable @NotBlank String contraindications) {
+        return this.drugESService.findDrugsByNameAndContraindications(name, contraindications);
+    }
 }
 

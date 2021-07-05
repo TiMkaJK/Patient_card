@@ -33,12 +33,12 @@ public class PatientRestController {
 
     @PostMapping(path = "/")
     public PatientDto savePatient(@RequestBody PatientDto patientDto) {
-        return this.patientMapper.toDto(this.patientService.save(this.patientMapper.toModel(patientDto)));
+        return this.patientMapper.toDto(this.patientService.save(this.patientMapper.toEntity(patientDto)));
     }
 
     @PutMapping(path = "/")
     public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto) {
-        return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.update(this.patientMapper.toModel(patientDto))), HttpStatus.OK);
+        return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.update(this.patientMapper.toEntity(patientDto))), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")

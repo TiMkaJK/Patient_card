@@ -33,12 +33,12 @@ public class DiagnosisRestController {
 
     @PostMapping(path = "/")
     public DiagnosisDto saveDiagnosis(@RequestBody DiagnosisDto diagnosisDto) {
-        return this.diagnosisMapper.toDto(this.diagnosisService.save(this.diagnosisMapper.toModel(diagnosisDto)));
+        return this.diagnosisMapper.toDto(this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto)));
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<DiagnosisDto> updateDiagnosis(@RequestBody DiagnosisDto diagnosisDto) {
-        return new ResponseEntity<>(this.diagnosisMapper.toDto(this.diagnosisService.update(this.diagnosisMapper.toModel(diagnosisDto))), HttpStatus.OK);
+        return new ResponseEntity<>(this.diagnosisMapper.toDto(this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto))), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")

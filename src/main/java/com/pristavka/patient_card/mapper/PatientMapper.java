@@ -11,7 +11,7 @@ public interface PatientMapper {
 
     PatientDto toDto(Patient model);
 
-    Patient toModel(PatientDto dto);
+    Patient toEntity(PatientDto dto);
 
     List<PatientDto> toDtoList(List<Patient> list);
 }

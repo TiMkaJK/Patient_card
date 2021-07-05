@@ -122,7 +122,7 @@ public class DrugESServiceImpl implements DrugESService {
     }
 
     @Override
-    public List<Drug> test(String name, String contraindications) {
+    public List<Drug> findDrugsByNameAndContraindications(String name, String contraindications) {
 
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery()
                 .must(QueryBuilders.termQuery("name", name))

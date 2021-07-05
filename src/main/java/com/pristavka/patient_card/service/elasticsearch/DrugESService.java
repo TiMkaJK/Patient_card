@@ -19,6 +19,6 @@ public interface DrugESService {
 
     List<Drug> findDrugsByPrefix(String prefix);
 
-    List<Drug> test(String name, String contraindications);
+    List<Drug> findDrugsByNameAndContraindications(String name, String contraindications);
 }
 

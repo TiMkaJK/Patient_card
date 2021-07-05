@@ -16,7 +16,7 @@ public interface ClinicMapper {
     )
     ClinicDto toDto(Clinic model);
 
-    Clinic toModel(ClinicDto dto);
+    Clinic toEntity(ClinicDto dto);
 
     List<ClinicDto> toDtoList(List<Clinic> list);
 }

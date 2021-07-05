@@ -1,7 +1,6 @@
 package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.PatientDrugDto;
-import com.pristavka.patient_card.mapper.DrugMapper;
 import com.pristavka.patient_card.mapper.PatientDrugMapper;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.service.DrugService;
@@ -24,9 +23,6 @@ public class DrugRestController {
     private PatientDrugService patientDrugService;
 
     @Autowired
-    private DrugMapper drugMapper;
-
-    @Autowired
     private PatientDrugMapper patientDrugMapper;
 
     @GetMapping(path = "/")
@@ -46,7 +42,7 @@ public class DrugRestController {
 
     @PostMapping(path = "/save-patient-drug")
     public void savePatientDrug(@RequestBody PatientDrugDto patientDrugDto) {
-        this.patientDrugService.save(this.patientDrugMapper.toModel(patientDrugDto));
+        this.patientDrugService.save(this.patientDrugMapper.toEntity(patientDrugDto));
     }
 }
 
