@@ -26,8 +26,9 @@ public class DrugES {
                     @InnerField(type = FieldType.Keyword, suffix = "keyword")
             }
     )*/
-//    @Field(name = "name", type = FieldType.Keyword)
-    @Field(name = "name", type = FieldType.Text)
+
+//        @Field(name = "name", type = FieldType.Text)
+    @Field(name = "name", type = FieldType.Keyword)
     private String name;
 
     @Field(name = "manufacture_date", type = FieldType.Date, format = DateFormat.date)

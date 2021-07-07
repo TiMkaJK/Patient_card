@@ -33,7 +33,7 @@ public class AllergyRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<AllergyDto> getAllergy(@PathVariable @Min(1) Long id) {
+    public ResponseEntity<AllergyDto> getAllergy(@PathVariable(name = "id") @Min(1) Long id) {
         return new ResponseEntity<>(this.allergyMapper.toDto(this.allergyService.getAllergy(id)), HttpStatus.OK);
     }
 
@@ -48,12 +48,12 @@ public class AllergyRestController {
     }
 
     @GetMapping(path = "/{group}")
-    public List<AllergyDto> getAllergiesByGroup(@PathVariable @NotBlank String group) {
+    public List<AllergyDto> getAllergiesByGroup(@PathVariable(name = "group") @NotBlank String group) {
         return this.allergyMapper.toDtoList(this.allergyService.findAllByGroup(group));
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteAllergy(@PathVariable @Min(1) Long id) {
+    public void deleteAllergy(@PathVariable(name = "id") @Min(1) Long id) {
         this.allergyService.delete(id);
     }
 }

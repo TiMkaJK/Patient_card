@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;
-import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.metrics.ValueCountAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -81,11 +81,11 @@ public class DrugESServiceImpl implements DrugESService {
     }
 
     @Override
-    public List<Drug> getDrugsCountByManufactureIndex(String index) {
+    public List<Drug> getDrugsWithGroupingBy() {
 
-        MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("manufacturer.index", index);
+        MatchAllQueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
 
-        AbstractAggregationBuilder<ValueCountAggregationBuilder> ag = AggregationBuilders.count("id");
+        TermsAggregationBuilder ag = AggregationBuilders.terms("man").field("manufacturer.name");
 
         Query matchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -110,12 +110,14 @@ public class DrugESServiceImpl implements DrugESService {
     }
 
     @Override
-    public List<Drug> findDrugsByPrefix(String prefix) {
-        PrefixQueryBuilder queryBuilder = QueryBuilders.prefixQuery("name", prefix)
+    public List<Drug> findDrugsByPrefix(String prefix, Pageable pageable) {
+
+        PrefixQueryBuilder queryBuilder = QueryBuilders.prefixQuery("contraindications", prefix)
                 .caseInsensitive(true);
 
         Query prefixQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
+                .withPageable(pageable)
                 .build();
 
         return getData(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
@@ -137,6 +139,21 @@ public class DrugESServiceImpl implements DrugESService {
         return getData(drugESSearchHits);
     }
 
+    @Override
+    public List<Drug> findDrugsWithWildcard(String begin, String end) {
+
+        WildcardQueryBuilder queryBuilder = QueryBuilders.wildcardQuery("name", begin + "*")
+                .caseInsensitive(true);
+
+        Query matchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .build();
+
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+
+        return getData(drugESSearchHits);
+    }
+
     private List<Drug> getData(SearchHits<DrugES> drugSearchHits) {
 
         List<String> ids = drugSearchHits.get()
@@ -145,6 +162,5 @@ public class DrugESServiceImpl implements DrugESService {
 
         return this.drugMongoDBRepository.findDrugsByIdIn(ids);
     }
-
 }
 
