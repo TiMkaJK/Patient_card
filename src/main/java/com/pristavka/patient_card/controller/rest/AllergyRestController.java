@@ -4,6 +4,7 @@ import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.mapper.AllergyMapper;
 import com.pristavka.patient_card.model.Allergy;
 import com.pristavka.patient_card.service.AllergyService;
+import com.pristavka.patient_card.utils.PageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,8 @@ public class AllergyRestController {
     private AllergyService allergyService;
 
     @GetMapping(path = "/")
-    public Page<Allergy> getAllergies(Pageable pageable) {
-        return this.allergyService.getAllergies(pageable);
+    public Page<AllergyDto> getAllergies(Pageable pageable) {
+        return PageConverter.convertAllergies(this.allergyService.getAllergies(pageable));
     }
 
     @GetMapping(path = "/{id}")

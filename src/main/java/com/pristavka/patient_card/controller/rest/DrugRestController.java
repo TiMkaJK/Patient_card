@@ -1,10 +1,12 @@
 package com.pristavka.patient_card.controller.rest;
 
+import com.pristavka.patient_card.dto.DrugDto;
 import com.pristavka.patient_card.dto.PatientDrugDto;
 import com.pristavka.patient_card.mapper.PatientDrugMapper;
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.service.DrugService;
 import com.pristavka.patient_card.service.PatientDrugService;
+import com.pristavka.patient_card.utils.PageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,8 +28,8 @@ public class DrugRestController {
     private PatientDrugMapper patientDrugMapper;
 
     @GetMapping(path = "/")
-    public Page<Drug> getDrugs(Pageable pageable) {
-        return this.drugService.getDrugs(pageable);
+    public Page<DrugDto> getDrugs(Pageable pageable) {
+        return PageConverter.convertDrugs(this.drugService.getDrugs(pageable));
     }
 
     @GetMapping(path = "/saveDrugsToMongoDB")

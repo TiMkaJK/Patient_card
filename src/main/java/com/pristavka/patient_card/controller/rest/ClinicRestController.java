@@ -3,6 +3,7 @@ package com.pristavka.patient_card.controller.rest;
 import com.pristavka.patient_card.dto.ClinicDto;
 import com.pristavka.patient_card.mapper.ClinicMapper;
 import com.pristavka.patient_card.service.ClinicService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
