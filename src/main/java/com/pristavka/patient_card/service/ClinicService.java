@@ -2,12 +2,12 @@ package com.pristavka.patient_card.service;
 
 
 import com.pristavka.patient_card.model.Clinic;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ClinicService {
 
-    List<Clinic> getClinics();
+    Page<Clinic> getClinics(Pageable pageable);
 
     Clinic getClinic(Long id);
 

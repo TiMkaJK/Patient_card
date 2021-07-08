@@ -29,8 +29,8 @@ public class AllergyRestController {
     private AllergyService allergyService;
 
     @GetMapping(path = "/")
-    public Page<AllergyDto> getAllergies(Pageable pageable) {
-        return PageConverter.convertAllergies(this.allergyService.getAllergies(pageable));
+    public ResponseEntity<Page<AllergyDto>> getAllergies(Pageable pageable) {
+        return new ResponseEntity<>(PageConverter.convertAllergies(this.allergyService.getAllergies(pageable)), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")

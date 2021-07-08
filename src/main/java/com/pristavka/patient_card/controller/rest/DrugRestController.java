@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -28,8 +30,8 @@ public class DrugRestController {
     private PatientDrugMapper patientDrugMapper;
 
     @GetMapping(path = "/")
-    public Page<DrugDto> getDrugs(Pageable pageable) {
-        return PageConverter.convertDrugs(this.drugService.getDrugs(pageable));
+    public ResponseEntity<Page<DrugDto>> getDrugs(Pageable pageable) {
+        return new ResponseEntity<>(PageConverter.convertDrugs(this.drugService.getDrugs(pageable)), HttpStatus.OK);
     }
 
     @GetMapping(path = "/saveDrugsToMongoDB")

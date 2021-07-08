@@ -3,7 +3,10 @@ package com.pristavka.patient_card.controller.rest;
 import com.pristavka.patient_card.dto.DiagnosisDto;
 import com.pristavka.patient_card.mapper.DiagnosisMapper;
 import com.pristavka.patient_card.service.DiagnosisService;
+import com.pristavka.patient_card.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +25,8 @@ public class DiagnosisRestController {
     private DiagnosisMapper diagnosisMapper;
 
     @GetMapping(path = "/")
-    public List<DiagnosisDto> getDiagnoses() {
-        return this.diagnosisMapper.toDtoList(this.diagnosisService.getDiagnoses());
+    public ResponseEntity<Page<DiagnosisDto>> getDiagnoses(Pageable pageable) {
+        return new ResponseEntity<>(PageConverter.convertDiagnosis(this.diagnosisService.getDiagnoses(pageable)), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
