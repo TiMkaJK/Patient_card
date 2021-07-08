@@ -23,5 +23,7 @@ public interface DrugESService {
     List<Drug> findDrugsByNameAndContraindications(String name, String contraindications);
 
     List<Drug> findDrugsWithWildcard(String begin, String end);
+
+    List<Drug> getDrugsWithAggregations();
 }
 

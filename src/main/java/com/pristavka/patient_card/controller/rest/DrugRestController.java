@@ -32,12 +32,20 @@ public class DrugRestController {
 
     @GetMapping(path = "/saveDrugsToMongoDB")
     public void saveDrugsToMongoDB() {
-        this.drugService.saveDrugsToMongoDB();
+        try {
+            this.drugService.saveDrugsToMongoDB();
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving drugs to MongoDb");
+        }
     }
 
     @GetMapping(path = "/saveDrugsToES")
     public void saveDrugsToES() {
-        this.drugService.saveDrugsToES();
+        try {
+            this.drugService.saveDrugsToES();
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving drugs to Elasticsearch");
+        }
     }
 
     @PostMapping(path = "/save-patient-drug")

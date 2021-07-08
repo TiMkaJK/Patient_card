@@ -27,7 +27,7 @@ public class DiagnosisRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<DiagnosisDto> getDiagnosis(@PathVariable @Min(1) Long id) {
+    public ResponseEntity<DiagnosisDto> getDiagnosis(@PathVariable(name = "id") @Min(1) Long id) {
         return  new ResponseEntity<>(this.diagnosisMapper.toDto(this.diagnosisService.getDiagnosis(id)), HttpStatus.OK);
     }
 
@@ -36,13 +36,13 @@ public class DiagnosisRestController {
         return this.diagnosisMapper.toDto(this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto)));
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/")
     public ResponseEntity<DiagnosisDto> updateDiagnosis(@RequestBody DiagnosisDto diagnosisDto) {
         return new ResponseEntity<>(this.diagnosisMapper.toDto(this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto))), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteDiagnosis(@PathVariable @Min(1) Long id) {
+    public void deleteDiagnosis(@PathVariable(name = "id") @Min(1) Long id) {
         this.diagnosisService.delete(id);
     }
 }

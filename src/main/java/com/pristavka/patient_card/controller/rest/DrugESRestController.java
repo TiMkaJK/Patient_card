@@ -65,5 +65,10 @@ public class DrugESRestController {
                                             @PathVariable(name = "end", required = false) @NotBlank String end) {
         return this.drugESService.findDrugsWithWildcard(begin, end);
     }
+
+    @GetMapping(path = "/aggregations")
+    public List<Drug> getDrugsWithAggregations() {
+        return this.drugESService.getDrugsWithAggregations();
+    }
 }
 

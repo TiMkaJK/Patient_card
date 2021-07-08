@@ -27,7 +27,7 @@ public class PatientRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public PatientDto getPatient(@PathVariable @Min(1) Long id) {
+    public PatientDto getPatient(@PathVariable(name = "id") @Min(1) Long id) {
         return this.patientMapper.toDto(this.patientService.getPatient(id));
     }
 
@@ -42,7 +42,7 @@ public class PatientRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletePatient(@PathVariable @Min(1) Long id) {
+    public void deletePatient(@PathVariable(name = "id") @Min(1) Long id) {
         this.patientService.delete(id);
     }
 }

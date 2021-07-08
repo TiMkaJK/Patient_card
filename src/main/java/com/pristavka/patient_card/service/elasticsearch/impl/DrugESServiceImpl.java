@@ -9,7 +9,12 @@ import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -19,8 +24,12 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,6 +42,13 @@ public class DrugESServiceImpl implements DrugESService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
+    private IndexCoordinates indexCoordinates;
+
+    @PostConstruct
+    public void init() {
+        this.indexCoordinates = IndexCoordinates.of("drugs_index");
+    }
+
     @Override
     public List<Drug> findDrugByName(String name) {
 
@@ -42,9 +58,9 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);
 
-        return getData(drugESSearchHits);
+        return getSortedData(drugESSearchHits);
     }
 
     @Override
@@ -58,7 +74,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        return getData(this.elasticsearchRestTemplate.search(rangeQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getSortedData(this.elasticsearchRestTemplate.search(rangeQuery, DrugES.class, this.indexCoordinates));
     }
 
     @Override
@@ -77,7 +93,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(bq)
                 .build();
 
-        return getData(this.elasticsearchRestTemplate.search(geoDistanceQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getSortedData(this.elasticsearchRestTemplate.search(geoDistanceQuery, DrugES.class, this.indexCoordinates));
     }
 
     @Override
@@ -85,16 +101,19 @@ public class DrugESServiceImpl implements DrugESService {
 
         MatchAllQueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
 
-        TermsAggregationBuilder ag = AggregationBuilders.terms("man").field("manufacturer.name");
+        TermsAggregationBuilder ag = AggregationBuilders.terms("manufacturerNames").field("manufacturer.name");
+
+        FieldSortBuilder sb = SortBuilders.fieldSort("manufacturer.name").order(SortOrder.ASC);
 
         Query matchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
+                .withSort(sb)
                 .addAggregation(ag)
                 .build();
 
-        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);
 
-        return getData(drugESSearchHits);
+        return getSortedData(drugESSearchHits);
     }
 
     @Override
@@ -106,7 +125,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        return getData(this.elasticsearchRestTemplate.search(fuzzyQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getSortedData(this.elasticsearchRestTemplate.search(fuzzyQuery, DrugES.class, this.indexCoordinates));
     }
 
     @Override
@@ -120,7 +139,7 @@ public class DrugESServiceImpl implements DrugESService {
                 .withPageable(pageable)
                 .build();
 
-        return getData(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, IndexCoordinates.of("drugs_index")));
+        return getSortedData(this.elasticsearchRestTemplate.search(prefixQuery, DrugES.class, this.indexCoordinates));
     }
 
     @Override
@@ -134,9 +153,9 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);
 
-        return getData(drugESSearchHits);
+        return getSortedData(drugESSearchHits);
     }
 
     @Override
@@ -149,9 +168,29 @@ public class DrugESServiceImpl implements DrugESService {
                 .withQuery(queryBuilder)
                 .build();
 
-        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, IndexCoordinates.of("drugs_index"));
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);
 
-        return getData(drugESSearchHits);
+        return getSortedData(drugESSearchHits);
+    }
+
+    @Override
+    public List<Drug> getDrugsWithAggregations() {
+
+        MatchAllQueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
+
+        TermsAggregationBuilder ag = AggregationBuilders.terms("manufacturerNames").field("manufacturer.name")
+                .subAggregation(AggregationBuilders.dateHistogram("dates")
+                        .field("manufacture_date")
+                        .calendarInterval(DateHistogramInterval.DAY));
+
+        Query matchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
+                .addAggregation(ag)
+                .build();
+
+        SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);
+
+        return getSortedData(drugESSearchHits);
     }
 
     private List<Drug> getData(SearchHits<DrugES> drugSearchHits) {
@@ -161,6 +200,18 @@ public class DrugESServiceImpl implements DrugESService {
                 .collect(Collectors.toList());
 
         return this.drugMongoDBRepository.findDrugsByIdIn(ids);
+    }
+
+    private List<Drug> getSortedData(SearchHits<DrugES> drugSearchHits) {
+
+        Map<String, Drug> drugsMap = this.drugMongoDBRepository.findAll()
+                .stream()
+                .collect(Collectors.toMap(Drug::getId, Function.identity()));
+
+        return drugSearchHits.getSearchHits()
+                .stream()
+                .map(d -> drugsMap.getOrDefault(d.getContent().getId(), null))
+                .collect(Collectors.toList());
     }
 }
 

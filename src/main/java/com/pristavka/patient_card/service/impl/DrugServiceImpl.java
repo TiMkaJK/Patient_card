@@ -186,10 +186,10 @@ public class DrugServiceImpl implements DrugService {
         List<Manufacturer> manufacturers = new ArrayList<>();
 
         manufacturers.add(new Manufacturer("Лекхим", "Киев", "ул. Шота Руставели, 23", "01033"));
-        manufacturers.add(new Manufacturer("Biopharma", "Киев", "ул. Николая Амосова, 12", "27063"));
-        manufacturers.add(new Manufacturer("БАЙEР", "Киев", "ул. Верхний Вал 4-Б", "40710"));
-        manufacturers.add(new Manufacturer("Дарница", "Киев", "ул. Бориспольская, 13", "02093"));
-        manufacturers.add(new Manufacturer("Фармак", "Киев", "ул. Кирилловская, 63", "04080"));
+        manufacturers.add(new Manufacturer("Biopharma", "Запорожье", "ул. Николая Амосова, 12", "27063"));
+        manufacturers.add(new Manufacturer("БАЙEР", "Днепропетровск", "ул. Верхний Вал 4-Б", "40710"));
+        manufacturers.add(new Manufacturer("Дарница", "Одесса", "ул. Бориспольская, 13", "02093"));
+        manufacturers.add(new Manufacturer("Фармак", "Харьков", "ул. Кирилловская, 63", "04080"));
 
         return manufacturers;
     }

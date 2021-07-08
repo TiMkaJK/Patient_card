@@ -52,7 +52,7 @@ services:
       - esnet
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.13.2
+    image: docker.elastic.co/kibana/kibana:7.12.1
     container_name: kibana
     restart: unless-stopped
     environment:

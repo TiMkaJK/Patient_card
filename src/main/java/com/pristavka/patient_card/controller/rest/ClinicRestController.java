@@ -27,7 +27,7 @@ public class ClinicRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ClinicDto> getClinic(@PathVariable @Min(1) Long id) {
+    public ResponseEntity<ClinicDto> getClinic(@PathVariable(name = "id") @Min(1) Long id) {
         return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.getClinic(id)), HttpStatus.OK);
     }
 
@@ -42,7 +42,7 @@ public class ClinicRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteClinic(@PathVariable @Min(1) Long id) {
+    public void deleteClinic(@PathVariable(name = "id") @Min(1) Long id) {
         this.clinicService.delete(id);
     }
 }
