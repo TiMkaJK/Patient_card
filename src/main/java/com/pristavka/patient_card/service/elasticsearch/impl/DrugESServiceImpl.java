@@ -9,6 +9,7 @@ import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -176,14 +177,15 @@ public class DrugESServiceImpl implements DrugESService {
 
         MatchAllQueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
 
-        TermsAggregationBuilder ag = AggregationBuilders.terms("manufacturerNames").field("manufacturer.name")
-                .subAggregation(AggregationBuilders.dateHistogram("dates")
-                        .field("manufacture_date")
-                        .calendarInterval(DateHistogramInterval.DAY));
+        TermsAggregationBuilder manufacturerNamesAggregation = AggregationBuilders.terms("manufacturerNames")
+                .field("manufacturer.name");
+        TermsAggregationBuilder manufacturerCitiesAggregation = AggregationBuilders.terms("manufacturerCities")
+                .field("manufacturer.city");
 
         Query matchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
-                .addAggregation(ag)
+                .addAggregation(manufacturerNamesAggregation)
+                .addAggregation(manufacturerCitiesAggregation)
                 .build();
 
         SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);

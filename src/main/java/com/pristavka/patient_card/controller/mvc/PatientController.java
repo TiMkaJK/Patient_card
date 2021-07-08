@@ -8,6 +8,7 @@ import com.pristavka.patient_card.service.PatientService;
 import com.pristavka.patient_card.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,9 @@ public class PatientController {
     private UserService userService;
 
     @GetMapping(path = "/admin")
-    public ModelAndView admin() {
+    public ModelAndView admin(Pageable pageable) {
 
-        List<Patient> patients = this.patientService.getPatients();
+        List<Patient> patients = this.patientService.getPatients(pageable).getContent();
 
         ModelAndView model = new ModelAndView();
         model.setViewName("admin");
