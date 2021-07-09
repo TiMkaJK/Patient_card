@@ -10,7 +10,7 @@ import java.util.List;
 public interface DrugMapper {
     DrugDto toDto(Drug model);
 
-    Drug toModel(DrugDto dto);
+    Drug toEntity(DrugDto dto);
 
     List<DrugDto> toDtoList(List<Drug> modelList);
 }

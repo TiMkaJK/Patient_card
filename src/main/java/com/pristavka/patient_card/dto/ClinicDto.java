@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +18,11 @@ public class ClinicDto {
 
     private Long id;
 
+    @NotBlank
     @Size(max = 50)
     private String name;
 
+    @NotNull
     private int number;
     private Set<Patient> patients = new HashSet<>();
 }

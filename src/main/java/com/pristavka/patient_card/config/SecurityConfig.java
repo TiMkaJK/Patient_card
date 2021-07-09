@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.config;
 
-import com.pristavka.patient_card.model.enums.UserRole;
+import com.pristavka.patient_card.enums.UserRole;
 import com.pristavka.patient_card.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin").hasAuthority(UserRole.ADMIN.toString())
                 .antMatchers("/user").hasAuthority(UserRole.USER.toString())
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/js/**", "/css/**").permitAll()
                 .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()

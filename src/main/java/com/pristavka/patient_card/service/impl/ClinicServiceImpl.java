@@ -4,31 +4,37 @@ import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.repository.ClinicRepository;
 import com.pristavka.patient_card.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class ClinicServiceImpl implements ClinicService
-{
+public class ClinicServiceImpl implements ClinicService {
     @Autowired
     private ClinicRepository clinicRepository;
 
     @Override
-    public Clinic save(Clinic clinic)
-    {
+    public Clinic save(Clinic clinic) {
         return this.clinicRepository.save(clinic);
     }
 
     @Override
-    public List<Clinic> findAll()
-    {
-        return this.clinicRepository.findAll();
+    public Clinic update(Clinic clinic) {
+        return this.clinicRepository.save(clinic);
     }
 
     @Override
-    public void deleteById(long id)
-    {
+    public Page<Clinic> getClinics(Pageable pageable) {
+        return this.clinicRepository.findAll(pageable);
+    }
+
+    @Override
+    public Clinic getClinic(Long id) {
+        return this.clinicRepository.getById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
         this.clinicRepository.deleteById(id);
     }
 }

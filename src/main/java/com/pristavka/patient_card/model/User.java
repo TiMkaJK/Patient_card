@@ -9,8 +9,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"patients", "status", "roles"})
-@ToString(exclude = {"patients", "status", "roles"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

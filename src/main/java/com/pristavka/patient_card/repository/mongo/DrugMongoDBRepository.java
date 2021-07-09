@@ -4,7 +4,13 @@ import com.pristavka.patient_card.model.mongo.Drug;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DrugRepository extends MongoRepository<Drug, String> {
-}
+import java.util.List;
+import java.util.stream.Stream;
 
+@Repository
+public interface DrugMongoDBRepository extends MongoRepository<Drug, String> {
+
+    List<Drug> findDrugsByIdIn(List<String> ids);
+
+    Stream<Drug> findAllBy();
+}

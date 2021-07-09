@@ -1,4 +1,4 @@
-package com.pristavka.patient_card.model.enums;
+package com.pristavka.patient_card.enums;
 
 public enum UserStatus
 {

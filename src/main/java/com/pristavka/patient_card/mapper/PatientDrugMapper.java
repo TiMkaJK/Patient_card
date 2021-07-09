@@ -11,7 +11,7 @@ public interface PatientDrugMapper {
 
     PatientDrugDto toDto(PatientDrug patientDrug);
 
-    PatientDrug toModel(PatientDrugDto patientDrugDto);
+    PatientDrug toEntity(PatientDrugDto patientDrugDto);
 
     List<PatientDrugDto> toDtoList(List<PatientDrug> modelList);
 }

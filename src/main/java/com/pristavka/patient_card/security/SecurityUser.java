@@ -2,7 +2,7 @@ package com.pristavka.patient_card.security;
 
 import com.pristavka.patient_card.model.Role;
 import com.pristavka.patient_card.model.User;
-import com.pristavka.patient_card.model.enums.UserStatus;
+import com.pristavka.patient_card.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

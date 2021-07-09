@@ -1,10 +1,7 @@
-package com.pristavka.patient_card.model.enums;
+package com.pristavka.patient_card.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
+//@AllArgsConstructor
+//@Getter
 public enum Contraindications {
 
     HIGH_BLOOD_PRESSURE("High Blood Pressure"),
@@ -25,11 +22,11 @@ public enum Contraindications {
 
     private final String code;
 
-    /*Contraindications(String code) {
+    Contraindications(String code) {
         this.code = code;
     }
 
     public String getCode() {
         return code;
-    }*/
+    }
 }

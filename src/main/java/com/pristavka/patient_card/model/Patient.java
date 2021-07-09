@@ -10,8 +10,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"diagnoses", "allergies", "patientDrugs"})
-@ToString(exclude = {"diagnoses", "allergies", "patientDrugs"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

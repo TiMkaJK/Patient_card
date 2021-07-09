@@ -11,7 +11,7 @@ public interface DiagnosisMapper {
 
     DiagnosisDto toDto(Diagnosis model);
 
-    Diagnosis toModel(DiagnosisDto dto);
+    Diagnosis toEntity(DiagnosisDto dto);
 
     List<DiagnosisDto> toDtoList(List<Diagnosis> list);
 }

@@ -6,6 +6,8 @@ import com.pristavka.patient_card.repository.PatientRepository;
 import com.pristavka.patient_card.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -22,13 +24,13 @@ public class PatientServiceImpl implements PatientService {
     private PatientMapper patientMapper;
 
     @Override
-    public Patient findById(Long id) {
-        return this.patientRepository.findById(id).orElseThrow(() -> new NotFoundException("patient not found"));
+    public Patient getPatient(Long id) {
+        return this.patientRepository.findById(id).orElseThrow(() -> new NotFoundException("Patient not found"));
     }
 
     @Override
-    public List<Patient> findAll() {
-        return this.patientRepository.findAll();
+    public Page<Patient> getPatients(Pageable pageable) {
+        return this.patientRepository.findAll(pageable);
     }
 
     @Override
@@ -42,8 +44,13 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient findPatientById(Long id) {
-        return this.patientRepository.findPatientById(id);
+    public Patient update(Patient patient) {
+        return this.patientRepository.save(patient);
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.patientRepository.deleteById(id);
     }
 }
 

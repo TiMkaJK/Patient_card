@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.7'
 services:
   mysql-db:
     image: mysql:latest
@@ -26,3 +26,86 @@ services:
     ports:
       - 27017:27017
     restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=password
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.12.1
+    container_name: kibana
+    restart: unless-stopped
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=password
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet
+
+  elastichq:
+    image: elastichq/elasticsearch-hq
+    container_name: elastichq
+    restart: unless-stopped
+    environment:
+      - HQ_DEFAULT_URL=http://elasticsearch:9200
+      - HQ_DEBUG=false
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=password
+    ports:
+      - 5000:5000
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    restart: unless-stopped
+    command: redis-server --requirepass password
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis-data:/var/lib/redis
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      node_net:
+        ipv4_address: 172.28.1.4
+
+volumes:
+  elasticsearch-data:
+    driver: local
+networks:
+  esnet:
+    driver: bridge
+  node_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

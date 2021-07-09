@@ -2,18 +2,22 @@ package com.pristavka.patient_card.service;
 
 
 import com.pristavka.patient_card.model.Patient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PatientService {
 
-    Patient findById(Long id);
+    Patient getPatient(Long id);
 
-    List<Patient> findAll();
+    Page<Patient> getPatients(Pageable pageable);
 
     List<Patient> findAllByUserEmail(String email);
 
     Patient save(Patient patient);
 
-    Patient findPatientById(Long id);
+    Patient update(Patient patient);
+
+    void delete(Long id);
 }

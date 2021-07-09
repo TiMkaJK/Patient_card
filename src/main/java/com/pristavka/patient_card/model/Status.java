@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.model;
 
-import com.pristavka.patient_card.model.enums.UserStatus;
+import com.pristavka.patient_card.enums.UserStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,8 +10,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "users")
-@ToString(exclude = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

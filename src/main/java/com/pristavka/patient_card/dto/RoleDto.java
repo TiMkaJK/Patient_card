@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.dto;
 
-import com.pristavka.patient_card.model.enums.UserRole;
+import com.pristavka.patient_card.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

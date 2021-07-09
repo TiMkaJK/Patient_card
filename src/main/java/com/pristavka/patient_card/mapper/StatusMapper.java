@@ -11,7 +11,7 @@ public interface StatusMapper {
 
     StatusDto toDto(Status model);
 
-    Status toModel(StatusDto dto);
+    Status toEntity(StatusDto dto);
 
     List<StatusDto> toDtoList(List<Status> list);
 }
