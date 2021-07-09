@@ -2,6 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.ClinicDto;
 import com.pristavka.patient_card.mapper.ClinicMapper;
+import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.service.ClinicService;
 import com.pristavka.patient_card.utils.PageConverter;
 import org.modelmapper.ModelMapper;
@@ -10,9 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.util.InputMismatchException;
 import java.util.List;
 
 @RestController
@@ -36,17 +40,32 @@ public class ClinicRestController {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<ClinicDto> saveClinic(@RequestBody ClinicDto clinicDto) {
-        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.save(this.clinicMapper.toEntity(clinicDto))), HttpStatus.OK);
+    public ResponseEntity<ClinicDto> saveClinic(@RequestBody @Valid ClinicDto clinicDto,
+                                                BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+        return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<ClinicDto> updateClinic(@RequestBody ClinicDto clinicDto) {
-        return new ResponseEntity<>(this.clinicMapper.toDto(this.clinicService.update(this.clinicMapper.toEntity(clinicDto))), HttpStatus.OK);
+    public ResponseEntity<ClinicDto> updateClinic(@RequestBody @Valid ClinicDto clinicDto,
+                                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+        return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteClinic(@PathVariable(name = "id") @Min(1) Long id) {
+    public ResponseEntity<HttpStatus> deleteClinic(@PathVariable(name = "id") @Min(1) Long id) {
         this.clinicService.delete(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

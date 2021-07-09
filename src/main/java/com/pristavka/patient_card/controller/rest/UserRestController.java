@@ -10,9 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.util.InputMismatchException;
 
 @Slf4j
 @RestController
@@ -31,22 +34,37 @@ public class UserRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public UserDto getUser(@PathVariable(name = "id") @Min(1) Long id) {
-        return this.userMapper.toDto(this.userService.getUser(id));
+    public ResponseEntity<UserDto> getUser(@PathVariable(name = "id") @Min(1) Long id) {
+        return new ResponseEntity<>(this.userMapper.toDto(this.userService.getUser(id)), HttpStatus.OK);
     }
 
     @PostMapping(path = "/")
-    public UserDto saveUser(@RequestBody UserDto userDto) {
-        return this.userMapper.toDto(this.userService.save(this.userMapper.toEntity(userDto)));
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto,
+                                            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var user = this.userService.save(this.userMapper.toEntity(userDto));
+        return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
-    public UserDto updateUser(@RequestBody UserDto userDto) {
-        return this.userMapper.toDto(this.userService.update(this.userMapper.toEntity(userDto)));
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto,
+                                              BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var user = this.userService.update(this.userMapper.toEntity(userDto));
+        return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable(name = "id") @Min(1) Long id) {
+
         this.userService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }

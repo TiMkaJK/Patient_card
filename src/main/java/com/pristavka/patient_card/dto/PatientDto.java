@@ -20,12 +20,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class PatientDto {
 
-    @Size(max = 40)
+    private Long id;
+
     @NotBlank
+    @Size(max = 40)
     private String firstName;
 
-    @Size(max = 50)
     @NotBlank
+    @Size(max = 50)
     private String lastName;
 
     @NotNull

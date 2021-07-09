@@ -9,10 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import java.util.List;
+import java.util.InputMismatchException;
 
 @RestController
 @RequestMapping(path = "/api/v1/patients")
@@ -30,23 +32,38 @@ public class PatientRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public PatientDto getPatient(@PathVariable(name = "id") @Min(1) Long id) {
-        return this.patientMapper.toDto(this.patientService.getPatient(id));
+    public ResponseEntity<PatientDto> getPatient(@PathVariable(name = "id") @Min(1) Long id) {
+        return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.getPatient(id)), HttpStatus.OK);
     }
 
     @PostMapping(path = "/")
-    public PatientDto savePatient(@RequestBody PatientDto patientDto) {
-        return this.patientMapper.toDto(this.patientService.save(this.patientMapper.toEntity(patientDto)));
+    public ResponseEntity<PatientDto> savePatient(@RequestBody @Valid PatientDto patientDto,
+                                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
+        return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto) {
-        return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.update(this.patientMapper.toEntity(patientDto))), HttpStatus.OK);
+    public ResponseEntity<PatientDto> updatePatient(@RequestBody @Valid PatientDto patientDto,
+                                                    BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new InputMismatchException();
+        }
+
+        var patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
+        return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletePatient(@PathVariable(name = "id") @Min(1) Long id) {
+    public ResponseEntity<HttpStatus> deletePatient(@PathVariable(name = "id") @Min(1) Long id) {
         this.patientService.delete(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }
 
