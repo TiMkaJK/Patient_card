@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 public class PatientDrugDto {
 
     private Long id;

@@ -2,6 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.UserDto;
 import com.pristavka.patient_card.mapper.UserMapper;
+import com.pristavka.patient_card.model.User;
 import com.pristavka.patient_card.service.UserService;
 import com.pristavka.patient_card.utils.PageConverter;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class UserRestController {
             throw new InputMismatchException();
         }
 
-        var user = this.userService.save(this.userMapper.toEntity(userDto));
+        User user = this.userService.save(this.userMapper.toEntity(userDto));
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 
@@ -58,7 +59,7 @@ public class UserRestController {
             throw new InputMismatchException();
         }
 
-        var user = this.userService.update(this.userMapper.toEntity(userDto));
+        User user = this.userService.update(this.userMapper.toEntity(userDto));
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 

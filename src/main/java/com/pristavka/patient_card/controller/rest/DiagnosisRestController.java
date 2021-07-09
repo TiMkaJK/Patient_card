@@ -2,6 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.DiagnosisDto;
 import com.pristavka.patient_card.mapper.DiagnosisMapper;
+import com.pristavka.patient_card.model.Diagnosis;
 import com.pristavka.patient_card.service.DiagnosisService;
 import com.pristavka.patient_card.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class DiagnosisRestController {
             throw new InputMismatchException();
         }
 
-        var diagnosis = this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto));
+        Diagnosis diagnosis = this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto));
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }
 
@@ -56,7 +57,7 @@ public class DiagnosisRestController {
             throw new InputMismatchException();
         }
 
-        var diagnosis = this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto));
+        Diagnosis diagnosis = this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto));
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }
 
