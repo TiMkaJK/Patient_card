@@ -11,4 +11,6 @@ import java.util.stream.Stream;
 public interface DrugMongoDBRepository extends MongoRepository<Drug, String> {
 
     List<Drug> findDrugsByIdIn(List<String> ids);
+
+    Stream<Drug> findAllBy();
 }

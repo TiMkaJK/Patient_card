@@ -36,6 +36,7 @@ public class DrugRestController {
 
     @GetMapping(path = "/saveDrugsToMongoDB")
     public void saveDrugsToMongoDB() {
+
         try {
             this.drugService.saveDrugsToMongoDB();
         } catch (Exception e) {
@@ -45,6 +46,7 @@ public class DrugRestController {
 
     @GetMapping(path = "/saveDrugsToES")
     public void saveDrugsToES() {
+
         try {
             this.drugService.saveDrugsToES();
         } catch (Exception e) {

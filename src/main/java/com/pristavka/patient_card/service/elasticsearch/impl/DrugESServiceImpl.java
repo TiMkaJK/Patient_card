@@ -9,8 +9,6 @@ import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.filter.FilterAggregationBuilder;
-import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -30,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -204,8 +203,7 @@ public class DrugESServiceImpl implements DrugESService {
 
     private List<Drug> getSortedData(SearchHits<DrugES> drugSearchHits) {
 
-        Map<String, Drug> drugsMap = this.drugMongoDBRepository.findAll()
-                .stream()
+        Map<String, Drug> drugsMap = this.drugMongoDBRepository.findAllBy()
                 .collect(Collectors.toMap(Drug::getId, Function.identity()));
 
         return drugSearchHits.getSearchHits()

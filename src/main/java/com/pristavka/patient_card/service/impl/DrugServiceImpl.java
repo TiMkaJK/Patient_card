@@ -59,7 +59,8 @@ public class DrugServiceImpl implements DrugService {
     @Override
     public void saveDrugsToES() {
 
-        List<Drug> drugs = this.drugMongoDBRepository.findAll();
+        List<Drug> drugs = this.drugMongoDBRepository.findAllBy()
+                .collect(Collectors.toList());
 
         if (CollectionUtils.isNotEmpty(drugs)) {
 
