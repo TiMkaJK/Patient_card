@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -44,7 +43,7 @@ public class DrugESServiceImpl implements DrugESService {
 
     @PostConstruct
     public void init() {
-        this.indexCoordinates = IndexCoordinates.of("drugs_index");
+        this.indexCoordinates = this.elasticsearchRestTemplate.getIndexCoordinatesFor(DrugES.class);
     }
 
     @Override

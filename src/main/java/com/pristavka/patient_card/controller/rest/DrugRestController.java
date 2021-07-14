@@ -3,7 +3,6 @@ package com.pristavka.patient_card.controller.rest;
 import com.pristavka.patient_card.dto.DrugDto;
 import com.pristavka.patient_card.dto.PatientDrugDto;
 import com.pristavka.patient_card.mapper.PatientDrugMapper;
-import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.service.DrugService;
 import com.pristavka.patient_card.service.PatientDrugService;
 import com.pristavka.patient_card.utils.PageConverter;
