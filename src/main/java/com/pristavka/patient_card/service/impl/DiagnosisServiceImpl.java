@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.webjars.NotFoundException;
 
 @Service
 public class DiagnosisServiceImpl implements DiagnosisService {
@@ -38,7 +37,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public Diagnosis getDiagnosis(Long id) {
-        return this.diagnosisRepository.getById(id);
+        return this.diagnosisRepository.findById(id).orElseThrow(() -> new NotFoundException("No such diagnosis found"));
     }
 }
 
