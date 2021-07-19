@@ -50,6 +50,7 @@ public class AllergyRestController {
         }
 
         Allergy allergy = this.allergyMapper.toEntity(allergyDto);
+
         return new ResponseEntity<>(this.allergyMapper.toDto(this.allergyService.save(allergy)), HttpStatus.OK);
     }
 
@@ -62,6 +63,7 @@ public class AllergyRestController {
         }
 
         Allergy allergy = this.allergyService.update(this.allergyMapper.toEntity(allergyDto));
+
         return new ResponseEntity<>(this.allergyMapper.toDto(allergy), HttpStatus.OK);
     }
 

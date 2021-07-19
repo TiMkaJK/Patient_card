@@ -46,6 +46,7 @@ public class PatientRestController {
         }
 
         Patient patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
+
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 
@@ -58,6 +59,7 @@ public class PatientRestController {
         }
 
         Patient patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
+
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 

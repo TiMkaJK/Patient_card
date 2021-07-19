@@ -48,6 +48,7 @@ public class UserRestController {
         }
 
         User user = this.userService.save(this.userMapper.toEntity(userDto));
+
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 
@@ -60,6 +61,7 @@ public class UserRestController {
         }
 
         User user = this.userService.update(this.userMapper.toEntity(userDto));
+
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 

@@ -46,6 +46,7 @@ public class ClinicRestController {
         }
 
         Clinic clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 
@@ -58,6 +59,7 @@ public class ClinicRestController {
         }
 
         Clinic clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 

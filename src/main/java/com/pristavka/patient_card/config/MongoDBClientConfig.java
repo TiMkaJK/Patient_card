@@ -24,8 +24,7 @@ public class MongoDBClientConfig extends AbstractMongoClientConfiguration {
 
         ConnectionString connectionString = new ConnectionString(dbUrl);
 
-        MongoClientSettings mongoClientSettings = MongoClientSettings
-                .builder()
+        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
 

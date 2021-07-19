@@ -46,6 +46,7 @@ public class DiagnosisRestController {
         }
 
         Diagnosis diagnosis = this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto));
+
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }
 
@@ -58,6 +59,7 @@ public class DiagnosisRestController {
         }
 
         Diagnosis diagnosis = this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto));
+
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }
 

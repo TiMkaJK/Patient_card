@@ -38,6 +38,7 @@ public class RedisRestController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> delete(@PathVariable(name = "id") @NotBlank String id) {
+
         this.redisService.delete(id);
 
         return ResponseEntity.ok().build();
