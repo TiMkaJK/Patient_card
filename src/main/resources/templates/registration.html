@@ -30,36 +30,36 @@
 
             <h1>Registration</h1>
 
-            <form th:action="@{/registration}" method="post" th:object="${user}">
+            <form id="user-save" autocomplete="off">
                 <div class="form-group">
                     <label class="control-label" for="firstName"> First Name </label>
-                    <input id="firstName" class="form-control" th:field="*{firstName}"
-                           required autofocus="autofocus"/>
+                    <input id="firstName" class="form-control" required autofocus="autofocus"/>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="lastName"> Last Name </label>
-                    <input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus"/>
+                    <input id="lastName" class="form-control" required autofocus="autofocus"/>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="email"> Email </label>
-                    <input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus"/>
+                    <input id="email" class="form-control" required autofocus="autofocus"/>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="password"> Password </label>
-                    <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus"/>
+                        <input id="password" class="form-control" type="password" required autofocus="autofocus"/>
                 </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Register</button>
-                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+                <div class="form-group mt-3">
+                    <button type="submit" id="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/login">Login here</a></span>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/registration.js"></script>
 </body>
 </html>
 

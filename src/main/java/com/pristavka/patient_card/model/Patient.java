@@ -21,6 +21,9 @@ public class Patient {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @Column(name = "first_name", length = 40, nullable = false)
     private String firstName;
 
