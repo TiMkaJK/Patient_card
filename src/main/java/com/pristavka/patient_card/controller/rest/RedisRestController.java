@@ -22,9 +22,7 @@ public class RedisRestController {
     @PostMapping(path = "/")
     public ResponseEntity<String> save(@RequestBody @Valid PasswordOTP password) {
 
-        PasswordOTP passwordOTP = this.redisService.save(password);
-
-        if (Objects.isNull(passwordOTP)) {
+        if (Objects.isNull(this.redisService.save(password))) {
             return ResponseEntity.badRequest().build();
         }
 

@@ -2,35 +2,33 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>New Message</title>
-  <link href="//fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>New Message</title>
+    <link href="//fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"/>
 </head>
 <body style="background: #F9F9F9; font-family: Lato; padding: 50px 0;">
 <div style="text-align: center;">
 
-      <table style="text-align:center; font-size: 16px; margin: 0 auto;">
+    <table style="text-align:center; font-size: 16px; margin: 0 auto;">
         <tr>
-          <th:block th:each="digit : ${otpList}">
-            <td>
+            <th:block th:each="digit : ${otpList}">
+                <td>
                 <span style="font-size: 28px;
                                     padding: 10px;
                                     color: #303030;
                                     border: 1px solid #E5E5E5;
                                     border-radius: 4px;
                                     border-color: #33b694" th:text="${digit}"></span>
-            </td>
-          </th:block>
+                </td>
+            </th:block>
         </tr>
-      </table>
-    </div>
+    </table>
+</div>
 
-    <hr style="margin: 55px 55px 30px; border: 1px solid #ccc;">
+<hr style="margin: 55px 55px 30px; border: 1px solid #ccc;">
 
-    <div class="footer" style="margin: 0 auto;text-align: center">
+<div class="footer" style="margin: 0 auto;text-align: center">
 
-    </div>
-  </div>
 </div>
 </body>
 </html>
