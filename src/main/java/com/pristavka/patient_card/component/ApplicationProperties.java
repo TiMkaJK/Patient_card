@@ -22,4 +22,22 @@ public class ApplicationProperties {
 
     @Value("${spring.mail.from}")
     private String mailFrom;
+
+    @Value("${spring.elasticsearch.rest.uris}")
+    private String esHostAndPort;
+
+    @Value("${spring.elasticsearch.rest.username}")
+    private String esUsername;
+
+    @Value("${spring.elasticsearch.rest.password}")
+    private String esPassword;
+
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private Integer redisPort;
+
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 }

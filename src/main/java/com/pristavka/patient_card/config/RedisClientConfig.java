@@ -1,6 +1,7 @@
 package com.pristavka.patient_card.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.pristavka.patient_card.component.ApplicationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,22 +17,17 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories(basePackages = "com.pristavka.patient_card.repository.redis")
 public class RedisClientConfig {
 
-    @Value("${spring.redis.host}")
-    private String host;
-
-    @Value("${spring.redis.port}")
-    private Integer port;
-
-    @Value("${spring.redis.password}")
-    private String password;
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
 
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(host);
-        redisStandaloneConfiguration.setPort(port);
-        redisStandaloneConfiguration.setPassword(password);
+
+        redisStandaloneConfiguration.setHostName(this.applicationProperties.getRedisHost());
+        redisStandaloneConfiguration.setPort(this.applicationProperties.getRedisPort());
+        redisStandaloneConfiguration.setPassword(this.applicationProperties.getRedisPassword());
 
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
@@ -40,6 +36,7 @@ public class RedisClientConfig {
     public RedisTemplate<String, Object> redisTemplate() {
 
         RedisTemplate<String, Object> template = new RedisTemplate<>();
+
         template.setConnectionFactory(jedisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());

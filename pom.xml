@@ -69,10 +69,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
 
         <!--Swagger-->
         <dependency>
@@ -169,6 +165,10 @@
 
         <!--FrontEnd-->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.6.0</version>
@@ -225,7 +225,7 @@
                             <artifactId>lombok</artifactId>
                             <version>1.18.20</version>
                         </path>
-                        <!--Maps Struct compile processor-->
+                        <!--MapStruct compile processor-->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>

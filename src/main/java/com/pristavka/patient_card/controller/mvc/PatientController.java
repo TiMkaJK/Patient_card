@@ -52,6 +52,11 @@ public class PatientController {
     /*@GetMapping(path = "/registration")
     public String showRegistrationForm() {
         return "registration";
+    }
+
+    @GetMapping(path = "/login")
+    public String showLoginForm() {
+        return "login";
     }*/
 
     @GetMapping(path = "/add_patient")
