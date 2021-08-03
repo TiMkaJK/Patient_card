@@ -2,6 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.PatientDto;
 import com.pristavka.patient_card.mapper.PatientMapper;
+import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.service.PatientService;
 import com.pristavka.patient_card.utils.PageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,8 @@ public class PatientRestController {
             throw new InputMismatchException();
         }
 
-        var patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
+        Patient patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
+
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 
@@ -56,7 +58,8 @@ public class PatientRestController {
             throw new InputMismatchException();
         }
 
-        var patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
+        Patient patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
+
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
 

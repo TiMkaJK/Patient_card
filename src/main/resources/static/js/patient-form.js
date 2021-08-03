@@ -37,8 +37,6 @@ $('#submit').on('click', function (event) {
     let ward = $('#ward').val();
     let floor = $('#floor').val();
 
-    console.log(admissionDate);
-
     let patientObject = {
         "firstName": firstName,
         "lastName": lastName,

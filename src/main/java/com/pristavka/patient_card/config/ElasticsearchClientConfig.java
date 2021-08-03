@@ -1,6 +1,8 @@
 package com.pristavka.patient_card.config;
 
+import com.pristavka.patient_card.component.ApplicationProperties;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,21 +17,21 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @ComponentScan(basePackages = {"com.pristavka.patient_card.service.elasticsearch"})
 public class ElasticsearchClientConfig extends AbstractElasticsearchConfiguration {
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
     @Bean
     @Override
     public RestHighLevelClient elasticsearchClient() {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
-                .withBasicAuth("elastic", "password")
+                .connectedTo(this.applicationProperties.getEsHostAndPort())
+                .withBasicAuth(this.applicationProperties.getEsUsername(), this.applicationProperties.getEsPassword())
                 .build();
 
         return RestClients.create(clientConfiguration).rest();
     }
 
-
-    //@Primary
-    //@Bean
     @Bean(name = "elasticsearchRestTemplate")
     public ElasticsearchRestTemplate elasticsearchRestTemplate() {
         return new ElasticsearchRestTemplate(elasticsearchClient());

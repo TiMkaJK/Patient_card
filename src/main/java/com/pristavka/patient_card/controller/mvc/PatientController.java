@@ -3,9 +3,7 @@ package com.pristavka.patient_card.controller.mvc;
 
 import com.pristavka.patient_card.model.Patient;
 import com.pristavka.patient_card.model.User;
-import com.pristavka.patient_card.service.ClinicService;
 import com.pristavka.patient_card.service.PatientService;
-import com.pristavka.patient_card.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +22,6 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
-
-    @Autowired
-    private ClinicService clinicService;
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping(path = "/admin")
     public ModelAndView admin(Pageable pageable) {
@@ -57,12 +49,15 @@ public class PatientController {
         return model;
     }
 
-    @GetMapping(path = "/registration")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-
+    /*@GetMapping(path = "/registration")
+    public String showRegistrationForm() {
         return "registration";
     }
+
+    @GetMapping(path = "/login")
+    public String showLoginForm() {
+        return "login";
+    }*/
 
     @GetMapping(path = "/add_patient")
     public String showPatientForm() {

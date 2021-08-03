@@ -1,5 +1,5 @@
-insert into allergy (name)
-values ('Coffee'),
+INSERT INTO allergy (name)
+VALUES ('Coffee'),
        ('Dust'),
        ('Mayonnaise'),
        ('Mustard'),

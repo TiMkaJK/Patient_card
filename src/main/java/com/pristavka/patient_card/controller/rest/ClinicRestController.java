@@ -5,7 +5,6 @@ import com.pristavka.patient_card.mapper.ClinicMapper;
 import com.pristavka.patient_card.model.Clinic;
 import com.pristavka.patient_card.service.ClinicService;
 import com.pristavka.patient_card.utils.PageConverter;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.InputMismatchException;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/clinics")
@@ -47,7 +45,8 @@ public class ClinicRestController {
             throw new InputMismatchException();
         }
 
-        var clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+        Clinic clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 
@@ -59,7 +58,8 @@ public class ClinicRestController {
             throw new InputMismatchException();
         }
 
-        var clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+        Clinic clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 

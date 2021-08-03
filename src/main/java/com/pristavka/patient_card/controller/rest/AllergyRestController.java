@@ -49,7 +49,8 @@ public class AllergyRestController {
             throw new InputMismatchException();
         }
 
-        var allergy = this.allergyMapper.toEntity(allergyDto);
+        Allergy allergy = this.allergyMapper.toEntity(allergyDto);
+
         return new ResponseEntity<>(this.allergyMapper.toDto(this.allergyService.save(allergy)), HttpStatus.OK);
     }
 
@@ -61,7 +62,8 @@ public class AllergyRestController {
             throw new InputMismatchException();
         }
 
-        var allergy = this.allergyService.update(this.allergyMapper.toEntity(allergyDto));
+        Allergy allergy = this.allergyService.update(this.allergyMapper.toEntity(allergyDto));
+
         return new ResponseEntity<>(this.allergyMapper.toDto(allergy), HttpStatus.OK);
     }
 
