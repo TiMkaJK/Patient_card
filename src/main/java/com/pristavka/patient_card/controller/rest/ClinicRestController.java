@@ -47,7 +47,8 @@ public class ClinicRestController {
             throw new InputMismatchException();
         }
 
-        var clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+        Clinic clinic = this.clinicService.save(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 
@@ -59,7 +60,8 @@ public class ClinicRestController {
             throw new InputMismatchException();
         }
 
-        var clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+        Clinic clinic = this.clinicService.update(this.clinicMapper.toEntity(clinicDto));
+
         return new ResponseEntity<>(this.clinicMapper.toDto(clinic), HttpStatus.OK);
     }
 

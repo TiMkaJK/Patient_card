@@ -25,12 +25,6 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @Autowired
-    private ClinicService clinicService;
-
-    @Autowired
-    private UserService userService;
-
     @GetMapping(path = "/admin")
     public ModelAndView admin(Pageable pageable) {
 
@@ -55,13 +49,6 @@ public class PatientController {
         model.addObject("patients", patients);
 
         return model;
-    }
-
-    @GetMapping(path = "/registration")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-
-        return "registration";
     }
 
     @GetMapping(path = "/add_patient")

@@ -25,6 +25,7 @@ public class OpenApiConfig {
 
     @Bean
     public Docket api() {
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .securityContexts(Arrays.asList(securityContext()))
@@ -35,7 +36,8 @@ public class OpenApiConfig {
                 .build();
     }
 
-    private ApiInfo apiInfo() {
+    private ApiInfo apiInfo()
+    {
         return new ApiInfo(
                 "Patient Cards REST API",
                 "Some custom description of API.",
@@ -56,9 +58,11 @@ public class OpenApiConfig {
     }
 
     private List<SecurityReference> defaultAuth() {
+
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
+
         return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
 

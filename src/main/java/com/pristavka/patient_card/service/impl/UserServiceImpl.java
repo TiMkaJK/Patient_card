@@ -1,6 +1,5 @@
 package com.pristavka.patient_card.service.impl;
 
-import com.pristavka.patient_card.dto.UserDto;
 import com.pristavka.patient_card.model.User;
 import com.pristavka.patient_card.repository.UserRepository;
 import com.pristavka.patient_card.security.SecurityUser;
@@ -10,15 +9,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Page<User> getUsers(Pageable pageable) {
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserService
 
     @Override
     public User save(User user) {
+
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+
         return this.save(user);
     }
 
@@ -46,14 +52,13 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public User findByEmail(String email)
-    {
+    public User findByEmail(String email) {
         return this.userRepository.findByEmail(email);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
-    {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         User user = this.userRepository.findByEmail(email);
 
         Optional.ofNullable(user).orElseThrow(() -> new UsernameNotFoundException("User not found"));

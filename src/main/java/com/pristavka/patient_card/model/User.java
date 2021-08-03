@@ -20,6 +20,9 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @Column(name = "email", unique = true)
     private String email;
 

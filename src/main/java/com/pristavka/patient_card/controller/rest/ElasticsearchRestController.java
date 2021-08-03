@@ -14,8 +14,8 @@ import java.util.List;
 
 @Api
 @RestController
-@RequestMapping(path = "/api/v1/es/drugs")
-public class DrugESRestController {
+@RequestMapping(path = "/api/v1/es/elasticsearch")
+public class ElasticsearchRestController {
 
     @Autowired
     private DrugESService drugESService;
