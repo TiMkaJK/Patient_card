@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.config;
 
 import com.pristavka.patient_card.enums.UserRole;
-import com.pristavka.patient_card.service.UserService;
+import com.pristavka.patient_card.service.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

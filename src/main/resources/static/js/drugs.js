@@ -1,3 +1,5 @@
+import {API_URL} from './const.js'
+
 let currentPage = 1;
 
 getDrugs(currentPage);
@@ -7,7 +9,7 @@ function getDrugs(page) {
     let pageSize = 20;
 
     $.ajax({
-        url: 'http://localhost:8082/api/v1/drugs/?page=' + page + '&?size=' + pageSize,
+        url: API_URL + '/drugs/?page=' + page + '&size=' + pageSize,
         type: 'GET',
         contentType: "application/json",
 

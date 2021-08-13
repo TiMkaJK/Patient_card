@@ -2,8 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.AllergyDto;
 import com.pristavka.patient_card.mapper.AllergyMapper;
-import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.service.AllergyService;
+import com.pristavka.patient_card.service.jpa.AllergyService;
 import com.pristavka.patient_card.utils.PageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class AllergyRestController {
             throw new InputMismatchException();
         }
 
-        Allergy allergy = this.allergyMapper.toEntity(allergyDto);
+        var allergy = this.allergyMapper.toEntity(allergyDto);
 
         return new ResponseEntity<>(this.allergyMapper.toDto(this.allergyService.save(allergy)), HttpStatus.OK);
     }
@@ -62,7 +61,7 @@ public class AllergyRestController {
             throw new InputMismatchException();
         }
 
-        Allergy allergy = this.allergyService.update(this.allergyMapper.toEntity(allergyDto));
+        var allergy = this.allergyService.update(this.allergyMapper.toEntity(allergyDto));
 
         return new ResponseEntity<>(this.allergyMapper.toDto(allergy), HttpStatus.OK);
     }

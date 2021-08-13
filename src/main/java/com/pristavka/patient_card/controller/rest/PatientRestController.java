@@ -2,9 +2,9 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.PatientDto;
 import com.pristavka.patient_card.mapper.PatientMapper;
-import com.pristavka.patient_card.model.Patient;
-import com.pristavka.patient_card.service.PatientService;
+import com.pristavka.patient_card.service.jpa.PatientService;
 import com.pristavka.patient_card.utils.PageConverter;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +33,7 @@ public class PatientRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<PatientDto> getPatient(@PathVariable(name = "id") @Min(1) Long id) {
+    public ResponseEntity<PatientDto> getPatient(@PathVariable(name = "id") @Min(1) Long id) throws NotFoundException {
         return new ResponseEntity<>(this.patientMapper.toDto(this.patientService.getPatient(id)), HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class PatientRestController {
             throw new InputMismatchException();
         }
 
-        Patient patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
+        var patient = this.patientService.save(this.patientMapper.toEntity(patientDto));
 
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }
@@ -58,7 +58,7 @@ public class PatientRestController {
             throw new InputMismatchException();
         }
 
-        Patient patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
+        var patient = this.patientService.update(this.patientMapper.toEntity(patientDto));
 
         return new ResponseEntity<>(this.patientMapper.toDto(patient), HttpStatus.OK);
     }

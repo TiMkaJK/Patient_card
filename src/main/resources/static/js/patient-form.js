@@ -1,4 +1,6 @@
-fetch('http://localhost:8082/api/v1/users/')
+import {API_URL} from './const.js'
+
+fetch(API_URL + '/users/')
     .then(function (res) {
         return res.json();
     })
@@ -12,7 +14,7 @@ fetch('http://localhost:8082/api/v1/users/')
         });
     });
 
-fetch('http://localhost:8082/api/v1/clinics/')
+fetch(API_URL + '/clinics/')
     .then(function (res) {
         return res.json();
     })
@@ -55,7 +57,7 @@ $('#submit').on('click', function (event) {
     }
 
     $.ajax({
-        url: 'http://localhost:8082/api/v1/patients/save',
+        url: API_URL + '/patients/save',
         type: "POST",
         dataType: "json",
         contentType: "application/json",

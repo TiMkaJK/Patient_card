@@ -4,14 +4,22 @@ import com.pristavka.patient_card.model.redis.PasswordOTP;
 import com.pristavka.patient_card.repository.redis.PasswordOTPRepository;
 import com.pristavka.patient_card.service.redis.RedisService;
 import javassist.NotFoundException;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RedisServiceImpl implements RedisService {
 
     @Autowired
     private PasswordOTPRepository passwordOTPRepository;
+
+    @Override
+    public List<PasswordOTP> getAll() {
+        return IterableUtils.toList(this.passwordOTPRepository.findAll());
+    }
 
     @Override
     public PasswordOTP getById(String id) throws NotFoundException {

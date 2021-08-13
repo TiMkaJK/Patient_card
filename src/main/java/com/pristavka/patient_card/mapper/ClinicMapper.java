@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.mapper;
 
 import com.pristavka.patient_card.dto.ClinicDto;
-import com.pristavka.patient_card.model.Clinic;
+import com.pristavka.patient_card.model.jpa.Clinic;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

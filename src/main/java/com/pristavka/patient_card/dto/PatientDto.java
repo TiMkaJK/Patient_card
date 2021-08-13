@@ -1,9 +1,9 @@
 package com.pristavka.patient_card.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pristavka.patient_card.model.Allergy;
-import com.pristavka.patient_card.model.Diagnosis;
-import com.pristavka.patient_card.model.PatientDrug;
+import com.pristavka.patient_card.model.jpa.Allergy;
+import com.pristavka.patient_card.model.jpa.Diagnosis;
+import com.pristavka.patient_card.model.jpa.PatientDrug;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

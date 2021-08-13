@@ -2,8 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.UserDto;
 import com.pristavka.patient_card.mapper.UserMapper;
-import com.pristavka.patient_card.model.User;
-import com.pristavka.patient_card.service.UserService;
+import com.pristavka.patient_card.service.jpa.UserService;
 import com.pristavka.patient_card.utils.PageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -41,26 +42,30 @@ public class UserRestController {
 
     @PostMapping(path = "/")
     public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto,
-                                            BindingResult bindingResult) {
+                                            BindingResult bindingResult) throws MessagingException {
 
         if (bindingResult.hasErrors()) {
             throw new InputMismatchException();
         }
 
-        User user = this.userService.save(this.userMapper.toEntity(userDto));
+        var user = this.userService.save(this.userMapper.toEntity(userDto));
+
+        if (Objects.isNull(user)) {
+            return ResponseEntity.badRequest().build();
+        }
 
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto,
-                                              BindingResult bindingResult) {
+                                              BindingResult bindingResult) throws MessagingException {
 
         if (bindingResult.hasErrors()) {
             throw new InputMismatchException();
         }
 
-        User user = this.userService.save(this.userMapper.toEntity(userDto));
+        var user = this.userService.save(this.userMapper.toEntity(userDto));
 
         return new ResponseEntity<>(this.userMapper.toDto(user), HttpStatus.OK);
     }

@@ -2,7 +2,6 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.mongo.Drug;
 import com.pristavka.patient_card.service.elasticsearch.DrugESService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
-@Api
 @RestController
 @RequestMapping(path = "/api/v1/es/elasticsearch")
 public class ElasticsearchRestController {

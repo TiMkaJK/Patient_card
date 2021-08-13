@@ -1,6 +1,6 @@
 package com.pristavka.patient_card.dto;
 
-import com.pristavka.patient_card.model.Patient;
+import com.pristavka.patient_card.model.jpa.Patient;
 import lombok.*;
 
 import java.time.LocalDateTime;

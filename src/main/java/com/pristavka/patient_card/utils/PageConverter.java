@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.utils;
 
 import com.pristavka.patient_card.dto.*;
-import com.pristavka.patient_card.model.*;
+import com.pristavka.patient_card.model.jpa.*;
 import com.pristavka.patient_card.model.mongo.Drug;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

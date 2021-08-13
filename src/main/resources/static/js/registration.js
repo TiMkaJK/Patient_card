@@ -1,3 +1,5 @@
+import {API_URL} from './const.js'
+
 $('#user-save').on('submit', function (event) {
 
     let firstName = $('#firstName').val();
@@ -16,16 +18,16 @@ $('#user-save').on('submit', function (event) {
     }
 
     $.ajax({
-        url: 'http://localhost:8082/api/v1/users/',
+        url: API_URL + '/users/',
         type: "POST",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(user),
 
         success: function (result) {
-            if (result) {
+            /*if (result) {
                 window.location.href = "otp-form.html";
-            }
+            }*/
         }
     });
 })

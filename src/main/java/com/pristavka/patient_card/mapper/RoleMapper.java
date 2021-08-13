@@ -1,7 +1,7 @@
 package com.pristavka.patient_card.mapper;
 
 import com.pristavka.patient_card.dto.RoleDto;
-import com.pristavka.patient_card.model.Role;
+import com.pristavka.patient_card.model.jpa.Role;
 import org.mapstruct.Mapper;
 
 import java.util.List;

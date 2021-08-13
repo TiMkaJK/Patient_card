@@ -2,6 +2,7 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.redis.PasswordOTP;
 import com.pristavka.patient_card.service.redis.RedisService;
+import io.swagger.v3.oas.annotations.Operation;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -18,6 +20,12 @@ public class RedisRestController {
 
     @Autowired
     private RedisService redisService;
+
+    @GetMapping(path = "/")
+    public ResponseEntity<List<PasswordOTP>> getAll() {
+        return new ResponseEntity<>(this.redisService.getAll(), HttpStatus.OK);
+    }
+
 
     @PostMapping(path = "/")
     public ResponseEntity<String> save(@RequestBody @Valid PasswordOTP password) {

@@ -2,9 +2,9 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.dto.DiagnosisDto;
 import com.pristavka.patient_card.mapper.DiagnosisMapper;
-import com.pristavka.patient_card.model.Diagnosis;
-import com.pristavka.patient_card.service.DiagnosisService;
+import com.pristavka.patient_card.service.jpa.DiagnosisService;
 import com.pristavka.patient_card.utils.PageConverter;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +33,7 @@ public class DiagnosisRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<DiagnosisDto> getDiagnosis(@PathVariable(name = "id") @Min(1) Long id) {
+    public ResponseEntity<DiagnosisDto> getDiagnosis(@PathVariable(name = "id") @Min(1) Long id) throws NotFoundException {
         return new ResponseEntity<>(this.diagnosisMapper.toDto(this.diagnosisService.getDiagnosis(id)), HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class DiagnosisRestController {
             throw new InputMismatchException();
         }
 
-        Diagnosis diagnosis = this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto));
+        var diagnosis = this.diagnosisService.save(this.diagnosisMapper.toEntity(diagnosisDto));
 
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }
@@ -58,7 +58,7 @@ public class DiagnosisRestController {
             throw new InputMismatchException();
         }
 
-        Diagnosis diagnosis = this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto));
+        var diagnosis = this.diagnosisService.update(this.diagnosisMapper.toEntity(diagnosisDto));
 
         return new ResponseEntity<>(this.diagnosisMapper.toDto(diagnosis), HttpStatus.OK);
     }

@@ -12,8 +12,8 @@ import java.util.List;
 @ToString
 public class GenericListResponse extends AbstractResponse {
 
-    public static GenericListResponse NOT_FOUND = new GenericListResponse(404, 404, null);
-    public static GenericListResponse EMPTY = new GenericListResponse(404, 404, Arrays.asList());
+    public static final GenericListResponse NOT_FOUND = new GenericListResponse(404, 404, null);
+    public static final GenericListResponse EMPTY = new GenericListResponse(404, 404, Arrays.asList());
 
     private List<?> response;
 

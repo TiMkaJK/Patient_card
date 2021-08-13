@@ -37,4 +37,3 @@ public class ElasticsearchClientConfig extends AbstractElasticsearchConfiguratio
         return new ElasticsearchRestTemplate(elasticsearchClient());
     }
 }
-
