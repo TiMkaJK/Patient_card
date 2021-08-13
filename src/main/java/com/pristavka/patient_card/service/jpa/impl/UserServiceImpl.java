@@ -43,13 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) throws MessagingException {
 
-        log.info(user.getFirstName() + user.getLastName());
-
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
-        //this.emailSenderService.sendEmail("dmytro.prystavka@faceit.com.ua","Test","251086");
+        this.emailSenderService.sendEmail("dmytro.prystavka@faceit.com.ua","Test","251086");
 
-        return this.save(user);
+        return this.userRepository.save(user);
     }
 
     @Override

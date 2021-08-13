@@ -19,7 +19,7 @@ public class UserDto {
 
     private Boolean enabled;
 
-    //@Email
+    @Email
     @NotBlank
     private String email;
 

@@ -1,139 +1,139 @@
-create table allergy
+CREATE TABLE allergy
 (
-    id      bigint      not null auto_increment,
-    name    varchar(50) not null,
-    `group` varchar(50),
-    primary key (id)
+    id      BIGINT      NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(50) NOT NULL,
+    `group` VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
-create table clinic
+CREATE TABLE clinic
 (
-    id     bigint      not null auto_increment,
-    name   varchar(50) not null,
-    number integer     not null,
-    primary key (id)
+    id     BIGINT      NOT NULL AUTO_INCREMENT,
+    name   VARCHAR(50) NOT NULL,
+    number INTEGER     NOT NULL,
+    PRIMARY KEY (id)
 );
 
-create table diagnosis
+CREATE TABLE diagnosis
 (
-    id   bigint       not null auto_increment,
-    name varchar(100) not null,
-    primary key (id)
+    id   BIGINT       NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
 );
 
-create table patient
+CREATE TABLE patient
 (
-    id             bigint      not null auto_increment,
-    first_name     varchar(40) not null,
-    last_name      varchar(50) not null,
-    admission_date datetime default CURRENT_TIMESTAMP,
-    floor          integer     not null,
-    ward           integer     not null,
-    clinic_id      bigint      not null,
-    user_id        bigint      not null,
-    primary key (id)
+    id             BIGINT      NOT NULL AUTO_INCREMENT,
+    first_name     VARCHAR(40) NOT NULL,
+    last_name      VARCHAR(50) NOT NULL,
+    admission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    floor          INTEGER     NOT NULL,
+    ward           INTEGER     NOT NULL,
+    clinic_id      BIGINT      NOT NULL,
+    user_id        BIGINT      NOT NULL,
+    PRIMARY KEY (id)
 );
 
 
-create table patient_allergy
+CREATE TABLE patient_allergy
 (
-    id         bigint not null auto_increment,
-    patient_id bigint not null,
-    allergy_id bigint not null,
-    primary key (id)
+    id         BIGINT NOT NULL AUTO_INCREMENT,
+    patient_id BIGINT NOT NULL,
+    allergy_id BIGINT NOT NULL,
+    PRIMARY KEY (id)
 );
 
-create table patient_diagnosis
+CREATE TABLE patient_diagnosis
 (
-    id           bigint not null auto_increment,
-    patient_id   bigint not null,
-    diagnosis_id bigint not null,
-    primary key (id)
+    id           BIGINT NOT NULL AUTO_INCREMENT,
+    patient_id   BIGINT NOT NULL,
+    diagnosis_id BIGINT NOT NULL,
+    PRIMARY KEY (id)
 );
 
-create table role
+CREATE TABLE role
 (
-    id   bigint not null auto_increment,
-    name varchar(50),
-    primary key (id)
+    id   BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
-create table status
+CREATE TABLE status
 (
-    id   bigint not null auto_increment,
-    name varchar(50),
-    primary key (id)
+    id   BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
-create table user
+CREATE TABLE user
 (
-    id         bigint not null auto_increment,
-    first_name varchar(50),
-    last_name  varchar(50),
-    email      varchar(255),
-    password   varchar(255),
-    status_id  bigint not null,
-    primary key (id)
+    id         BIGINT NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name  VARCHAR(50),
+    email      VARCHAR(255),
+    password   VARCHAR(255),
+    status_id  BIGINT NOT NULL,
+    PRIMARY KEY (id)
 );
 
-create table user_role
+CREATE TABLE user_role
 (
-    id      bigint not null auto_increment,
-    user_id bigint not null,
-    role_id bigint not null,
-    primary key (id)
+    id      BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    PRIMARY KEY (id)
 );
 
-alter table allergy
-    add constraint uk_allergy_name unique (name);
+ALTER TABLE allergy
+    ADD CONSTRAINT uk_allergy_name UNIQUE (name);
 
-alter table diagnosis
-    add constraint uk_allergy_name unique (name);
+ALTER TABLE diagnosis
+    ADD CONSTRAINT uk_allergy_name UNIQUE (name);
 
-alter table user
-    add constraint uk_user_email unique (email);
+ALTER TABLE user
+    ADD CONSTRAINT uk_user_email UNIQUE (email);
 
-alter table patient
-    add constraint fk_patient_clinic
-        foreign key (clinic_id)
-            references clinic (id);
+ALTER TABLE patient
+    ADD CONSTRAINT fk_patient_clinic
+        FOREIGN KEY (clinic_id)
+            REFERENCES clinic (id);
 
-alter table patient
-    add constraint fk_patient_user
-        foreign key (user_id)
-            references user (id);
+ALTER TABLE patient
+    ADD CONSTRAINT fk_patient_user
+        FOREIGN KEY (user_id)
+            REFERENCES user (id);
 
-alter table patient_allergy
-    add constraint fk_patientAllergy_allergy
-        foreign key (allergy_id)
-            references allergy (id);
+ALTER TABLE patient_allergy
+    ADD CONSTRAINT fk_patientAllergy_allergy
+        FOREIGN KEY (allergy_id)
+            REFERENCES allergy (id);
 
-alter table patient_allergy
-    add constraint fk_patientAllergy_patient
-        foreign key (patient_id)
-            references patient (id);
+ALTER TABLE patient_allergy
+    ADD CONSTRAINT fk_patientAllergy_patient
+        FOREIGN KEY (patient_id)
+            REFERENCES patient (id);
 
-alter table patient_diagnosis
-    add constraint fk_patientDiagnosis_diagnosis
-        foreign key (diagnosis_id)
-            references diagnosis (id);
+ALTER TABLE patient_diagnosis
+    ADD CONSTRAINT fk_patientDiagnosis_diagnosis
+        FOREIGN KEY (diagnosis_id)
+            REFERENCES diagnosis (id);
 
-alter table patient_diagnosis
-    add constraint fk_patientDiagnosis_patient
-        foreign key (patient_id)
-            references patient (id);
+ALTER TABLE patient_diagnosis
+    ADD CONSTRAINT fk_patientDiagnosis_patient
+        FOREIGN KEY (patient_id)
+            REFERENCES patient (id);
 
-alter table user
-    add constraint fk_user_status
-        foreign key (status_id)
-            references status (id);
+ALTER TABLE user
+    ADD CONSTRAINT fk_user_status
+        FOREIGN KEY (status_id)
+            REFERENCES status (id);
 
-alter table user_role
-    add constraint fk_userRole_role
-        foreign key (role_id)
-            references role (id);
+ALTER TABLE user_role
+    ADD CONSTRAINT fk_userRole_role
+        FOREIGN KEY (role_id)
+            REFERENCES role (id);
 
-alter table user_role
-    add constraint fk_userRole_user
-        foreign key (user_id)
-            references user (id);
+ALTER TABLE user_role
+    ADD CONSTRAINT fk_userRole_user
+        FOREIGN KEY (user_id)
+            REFERENCES user (id);

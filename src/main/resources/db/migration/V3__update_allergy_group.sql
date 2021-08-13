@@ -1,6 +1,6 @@
-update allergy
-set `group` = 'food'
-where name in ('Coffee', 'Mayonnaise', 'Mustard', 'Sunflower oil', 'Paste', 'Schweppes',
+UPDATE allergy
+SET `group` = 'food'
+WHERE name IN ('Coffee', 'Mayonnaise', 'Mustard', 'Sunflower oil', 'Paste', 'Schweppes',
                'Tonic', 'Balms', 'Instant coffee', 'Watermelon', 'Melon', 'Celery',
                'Dill', 'Pepper', 'Anise', 'Raw carrots', 'Beets', 'Garlic', 'Citrus fruits',
                'Bananas', 'Nuts', 'Sesame', 'Seafood', 'Eggs', 'Legumes', 'Milk', 'Cereals',
@@ -16,33 +16,33 @@ where name in ('Coffee', 'Mayonnaise', 'Mustard', 'Sunflower oil', 'Paste', 'Sch
                'ginger', 'bay leaf', 'black pepper', 'blueberry', 'pomegranate', 'mandarin',
                'olives', 'nectarine', 'walleye', 'cocksfoot', 'Vermouth');
 
-update allergy
-set `group` = 'household'
-where name in ('Dust', 'Washing powder', 'Dishwashing liquid', 'latex');
+UPDATE allergy
+SET `group` = 'household'
+WHERE name IN ('Dust', 'Washing powder', 'Dishwashing liquid', 'latex');
 
-update allergy
-set `group` = 'pollen'
-where name in ('Sunflower seeds', 'Dandelions', 'timothy pollen', 'alder pollen',
+UPDATE allergy
+SET `group` = 'pollen'
+WHERE name IN ('Sunflower seeds', 'Dandelions', 'timothy pollen', 'alder pollen',
                'birch pollen', 'oak pollen', 'walnut pollen', 'eucalyptus', 'acacia pollen',
                'rye pollen', 'linden pollen', 'ragweed pollen', 'wormwood pollen',
                'rBet v1 birch', 'rBet v2 birch');
 
 
-update allergy
-set `group` = 'insect'
-where name in ('Bee venom', 'Wasp poison', 'Hornet venom', 'The poison of ants');
+UPDATE allergy
+SET `group` = 'insect'
+WHERE name IN ('Bee venom', 'Wasp poison', 'Hornet venom', 'The poison of ants');
 
-update allergy
-set `group` = 'medicinal'
-where name in ('Penicillins', 'Sulfonamides', 'Salicylates', 'Mite D. farinae', 'nGal d2 ovalbumin',
+UPDATE allergy
+SET `group` = 'medicinal'
+WHERE name IN ('Penicillins', 'Sulfonamides', 'Salicylates', 'Mite D. farinae', 'nGal d2 ovalbumin',
                'alpha-lactalbumin', 'beta-lactoglobulin', 'rPhl p1 timothy',
                'rPhl p5 timothy', 'Penicillium notatum', 'Aspergillus fumigatus',
                'Аlternaria alternata', 'Aspergillus niger', 'Local anesthetics',
                'Mite D. pteronossinus');
 
-update allergy
-set `group` = 'epidermal'
-where name in ('cat epithelium', 'canine epithelium', 'horse epithelium',
+UPDATE allergy
+SET `group` = 'epidermal'
+WHERE name IN ('cat epithelium', 'canine epithelium', 'horse epithelium',
                'goose feather', 'sheep wool', 'rabbit epithelium', 'Bovine serum albumin',
                'Parrot feather', 'pigeon feather', 'cockroach');
 

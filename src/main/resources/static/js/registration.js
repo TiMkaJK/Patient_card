@@ -24,10 +24,10 @@ $('#user-save').on('submit', function (event) {
         contentType: "application/json",
         data: JSON.stringify(user),
 
-        success: function (result) {
-            /*if (result) {
+        /*success: function (result) {
+            if (result) {
                 window.location.href = "otp-form.html";
-            }*/
-        }
+            }
+        }*/
     });
 })
