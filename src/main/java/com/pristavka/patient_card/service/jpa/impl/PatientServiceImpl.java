@@ -20,9 +20,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
-    private PatientMapper patientMapper;
-
     @Override
     public Patient getPatient(Long id) throws NotFoundException {
         return this.patientRepository.findById(id).orElseThrow(() -> new NotFoundException("Patient not found"));
