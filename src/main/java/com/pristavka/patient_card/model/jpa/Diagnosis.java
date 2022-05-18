@@ -3,6 +3,7 @@ package com.pristavka.patient_card.model.jpa;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "diagnosis")
-public class Diagnosis {
+public class Diagnosis implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

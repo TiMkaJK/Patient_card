@@ -2,12 +2,11 @@ package com.pristavka.patient_card.controller.rest;
 
 import com.pristavka.patient_card.model.redis.PasswordOTP;
 import com.pristavka.patient_card.service.redis.RedisService;
-import io.swagger.v3.oas.annotations.Operation;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

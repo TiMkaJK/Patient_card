@@ -4,6 +4,7 @@ import com.pristavka.patient_card.enums.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Getter
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

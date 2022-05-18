@@ -4,7 +4,6 @@ import com.pristavka.patient_card.dto.DiagnosisDto;
 import com.pristavka.patient_card.mapper.DiagnosisMapper;
 import com.pristavka.patient_card.service.jpa.DiagnosisService;
 import com.pristavka.patient_card.utils.PageConverter;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

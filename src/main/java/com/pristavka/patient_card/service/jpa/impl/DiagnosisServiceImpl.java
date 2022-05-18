@@ -3,11 +3,11 @@ package com.pristavka.patient_card.service.jpa.impl;
 import com.pristavka.patient_card.model.jpa.Diagnosis;
 import com.pristavka.patient_card.repository.jpa.DiagnosisRepository;
 import com.pristavka.patient_card.service.jpa.DiagnosisService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 @Service
 public class DiagnosisServiceImpl implements DiagnosisService {

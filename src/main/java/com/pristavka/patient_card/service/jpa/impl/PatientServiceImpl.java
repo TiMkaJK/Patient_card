@@ -1,15 +1,14 @@
 package com.pristavka.patient_card.service.jpa.impl;
 
-import com.pristavka.patient_card.mapper.PatientMapper;
 import com.pristavka.patient_card.model.jpa.Patient;
 import com.pristavka.patient_card.repository.jpa.PatientRepository;
 import com.pristavka.patient_card.service.jpa.PatientService;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 

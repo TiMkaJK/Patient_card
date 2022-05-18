@@ -104,8 +104,8 @@ public class DrugESServiceImpl implements DrugESService {
 
         Query matchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
-                .withSort(sb)
-                .addAggregation(ag)
+                .withSorts(sb)
+                .withAggregations(ag)
                 .build();
 
         SearchHits<DrugES> drugESSearchHits = this.elasticsearchRestTemplate.search(matchQuery, DrugES.class, this.indexCoordinates);

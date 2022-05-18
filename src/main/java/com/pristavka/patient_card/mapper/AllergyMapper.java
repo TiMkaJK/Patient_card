@@ -14,5 +14,4 @@ public interface AllergyMapper {
     Allergy toEntity(AllergyDto dto);
 
     List<AllergyDto> toDtoList(List<Allergy> list);
-
 }

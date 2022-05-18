@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "allergy")
-public class Allergy {
+public class Allergy implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,6 +3,7 @@ package com.pristavka.patient_card.model.jpa;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "patient_drug")
-public class PatientDrug {
+public class PatientDrug implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
